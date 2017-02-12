@@ -28,11 +28,3 @@ export class AlexaDetector extends Detector {
         });
     }
 }
-
-/*const avs = new AVS({
-    debug: true,
-    clientId: "amzn1.application-oa2-client.81574bebfb25437595d7376f44b54f8e",
-    deviceId: "magic_mirror_alexa",
-    deviceSerialNumber: 123,
-    redirectUri: `https://${window.location.host}/authresponse`
-});*/

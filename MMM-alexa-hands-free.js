@@ -17,6 +17,8 @@ Module.register("MMM-alexa-hands-free", {
     start: function () {
         // Needed to initially connect to node_helper;
         this.sendSocketNotification("ADD_FEED", { "test": "test" });
+        console.log(AlexaVoiceService);
+        var avs = new AlexaVoiceService.AVSWrapper();
     },
 
     // Override dom generator.
@@ -29,8 +31,7 @@ Module.register("MMM-alexa-hands-free", {
 
     getScripts: function () {
         return [
-            //this.file("dist/bundle.js"),
-            //this.file("dist/main/index.js"),
+            this.file("dist/bundle.js"),
         ];
     },
 

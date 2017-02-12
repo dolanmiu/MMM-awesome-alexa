@@ -11,10 +11,10 @@ fs.readdirSync("node_modules")
     });
 
 module.exports = {
-    devtool: "source-map",
+    // devtool: "source-map",
 
     entry: {
-        "bundle": "./src/main/index.ts"
+        "bundle": "./src/renderer/index.ts",
     },
 
     output: {
@@ -23,7 +23,7 @@ module.exports = {
         filename: "[name].js",
         chunkFilename: "[id].chunk.js",
         libraryTarget: "var",
-        library: "Main"
+        library: "AlexaVoiceService",
     },
 
     resolve: {
@@ -35,9 +35,13 @@ module.exports = {
             test: /\.ts$/,
             loaders: ["awesome-typescript-loader"],
         }, {
-            test: /aws-sdk/, loaders: ["transform-loader?brfs"]
+            test: /aws-sdk/,
+            loaders: ["transform-loader?brfs"],
         },
-        { test: /\.json$/, loaders: ["json-loader"] },],
+        {
+            test: /\.json$/,
+            loaders: ["json-loader"],
+        }],
     },
 
     target: "node",

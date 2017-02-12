@@ -14,6 +14,11 @@ Module.register("MMM-alexa-hands-free", {
         text: "Hello World!",
     },
 
+    start: function () {
+        // Needed to initially connect to node_helper;
+        this.sendSocketNotification("ADD_FEED", { "test": "test" });
+    },
+
     // Override dom generator.
     getDom: function () {
         var wrapper = document.createElement("div");

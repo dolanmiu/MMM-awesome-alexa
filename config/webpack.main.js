@@ -22,6 +22,8 @@ module.exports = {
         publicPath: "./",
         filename: "[name].js",
         chunkFilename: "[id].chunk.js",
+        libraryTarget: "var",
+        library: "Main"
     },
 
     resolve: {

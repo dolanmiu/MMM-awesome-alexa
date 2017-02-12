@@ -1,28 +1,30 @@
-import { Models, Detector } from "snowboy";
+import { Detector, Models } from "snowboy";
 
 export class AlexaDetector extends Detector {
-    constructor(models: Models, cwd: string) {
-        console.log("setting up detector");
+
+    constructor(models: Models, cwd: string, hotWordDetectedCallback: () => void = () => {return; }) {
+
         super({
             resource: cwd + "/resources/common.res",
             models: models,
             audioGain: 2.0,
         });
 
-        this.on("silence", function () {
-            console.log("silence");
+        this.on("silence", () => {
+            // console.log("silence");
         });
 
-        this.on("sound", function () {
-            console.log("sound");
+        this.on("sound", () => {
+            // console.log("sound");
         });
 
-        this.on("error", function () {
-            console.log("error");
+        this.on("error", () => {
+            // console.log("error");
         });
 
-        this.on("hotword", function (index, hotword) {
+        this.on("hotword", (index, hotword) => {
             console.log("hotword", index, hotword);
+            hotWordDetectedCallback();
         });
     }
 }

@@ -21,10 +21,19 @@
             false
         ],
         "array-type": [
-            "generic"
+            "array"
         ],
         "no-unused-variable": [
             true
-        ]
+        ],
+        "member-access": [
+            true
+        ],
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "object-literal-sort-keys": false,
+        "object-literal-shorthand": false
     }
 }

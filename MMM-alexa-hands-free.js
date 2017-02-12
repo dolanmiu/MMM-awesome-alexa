@@ -35,5 +35,13 @@ Module.register("MMM-alexa-hands-free", {
         ];
     },
 
-    target: "electron-renderer",
+    socketNotificationReceived: function (notification, payload) {
+        //if (notification.startsWith('ALEXA_')) {
+        console.log("notification received");
+        console.log(notification);
+        console.log(payload);
+        Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
+        alert(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
+        //}
+    },
 });

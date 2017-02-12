@@ -5,9 +5,9 @@ export class AlexaModels extends Models {
         super();
 
         this.add({
-            file: cwd + "/resources/snowboy.umdl",
+            file: cwd + "/resources/alexa.umdl",
             sensitivity: "0.5",
-            hotwords: "snowboy"
+            hotwords: "alexa",
         });
     }
 }

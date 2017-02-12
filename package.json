@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run electron-rebuild",
     "build": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run lint",
     "start": "node index.js",
-    "electron-rebuild": "electron-rebuild"
+    "electron-rebuild": "electron-rebuild",
+    "lint": "tslint --project ."
   },
   "author": "",
   "license": "MIT",

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config config/webpack.config.js --progress --profile --bail --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
@@ -13,5 +14,10 @@
     "alexa-voice-service": "0.0.7",
     "node-record-lpcm16": "^0.2.0",
     "snowboy": "^1.1.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.0.4-rc.2",
+    "typescript": "^2.1.6",
+    "webpack": "^2.2.1"
   }
 }

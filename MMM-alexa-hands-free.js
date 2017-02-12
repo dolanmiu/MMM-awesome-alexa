@@ -22,6 +22,12 @@ Module.register("MMM-alexa-hands-free", {
         return wrapper;
     },
 
+    getScripts: function () {
+        return [
+            this.file('dist/bundle.js')
+        ]
+    },
+
     getStyles: function () {
         return [
             this.file('styles/global.css'), // will try to load it from the vendor folder, otherwise it will load is from the module folder.

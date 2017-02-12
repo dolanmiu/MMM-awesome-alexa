@@ -1,7 +1,6 @@
+import * as record from "node-record-lpcm16";
 import { AlexaDetector } from "./detector";
 import { AlexaModels } from "./models";
-
-const record = require("node-record-lpcm16");
 
 const modulePath = process.env.PWD + "/modules/MMM-alexa-hands-free";
 

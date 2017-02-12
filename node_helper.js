@@ -3,7 +3,7 @@ const Main = require("./dist/main/index.js");
 
 module.exports = NodeHelper.create({
     socketNotificationReceived: function (notification, payload) {
-        console.log("Notification received");
+        // Renderer sends 'main' a notification to connect
     },
 
     start: function () {

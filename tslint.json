@@ -1,0 +1,30 @@
+{
+    "extends": [
+        "tslint:recommended"
+    ],
+    "rules": {
+        "typedef": [
+            true,
+            "call-signature",
+            "parameter",
+            "member-variable-declaration",
+            "property-declaration"
+        ],
+        "quotemark": [
+            true,
+            "double"
+        ],
+        "no-namespace": [
+            false
+        ],
+        "max-line-length": [
+            false
+        ],
+        "array-type": [
+            "generic"
+        ],
+        "no-unused-variable": [
+            true
+        ]
+    }
+}

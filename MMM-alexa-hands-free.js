@@ -3,7 +3,7 @@
 /* Magic Mirror
  * Module: HelloWorld
  *
- * By Michael Teeuw http://michaelteeuw.nl
+ * By Dolan Miu http://www.dolan.bio
  * MIT Licensed.
  */
 
@@ -11,7 +11,7 @@ Module.register("MMM-alexa-hands-free", {
 
     // Default module config.
     defaults: {
-        text: "Hello World!"
+        text: "Hello World!",
     },
 
     // Override dom generator.
@@ -24,13 +24,16 @@ Module.register("MMM-alexa-hands-free", {
 
     getScripts: function () {
         return [
-            this.file('dist/bundle.js')
-        ]
+            //this.file("dist/bundle.js"),
+            //this.file("dist/main/index.js"),
+        ];
     },
 
     getStyles: function () {
         return [
-            this.file('styles/global.css'), // will try to load it from the vendor folder, otherwise it will load is from the module folder.
-        ]
-    }
+            this.file("styles/global.css"),
+        ];
+    },
+
+    target: "electron-renderer",
 });

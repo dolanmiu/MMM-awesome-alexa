@@ -13,12 +13,13 @@ export class AVSWrapper {
             deviceSerialNumber: 123,
             redirectUri: `https://${window.location.host}/authresponse`,
         });
+        console.log(this.avs);
     }
 
     public init(): void {
-        this.avs.getTokenFromCode()
+        /*this.avs.getTokenFromCode()
             .then(() => this.avs.refreshToken())
             .then(() => this.avs.requestMic())
-            .catch((error: any) => { console.log(error); });
+            .catch((error: any) => { console.log(error); });*/
     }
 }

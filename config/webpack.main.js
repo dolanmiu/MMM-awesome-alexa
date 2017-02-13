@@ -44,7 +44,7 @@ module.exports = {
         }],
     },
 
-    target: "node",
+    // target: "node",
 
-    externals: nodeModules,
+    // externals: nodeModules,
 };

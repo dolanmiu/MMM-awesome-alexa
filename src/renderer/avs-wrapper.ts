@@ -1,8 +1,6 @@
 // import * as AVS from "alexa-voice-service";
 const AVS = require("alexa-voice-service");
 
-const token = "Atza|IwEBIHJmkV7z2SEpL5gZjXc_aEn9sp0WpjLEcgeaX0B3X3-ZAlXNWvk9YmSFA60fvquAk76mLAXG9JsKPO61rWGV-V-19CmHZFHpMJ_iFIDXTv36MCznfgU1kBb3oPF50rr60tXMGHyjIOU-zUbt3KQt5xBz-dcMhbBcaRYRHngGyhEWGkunD6b9SgqQOS7ODXAmkjirSTcEOX32dvsndU_Xya0K4QC8vceNrqNJ9_OXF8BpjZE8EGW_4mN1rZYgMDAAL14EvhgfZAD9jSzWnZmfig2hiDGqgcmuXyU21YE5ELNvqNFZQR0xlzYVQSaHBOPU_5pZtT09a-KEgal99nTICyCXc2HD1HeJaF9euR3DUrOvNRV4Vxyuhpzm2n-LdClS9lcp73nKL-df_aspgy29Dt5Fnw2MxGVQB6WdZ2E2JOkF8bg6SLhvJ4TZFBocyDPeAHU6Ey-1Dst5hdBRJD9j6ACH6fGZm5gON2UNAVfyghQUO6RE2Y4uFONMo5RiYoGAWdWhz_JJaLsyGYKujkHSNT-oGDN9Lr9Ig4ySFoQJKwUNaQ";
-
 const refreshToken = "Atzr|IwEBILVXEPwQ1WBP0g28icIpbX8UnfwfeZ0U4ffd_uQz0txBZqS2NZ-F0Jl8iUKHasQDzdwhrgvIOz5uaTKED8ZYPMNpYjJz0tUz07j_Ba2M0Y0t3m-VU6n_dRdJ0N7y6xEDwXbIFDq-dQ_Ufe_OOlUGNEyXP3XyQD_kKyb4UX5sWAjrr_0i-CcOtUUsEieMEabgncpAm4ocRfa7NUR3SGBz9nPYnSbRMT8yDRaZRYJbz9voDWAl0LkIr1OMwHrM59YbKLu9IMtQya3JAJXpamsnjAaWS9NPQ7OLFcf5jAKZNd_T2-wIB-radH6tgE4SWuW-qUHemf_dB64YC6xdjeOqdT83G46BftK8omPOt57W3mwfNuclHICvWEacGJ3z4zJT5foaH-QZEMPZSAPwE9fIQ2AuBGqSB4qC7Acr9gWx0Fj-43mMzWxnFBe4m3yKaZOqjoCGJiMoCwJROq0VhiP4hn7NvCbAn93R4hb4_6go0e5ExLeAzeBbp5exRjf6GVX0-pifxq6XF3NrRaAeG0k67m-vy3gPjtEN0MutCdKQ8HAIFA";
 
 export class AVSWrapper {
@@ -16,10 +14,8 @@ export class AVSWrapper {
             deviceId: "magic_mirror_alexa",
             deviceSerialNumber: 123,
             redirectUri: `https://${window.location.host}/authresponse`,
-            token: token,
             refreshToken: refreshToken,
         });
-
     }
 
     public init(): void {

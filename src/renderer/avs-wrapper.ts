@@ -12,8 +12,6 @@ export class AVSWrapper {
             clientId: "amzn1.application-oa2-client.81574bebfb25437595d7376f44b54f8e",
             clientSecret: "87d49f998b3a6507b8e6a08760cda274e1d44a22a2bebade9433b1e7445d66a5",
             deviceId: "magic_mirror_alexa",
-            deviceSerialNumber: 123,
-            redirectUri: `https://${window.location.host}/authresponse`,
             refreshToken: refreshToken,
         });
     }
@@ -36,7 +34,7 @@ export class AVSWrapper {
                     const map = this.createDirectives(xhr, response);
                     this.runDirectives(map.directives, map.audioMap);
                 }).catch((error: Error) => {
-                    console.error(error); /* send audio error */
+                    console.error(error);
                     reject(error);
                 });
             });

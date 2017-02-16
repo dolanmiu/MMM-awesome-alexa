@@ -20,7 +20,8 @@
     "nightmare": "^2.9.1",
     "node-record-lpcm16": "^0.2.0",
     "request": "^2.79.0",
-    "snowboy": "^1.1.0"
+    "snowboy": "^1.1.0",
+    "voice-activity-detection": "0.0.4"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.0.4-rc.2",

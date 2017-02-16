@@ -52,7 +52,11 @@ export class AVSWrapper {
 
         response.multipart.forEach((multipart: any) => {
             let body = multipart.body;
-            if (multipart.headers && multipart.headers["Content-Type"] === "application/json") {
+            if (!multipart.headers) {
+                throw new Error(`creating directives failed: ${multipart}`);
+            }
+
+            if (multipart.headers["Content-Type"] === "application/json") {
                 try {
                     body = JSON.parse(body);
                 } catch (error) {

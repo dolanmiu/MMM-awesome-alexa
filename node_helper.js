@@ -26,9 +26,7 @@ module.exports = NodeHelper.create({
         });
 
         const main = new Main(() => {
-            console.log("sending notif");
-            console.log(this.sendSocketNotification);
-            this.sendSocketNotification("noobs", {});
+            this.sendSocketNotification("hotword", {});
         });
     },
 });

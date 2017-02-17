@@ -4,9 +4,19 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    opacity: 1;
     z-index: 99;
-    backdrop-filter: blur(10px);
     transition: all 0.5s
+}
+
+.wrapper-active {
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.down-size {
+    transform: scale(0.93);
+}
+
+body {
+    transition: all 0.5s;
 }

@@ -6,23 +6,13 @@ const refreshToken = "Atzr|IwEBILVXEPwQ1WBP0g28icIpbX8UnfwfeZ0U4ffd_uQz0txBZqS2N
 export class AVSWrapper {
     private avs: any;
     private isRecording: boolean;
+    private startRecordingCallBack: () => void;
+    private stopRecordingCallBack: () => void;
 
-    constructor() {
-        this.avs = new AVS({
-            debug: true,
-            clientId: "amzn1.application-oa2-client.81574bebfb25437595d7376f44b54f8e",
-            clientSecret: "87d49f998b3a6507b8e6a08760cda274e1d44a22a2bebade9433b1e7445d66a5",
-            deviceId: "magic_mirror_alexa",
-            refreshToken: refreshToken,
-        });
-
-        this.avs.on(AVS.EventTypes.RECORD_START, () => {
-            this.isRecording = true;
-        });
-
-        this.avs.on(AVS.EventTypes.RECORD_STOP, () => {
-            this.isRecording = false;
-        });
+    constructor(startRecordingCallBack: () => void = () => { return; }, stopRecordingCallBack: () => void = () => { return; }) {
+        this.startRecordingCallBack = startRecordingCallBack;
+        this.stopRecordingCallBack = stopRecordingCallBack;
+        this.initAvs();
     }
 
     public init(): void {
@@ -36,15 +26,14 @@ export class AVSWrapper {
 
     public stopRecording(): Promise<any> {
         return new Promise((resolve, reject) => {
-
             this.avs.stopRecording().then((dataView: any) => {
-
                 this.avs.sendAudio(dataView).then(({xhr, response}: any) => {
                     const map = this.createDirectives(xhr, response);
                     this.runDirectives(map.directives, map.audioMap);
                 }).catch((error: Error) => {
                     console.error(error);
                     reject(error);
+                    this.initAvs();
                 });
             });
         });
@@ -52,6 +41,26 @@ export class AVSWrapper {
 
     public get IsRecording(): boolean {
         return this.isRecording;
+    }
+
+    private initAvs(): void {
+        this.avs = new AVS({
+            debug: true,
+            clientId: "amzn1.application-oa2-client.81574bebfb25437595d7376f44b54f8e",
+            clientSecret: "87d49f998b3a6507b8e6a08760cda274e1d44a22a2bebade9433b1e7445d66a5",
+            deviceId: "magic_mirror_alexa",
+            refreshToken: refreshToken,
+        });
+
+        this.avs.on(AVS.EventTypes.RECORD_START, () => {
+            this.isRecording = true;
+            this.startRecordingCallBack();
+        });
+
+        this.avs.on(AVS.EventTypes.RECORD_STOP, () => {
+            this.isRecording = false;
+            this.stopRecordingCallBack();
+        });
     }
 
     private createDirectives(xhr: any, response: any): { directives: any, audioMap: any } {

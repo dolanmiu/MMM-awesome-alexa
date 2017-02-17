@@ -1,13 +1,14 @@
 /* global Module */
 
 /* Magic Mirror
- * Module: HelloWorld
+ * Module: MMM-Awesome-Alexa
  *
  * By Dolan Miu http://www.dolan.bio
  * MIT Licensed.
  */
-var avs;
-var vad;
+var avsWrapper;
+var vadWrapper;
+var alexaWrapper;
 Module.register("MMM-alexa-hands-free", {
 
     // Default module config.
@@ -18,25 +19,29 @@ Module.register("MMM-alexa-hands-free", {
     start: function () {
         // Needed to initially connect to node_helper;
         this.sendSocketNotification("ADD_FEED", { "test": "test" });
-        avs = new AlexaVoiceService.AVSWrapper();
-        avs.init();
+        avsWrapper = new AlexaVoiceService.AVSWrapper(() => {
+            alexaWrapper.classList.add("wrapper-active");
+            document.body.classList.add("down-size");
+        }, () => {
+            alexaWrapper.classList.remove("wrapper-active");
+            document.body.classList.remove("down-size");
+        });
 
+        avsWrapper.init();
 
-        vad = new AlexaVoiceService.VADWrapper();
-        vad.start(() => {
-            if (avs.IsRecording) {
-                avs.stopRecording();
+        vadWrapper = new AlexaVoiceService.VADWrapper();
+
+        vadWrapper.start(() => {
+            if (avsWrapper.IsRecording) {
+                avsWrapper.stopRecording();
             }
         });
     },
 
-    // Override dom generator.
     getDom: function () {
-        var wrapper = document.createElement("div");
-        wrapper.setAttribute("id", "wrapper");
-        //wrapper.innerHTML = this.config.text;
-        wrapper.innerHTML = `<button onclick="avs.startRecording()">Record</button><button onclick="avs.stopRecording()">Stop record</button>`;
-        return wrapper;
+        alexaWrapper = document.createElement("div");
+        alexaWrapper.setAttribute("id", "wrapper");
+        return alexaWrapper;
     },
 
     getScripts: function () {
@@ -52,13 +57,7 @@ Module.register("MMM-alexa-hands-free", {
     },
 
     socketNotificationReceived: function (notification, payload) {
-        //if (notification.startsWith('ALEXA_')) {
-        console.log("notification received");
-        console.log(notification);
-        console.log(payload);
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-        //alert(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-        //}
-        avs.startRecording();
+        avsWrapper.startRecording();
     },
 });

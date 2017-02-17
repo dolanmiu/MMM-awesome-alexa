@@ -5,6 +5,7 @@ const refreshToken = "Atzr|IwEBILVXEPwQ1WBP0g28icIpbX8UnfwfeZ0U4ffd_uQz0txBZqS2N
 
 export class AVSWrapper {
     private avs: any;
+    private isRecording: boolean;
 
     constructor() {
         this.avs = new AVS({
@@ -14,11 +15,19 @@ export class AVSWrapper {
             deviceId: "magic_mirror_alexa",
             refreshToken: refreshToken,
         });
+
+        this.avs.on(AVS.EventTypes.RECORD_START, () => {
+            this.isRecording = true;
+        });
+
+        this.avs.on(AVS.EventTypes.RECORD_STOP, () => {
+            this.isRecording = false;
+        });
     }
 
     public init(): void {
         this.avs.refreshToken().then(() => this.avs.requestMic())
-            .catch((error: Error) => { console.log(error); });
+            .catch((error: Error) => { console.error(error); });
     }
 
     public startRecording(): void {
@@ -39,6 +48,10 @@ export class AVSWrapper {
                 });
             });
         });
+    }
+
+    public get IsRecording(): boolean {
+        return this.isRecording;
     }
 
     private createDirectives(xhr: any, response: any): { directives: any, audioMap: any } {

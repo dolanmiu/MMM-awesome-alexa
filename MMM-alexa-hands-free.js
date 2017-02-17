@@ -7,6 +7,7 @@
  * MIT Licensed.
  */
 var avs;
+var vad;
 Module.register("MMM-alexa-hands-free", {
 
     // Default module config.
@@ -19,6 +20,14 @@ Module.register("MMM-alexa-hands-free", {
         this.sendSocketNotification("ADD_FEED", { "test": "test" });
         avs = new AlexaVoiceService.AVSWrapper();
         avs.init();
+
+
+        vad = new AlexaVoiceService.VADWrapper();
+        vad.start(() => {
+            if (avs.IsRecording) {
+                avs.stopRecording();
+            }
+        });
     },
 
     // Override dom generator.

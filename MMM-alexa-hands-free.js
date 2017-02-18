@@ -21,7 +21,7 @@ Module.register("MMM-alexa-hands-free", {
 
     start: function () {
         // Needed to initially connect to node_helper;
-        this.sendSocketNotification("ADD_FEED", { "test": "test" });
+        this.sendSocketNotification("CONNECT_TEST", {});
         avsWrapper = new AlexaVoiceService.AVSWrapper(() => {
             alexaWrapper.classList.add("wrapper-active");
             document.body.classList.add("down-size");

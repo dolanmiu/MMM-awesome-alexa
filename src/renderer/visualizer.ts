@@ -14,23 +14,18 @@ export class Visualizer {
     private times: Uint8Array;
     private drawContext: CanvasRenderingContext2D;
 
-    constructor(private canvas: HTMLCanvasElement, private audioContext: AudioContext) {
+    constructor(private canvas: HTMLCanvasElement, audioContext: AudioContext) {
         this.drawContext = canvas.getContext("2d");
-        this.analyser = this.audioContext.createAnalyser();
-        this.analyser.connect(this.audioContext.destination);
+        this.analyser = audioContext.createAnalyser();
+
         this.analyser.minDecibels = -140;
         this.analyser.maxDecibels = 0;
         this.freqs = new Uint8Array(this.analyser.frequencyBinCount);
         this.times = new Uint8Array(this.analyser.frequencyBinCount);
     }
 
-    public play(source: AudioBufferSourceNode) {
-        console.log("started at", this.audioContext.currentTime);
+    public play(source: AudioBufferSourceNode): void {
         source.connect(this.analyser);
-        //this.source.buffer = this.buffer;
-        // Start playback, but make sure we stay in bound of the buffer.
-        //this.source[this.source.start ? "start" : "noteOn"](0, this.startOffset % this.buffer.duration);
-        // Start visualizer.
     }
 
     public draw(): void {

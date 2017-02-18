@@ -2,7 +2,7 @@ const vad = require("voice-activity-detection");
 
 declare var window: any;
 declare var navigator: any;
-const STOP_SPEECH_DELAY_TIME = 0;
+const STOP_SPEECH_DELAY_TIME = 500;
 
 export class VADWrapper {
     private audioContext: AudioContext;

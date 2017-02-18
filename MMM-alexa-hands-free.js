@@ -9,6 +9,9 @@
 var avsWrapper;
 var vadWrapper;
 var alexaWrapper;
+var alexaVisualiserCanvas;
+var visualizer;
+
 Module.register("MMM-alexa-hands-free", {
 
     // Default module config.
@@ -25,6 +28,10 @@ Module.register("MMM-alexa-hands-free", {
         }, () => {
             alexaWrapper.classList.remove("wrapper-active");
             document.body.classList.remove("down-size");
+        }, () => {
+            setTimeout(() => {
+                visualizer.play(avsWrapper.avs.player._currentSource);
+            }, 500);
         });
 
         avsWrapper.init();
@@ -41,6 +48,14 @@ Module.register("MMM-alexa-hands-free", {
     getDom: function () {
         alexaWrapper = document.createElement("div");
         alexaWrapper.setAttribute("id", "wrapper");
+
+        alexaVisualiserCanvas = document.createElement("canvas");
+        alexaVisualiserCanvas.width = 400;
+        alexaVisualiserCanvas.height = 300;
+        alexaWrapper.appendChild(alexaVisualiserCanvas);
+
+        visualizer = new AlexaVoiceService.Visualizer(alexaVisualiserCanvas, avsWrapper.avs.player._context);
+        visualizer.draw();
         return alexaWrapper;
     },
 

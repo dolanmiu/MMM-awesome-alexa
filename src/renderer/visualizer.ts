@@ -10,45 +10,32 @@ declare let navigator: any;
 
 export class Visualizer {
     private analyser: AnalyserNode;
-    private context: AudioContext;
     private freqs: Uint8Array;
     private times: Uint8Array;
-    private startTime: number;
-    private startOffset: number;
-    private source: AudioBufferSourceNode;
+    private drawContext: CanvasRenderingContext2D;
 
-    constructor() {
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        this.context = new AudioContext();
-        this.analyser = this.context.createAnalyser();
-
-        this.analyser.connect(this.context.destination);
+    constructor(private canvas: HTMLCanvasElement, private audioContext: AudioContext) {
+        this.drawContext = canvas.getContext("2d");
+        this.analyser = this.audioContext.createAnalyser();
+        this.analyser.connect(this.audioContext.destination);
         this.analyser.minDecibels = -140;
         this.analyser.maxDecibels = 0;
-        loadSounds(this, {
-            buffer: "chrono.mp3"
-        }, onLoaded);
         this.freqs = new Uint8Array(this.analyser.frequencyBinCount);
         this.times = new Uint8Array(this.analyser.frequencyBinCount);
-
-        this.startTime = 0;
-        this.startOffset = 0;
     }
 
-    public togglePlayback() {
-        this.startTime = this.context.currentTime;
-        console.log("started at", this.startOffset);
-        this.source = this.context.createBufferSource();
-        // Connect graph
-        this.source.connect(this.analyser);
-        this.source.buffer = this.buffer;
+    public play(source: AudioBufferSourceNode) {
+        console.log("started at", this.audioContext.currentTime);
+        source.connect(this.analyser);
+        //this.source.buffer = this.buffer;
         // Start playback, but make sure we stay in bound of the buffer.
-        this.source[this.source.start ? "start" : "noteOn"](0, this.startOffset % this.buffer.duration);
+        //this.source[this.source.start ? "start" : "noteOn"](0, this.startOffset % this.buffer.duration);
         // Start visualizer.
-        requestAnimFrame(this.draw.bind(this));
     }
 
     public draw(): void {
+        this.drawContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
         this.analyser.smoothingTimeConstant = SMOOTHING;
         this.analyser.fftSize = FFT_SIZE;
 
@@ -56,10 +43,6 @@ export class Visualizer {
         this.analyser.getByteFrequencyData(this.freqs);
         this.analyser.getByteTimeDomainData(this.times);
 
-        let canvas = document.querySelector("canvas");
-        let drawContext = canvas.getContext("2d");
-        canvas.width = WIDTH;
-        canvas.height = HEIGHT;
         // Draw the frequency domain chart.
         for (let i = 0; i < this.analyser.frequencyBinCount; i++) {
             let value = this.freqs[i];
@@ -68,8 +51,8 @@ export class Visualizer {
             let offset = HEIGHT - height - 1;
             let barWidth = WIDTH / this.analyser.frequencyBinCount;
             let hue = i / this.analyser.frequencyBinCount * 360;
-            drawContext.fillStyle = "hsl(" + hue + ", 100%, 50%)";
-            drawContext.fillRect(i * barWidth, offset, barWidth, height);
+            this.drawContext.fillStyle = "hsl(" + hue + ", 100%, 50%)";
+            this.drawContext.fillRect(i * barWidth, offset, barWidth, height);
         }
 
         // Draw the time domain chart.
@@ -79,10 +62,10 @@ export class Visualizer {
             let height = HEIGHT * percent;
             let offset = HEIGHT - height - 1;
             let barWidth = WIDTH / this.analyser.frequencyBinCount;
-            drawContext.fillStyle = "white";
-            drawContext.fillRect(i * barWidth, offset, 1, 2);
+            this.drawContext.fillStyle = "white";
+            this.drawContext.fillRect(i * barWidth, offset, 1, 2);
         }
 
-        requestAnimFrame(this.draw.bind(this));
+        requestAnimationFrame(this.draw.bind(this));
     }
 }

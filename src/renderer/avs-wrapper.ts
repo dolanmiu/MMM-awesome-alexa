@@ -6,12 +6,8 @@ const refreshToken = "Atzr|IwEBILVXEPwQ1WBP0g28icIpbX8UnfwfeZ0U4ffd_uQz0txBZqS2N
 export class AVSWrapper {
     private avs: any;
     private isRecording: boolean;
-    private startRecordingCallBack: () => void;
-    private stopRecordingCallBack: () => void;
 
-    constructor(startRecordingCallBack: () => void = () => { return; }, stopRecordingCallBack: () => void = () => { return; }) {
-        this.startRecordingCallBack = startRecordingCallBack;
-        this.stopRecordingCallBack = stopRecordingCallBack;
+    constructor(private startRecordingCallBack: () => void = () => { return; }, private stopRecordingCallBack: () => void = () => { return; }, private onPlayCallback: () => void = () => { return; }) {
         this.initAvs();
     }
 
@@ -60,6 +56,10 @@ export class AVSWrapper {
         this.avs.on(AVS.EventTypes.RECORD_STOP, () => {
             this.isRecording = false;
             this.stopRecordingCallBack();
+        });
+
+        this.avs.player.on(AVS.Player.EventTypes.PLAY, () => {
+            this.onPlayCallback();
         });
     }
 
@@ -164,6 +164,7 @@ export class AVSWrapper {
 
             Promise.all(promises).then(() => {
                 this.avs.player.playQueue();
+                console.log(this.avs.player);
             });
         });
     }

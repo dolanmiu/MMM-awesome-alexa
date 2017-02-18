@@ -54,8 +54,8 @@ Module.register("MMM-alexa-hands-free", {
         alexaVisualiserCanvas.height = 300;
         alexaWrapper.appendChild(alexaVisualiserCanvas);
 
-        visualizer = new AlexaVoiceService.Visualizer(alexaVisualiserCanvas, avsWrapper.avs.player._context);
-        visualizer.draw();
+        visualizer = new AlexaVoiceService.RainbowVisualizer(alexaVisualiserCanvas, avsWrapper.avs.player._context);
+        visualizer.init();
         return alexaWrapper;
     },
 

@@ -39,6 +39,14 @@ export class AVSWrapper {
         return this.isRecording;
     }
 
+    public get AudioContext(): AudioContext {
+        return this.avs.player._context;
+    }
+
+    public get Source(): AudioBufferSourceNode {
+        return this.avs.player._currentSource;
+    }
+
     private initAvs(): void {
         this.avs = new AVS({
             debug: true,

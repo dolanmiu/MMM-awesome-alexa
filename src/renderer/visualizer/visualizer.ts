@@ -41,7 +41,7 @@ export abstract class Visualizer {
         this.drawFunc = func;
     }
 
-    protected init(): void {
+    public init(): void {
         this.draw();
     }
 }

@@ -6,7 +6,11 @@
         "sourceMap": false,
         "outDir": "./dist",
         "declaration": false,
-        "rootDir": "./src"
+        "rootDir": "./src",
+        "lib": [
+            "dom",
+            "es7"
+        ]
     },
     "exclude": [
         "./node_modules"

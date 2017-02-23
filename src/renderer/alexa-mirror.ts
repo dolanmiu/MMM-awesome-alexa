@@ -1,4 +1,4 @@
-import { AlexaStateMachine } from "./alexa-state-machine";
+import { AlexaStateMachine } from "./states/alexa-state-machine";
 import { AVSWrapper } from "./avs-wrapper";
 import { VADWrapper } from "./vad-wrapper";
 import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
@@ -25,7 +25,7 @@ export class AlexaMirror {
 
         this.vadWrapper = new VADWrapper();
         this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
-        this.alexaStateMachine = new AlexaStateMachine();
+        this.alexaStateMachine = new AlexaStateMachine(this.avsWrapper, this.vadWrapper, this.visualizer);
     }
 
     public start(): void {

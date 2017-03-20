@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm run electron-rebuild",
+    "postinstall": "npm run electron-rebuild && npm run tsc",
     "build": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
     "test": "npm run lint",
     "start": "node index.js",
     "electron-rebuild": "electron-rebuild",
-    "lint": "tslint --project ."
+    "lint": "tslint --project .",
+    "tsc": "tsc -p ."
   },
   "author": "",
   "license": "MIT",

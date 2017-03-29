@@ -117,7 +117,7 @@ export class AVSWrapper {
         };
     }
 
-    private findAudioFromContentId(contentId: string, audioMap: any) {
+    private findAudioFromContentId(contentId: string, audioMap: any): void {
         contentId = contentId.replace("cid:", "");
         for (const key in audioMap) {
             if (key.indexOf(contentId) > -1) {

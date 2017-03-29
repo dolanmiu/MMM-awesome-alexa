@@ -10,6 +10,11 @@ export class ListeningState extends State {
     }
 
     public transitionTo(state: State): void {
+        if (!this.canTransition(state)) {
+            console.error(`Invalid transition to state: ${state}`);
+            return;
+        }
+
         this.avsWrapper.startRecording();
     }
 }

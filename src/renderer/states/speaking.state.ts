@@ -10,6 +10,11 @@ export class SpeakingState extends State {
     }
 
     public transitionTo(state: State): void {
-        
+        if (!this.canTransition(state)) {
+            console.error(`Invalid transition to state: ${state}`);
+            return;
+        }
+
+        // this.visualizer.play(this.avsWrapper.avs.player._currentSource);
     }
 }

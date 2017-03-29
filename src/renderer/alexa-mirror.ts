@@ -1,5 +1,5 @@
-import { AlexaStateMachine } from "./states/alexa-state-machine";
 import { AVSWrapper } from "./avs-wrapper";
+import { AlexaStateMachine } from "./states/alexa-state-machine";
 import { VADWrapper } from "./vad-wrapper";
 import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
 import { Visualizer } from "./visualizer/visualizer";

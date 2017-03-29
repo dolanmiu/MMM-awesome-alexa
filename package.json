@@ -10,7 +10,7 @@
     "start": "node index.js",
     "electron-rebuild": "electron-rebuild",
     "lint": "tslint --project .",
-    "tsc": "tsc -p ."
+    "tsc": "rimraf dist && tsc -p ."
   },
   "author": "",
   "license": "MIT",
@@ -20,6 +20,7 @@
     "alexa-voice-service": "0.0.7",
     "node-record-lpcm16": "^0.2.0",
     "request": "^2.79.0",
+    "rimraf": "^2.6.1",
     "snowboy": "^1.1.0",
     "voice-activity-detection": "0.0.4"
   },

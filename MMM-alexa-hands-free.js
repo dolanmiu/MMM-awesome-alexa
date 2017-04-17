@@ -29,7 +29,6 @@ Module.register("MMM-alexa-hands-free", {
         alexaVisualiserCanvas.width = 400;
         alexaVisualiserCanvas.height = 300;
         alexaWrapper.appendChild(alexaVisualiserCanvas);
-        console.log(AlexaVoiceService.AlexaMirror);
 
         alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, alexaVisualiserCanvas);
 

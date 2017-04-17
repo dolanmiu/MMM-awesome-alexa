@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "npm run electron-rebuild && npm run tsc",
-    "build": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
+    "build": "rimraf dist && npm run build && npm run tsc",
+    "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
     "test": "npm run lint",
     "start": "node index.js",
     "electron-rebuild": "electron-rebuild",
     "lint": "tslint --project .",
-    "tsc": "rimraf dist && tsc -p ."
+    "tsc": "tsc -p ."
   },
   "author": "",
   "license": "MIT",

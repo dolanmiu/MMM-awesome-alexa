@@ -40,4 +40,8 @@ export class AlexaMirror {
         this.visualizer.init();
     }
 
+    public startRecording(): void {
+        this.avsWrapper.startRecording();
+    }
+
 }

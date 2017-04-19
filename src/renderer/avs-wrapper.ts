@@ -4,10 +4,14 @@ const AVS = require("alexa-voice-service");
 const refreshToken = "Atzr|IwEBILVXEPwQ1WBP0g28icIpbX8UnfwfeZ0U4ffd_uQz0txBZqS2NZ-F0Jl8iUKHasQDzdwhrgvIOz5uaTKED8ZYPMNpYjJz0tUz07j_Ba2M0Y0t3m-VU6n_dRdJ0N7y6xEDwXbIFDq-dQ_Ufe_OOlUGNEyXP3XyQD_kKyb4UX5sWAjrr_0i-CcOtUUsEieMEabgncpAm4ocRfa7NUR3SGBz9nPYnSbRMT8yDRaZRYJbz9voDWAl0LkIr1OMwHrM59YbKLu9IMtQya3JAJXpamsnjAaWS9NPQ7OLFcf5jAKZNd_T2-wIB-radH6tgE4SWuW-qUHemf_dB64YC6xdjeOqdT83G46BftK8omPOt57W3mwfNuclHICvWEacGJ3z4zJT5foaH-QZEMPZSAPwE9fIQ2AuBGqSB4qC7Acr9gWx0Fj-43mMzWxnFBe4m3yKaZOqjoCGJiMoCwJROq0VhiP4hn7NvCbAn93R4hb4_6go0e5ExLeAzeBbp5exRjf6GVX0-pifxq6XF3NrRaAeG0k67m-vy3gPjtEN0MutCdKQ8HAIFA";
 
 export class AVSWrapper {
+    public startRecordingCallbacks: (() => void)[];
+    public stopRecordingCallbacks: (() => void)[];
+    public playCallbacks: (() => void)[];
+
     private avs: any;
     private isRecording: boolean;
 
-    constructor(private startRecordingCallBack: () => void = () => { return; }, private stopRecordingCallBack: () => void = () => { return; }, private onPlayCallback: () => void = () => { return; }) {
+    constructor() {
         this.initAvs();
     }
 
@@ -23,7 +27,7 @@ export class AVSWrapper {
     public stopRecording(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.avs.stopRecording().then((dataView: any) => {
-                this.avs.sendAudio(dataView).then(({xhr, response}: any) => {
+                this.avs.sendAudio(dataView).then(({ xhr, response }: any) => {
                     const map = this.createDirectives(xhr, response);
                     this.runDirectives(map.directives, map.audioMap);
                 }).catch((error: Error) => {
@@ -47,6 +51,18 @@ export class AVSWrapper {
         return this.avs.player._currentSource;
     }
 
+    public onStartRecording(callback: () => void): void {
+        this.startRecordingCallbacks.push(callback);
+    }
+
+    public onStopRecording(callback: () => void): void {
+        this.stopRecordingCallbacks.push(callback);
+    }
+
+    public onPlaying(callback: () => void): void {
+        this.playCallbacks.push(callback);
+    }
+
     private initAvs(): void {
         this.avs = new AVS({
             debug: true,
@@ -58,16 +74,22 @@ export class AVSWrapper {
 
         this.avs.on(AVS.EventTypes.RECORD_START, () => {
             this.isRecording = true;
-            this.startRecordingCallBack();
+            for (const callback of this.startRecordingCallbacks) {
+                callback();
+            }
         });
 
         this.avs.on(AVS.EventTypes.RECORD_STOP, () => {
             this.isRecording = false;
-            this.stopRecordingCallBack();
+            for (const callback of this.stopRecordingCallbacks) {
+                callback();
+            }
         });
 
         this.avs.player.on(AVS.Player.EventTypes.PLAY, () => {
-            this.onPlayCallback();
+            for (const callback of this.playCallbacks) {
+                callback();
+            }
         });
     }
 
@@ -172,7 +194,6 @@ export class AVSWrapper {
 
             Promise.all(promises).then(() => {
                 this.avs.player.playQueue();
-                console.log(this.avs.player);
             });
         });
     }

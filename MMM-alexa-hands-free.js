@@ -50,6 +50,6 @@ Module.register("MMM-alexa-hands-free", {
 
     socketNotificationReceived: function (notification, payload) {
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-        alexaMirror.startRecording();
+        alexaMirror.receivedNotification(notification, payload);
     },
 });

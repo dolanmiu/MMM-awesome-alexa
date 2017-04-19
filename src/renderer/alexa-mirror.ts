@@ -11,21 +11,16 @@ export class AlexaMirror {
     private alexaStateMachine: AlexaStateMachine;
 
     constructor(mainDiv: HTMLElement, canvas: HTMLCanvasElement) {
-        this.avsWrapper = new AVSWrapper(() => {
-            mainDiv.classList.add("wrapper-active");
-            document.body.classList.add("down-size");
-        }, () => {
-            mainDiv.classList.remove("wrapper-active");
-            document.body.classList.remove("down-size");
-        }, () => {
-            setTimeout(() => {
-                this.visualizer.play(this.avsWrapper.Source);
-            }, 500);
-        });
+        this.avsWrapper = new AVSWrapper();
 
         this.vadWrapper = new VADWrapper();
         this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
-        this.alexaStateMachine = new AlexaStateMachine(this.avsWrapper, this.vadWrapper, this.visualizer);
+        this.alexaStateMachine = new AlexaStateMachine({
+            avs: this.avsWrapper,
+            vad: this.vadWrapper,
+            visualizer: this.visualizer,
+            div: mainDiv,
+        });
     }
 
     public start(): void {
@@ -40,8 +35,8 @@ export class AlexaMirror {
         this.visualizer.init();
     }
 
-    public startRecording(): void {
-        this.avsWrapper.startRecording();
+    public receivedNotification(type: NotificationType, payload: any): void {
+        this.alexaStateMachine.broadcast(type, payload);
     }
 
 }

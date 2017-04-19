@@ -1,20 +1,20 @@
-import { AVSWrapper } from "../avs-wrapper";
-import { VADWrapper } from "../vad-wrapper";
-import { Visualizer } from "../visualizer/visualizer";
+import { IStateMachineComponents } from "./alexa-state-machine";
 import { State } from "./base.state";
 
 export class IdleState extends State {
 
-    constructor(avsWrapper: AVSWrapper, vadWrapper: VADWrapper, visualizer: Visualizer) {
-        super(avsWrapper, vadWrapper, visualizer);
+    constructor(components: IStateMachineComponents) {
+        super(components, "idle");
     }
 
-    public transitionTo(state: State): void {
-        if (!this.canTransition(state)) {
-            console.error(`Invalid transition to state: ${state}`);
-            return;
-        }
+    public onEnter(): void {
+        this.components.avs.stopRecording();
+        this.components.div.classList.remove("wrapper-active");
+        document.body.classList.remove("down-size");
+    }
 
-        this.avsWrapper.stopRecording();
+    public broadcast(type: NotificationType, data: any): void {
+        this.components.avs.startRecording();
+        this.transitionTo(this.allowedStateTransitions.get("listening"));
     }
 }

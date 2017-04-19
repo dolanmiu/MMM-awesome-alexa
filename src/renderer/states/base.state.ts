@@ -1,25 +1,46 @@
-import { AVSWrapper } from "../avs-wrapper";
-import { VADWrapper } from "../vad-wrapper";
-import { Visualizer } from "../visualizer/visualizer";
+import { IStateMachineComponents } from "./alexa-state-machine";
 
 export abstract class State {
-    protected allowedStateTransitions: State[];
+    protected allowedStateTransitions: Map<StateName, State>;
+    private onStateChangeFunc: (state: State) => void;
 
-    constructor(protected avsWrapper: AVSWrapper, protected vadWrapper: VADWrapper, protected visualizer: Visualizer) {
-        this.allowedStateTransitions = [];
+    constructor(protected components: IStateMachineComponents, public name: StateName) {
+        this.allowedStateTransitions = new Map<StateName, State>();
     }
 
-    public abstract transitionTo(state: State): void;
+    public abstract onEnter(): void;
 
-    protected canTransition(state: State): boolean {
-        if (this.allowedStateTransitions.includes(state)) {
+    public abstract broadcast(type: NotificationType, data: any): void;
+
+    public onStateChange(event: (state: State) => void): void {
+        this.onStateChangeFunc = event;
+    }
+
+    protected transitionTo(state: State): void {
+        if (!this.canTransition(state)) {
+            console.error(`Invalid transition to state: ${state}`);
+            return;
+        }
+
+        console.info(`transiting to state: ${state}`);
+
+        this.transition(state);
+    }
+
+    private canTransition(state: State): boolean {
+        if (this.allowedStateTransitions.has(state.name)) {
             return true;
         } else {
             return false;
         }
     }
 
-    public set AllowedStateTransitions(states: State[]) {
+    private transition(state: State): void {
+        this.onStateChangeFunc(state);
+        state.onEnter();
+    }
+
+    public set AllowedStateTransitions(states: Map<StateName, State>) {
         this.allowedStateTransitions = states;
     }
 }

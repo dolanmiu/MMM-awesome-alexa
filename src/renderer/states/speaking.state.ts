@@ -1,20 +1,19 @@
-import { AVSWrapper } from "../avs-wrapper";
-import { VADWrapper } from "../vad-wrapper";
-import { Visualizer } from "../visualizer/visualizer";
+import { IStateMachineComponents } from "./alexa-state-machine";
 import { State } from "./base.state";
 
 export class SpeakingState extends State {
 
-    constructor(avsWrapper: AVSWrapper, vadWrapper: VADWrapper, visualizer: Visualizer) {
-        super(avsWrapper, vadWrapper, visualizer);
+    constructor(components: IStateMachineComponents) {
+        super(components, "speaking");
     }
 
-    public transitionTo(state: State): void {
-        if (!this.canTransition(state)) {
-            console.error(`Invalid transition to state: ${state}`);
-            return;
-        }
-
+    public onEnter(): void {
         // this.visualizer.play(this.avsWrapper.avs.player._currentSource);
+        this.components.visualizer.play(this.components.avs.Source);
+    }
+
+    public broadcast(type: NotificationType, data: any): void {
+        // cancel speaking + go back to listening?
+        // Or do nothing
     }
 }

@@ -10,6 +10,13 @@ export class SpeakingState extends State {
     public onEnter(): void {
         // this.visualizer.play(this.avsWrapper.avs.player._currentSource);
         this.components.visualizer.play(this.components.avs.Source);
+        setTimeout(() => {
+            this.transitionTo(this.allowedStateTransitions.get("speaking"));
+        });
+    }
+
+    public onExit(): void {
+        // Clean up
     }
 
     public broadcast(type: NotificationType, data: any): void {

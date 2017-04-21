@@ -10,6 +10,8 @@ export abstract class State {
 
     public abstract onEnter(): void;
 
+    public abstract onExit(): void;
+
     public abstract broadcast(type: NotificationType, data: any): void;
 
     public onStateChange(event: (state: State) => void): void {

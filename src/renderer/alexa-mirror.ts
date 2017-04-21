@@ -25,13 +25,7 @@ export class AlexaMirror {
 
     public start(): void {
         this.avsWrapper.init();
-
-        this.vadWrapper.start(() => {
-            if (this.avsWrapper.IsRecording) {
-                this.avsWrapper.stopRecording();
-            }
-        });
-
+        this.vadWrapper.init();
         this.visualizer.init();
     }
 

@@ -11,6 +11,16 @@ export class ListeningState extends State {
         this.components.avs.startRecording();
         this.components.div.classList.add("wrapper-active");
         document.body.classList.add("down-size");
+        this.components.vad.onStopCallback = () => {
+            setTimeout(() => {
+                this.components.avs.stopRecording();
+                this.transitionTo(this.allowedStateTransitions.get("speaking"));
+            }, 500);
+        };
+    }
+
+    public onExit(): void {
+        this.components.vad.onStopCallback = undefined;
     }
 
     public broadcast(type: NotificationType, data: any): void {

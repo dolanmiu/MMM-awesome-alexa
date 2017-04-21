@@ -24,7 +24,7 @@ export abstract class State {
             return;
         }
 
-        console.info(`transiting to state: ${state}`);
+        console.log(`transiting to state: ${state.name}`);
 
         this.transition(state);
     }

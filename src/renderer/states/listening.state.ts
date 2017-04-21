@@ -13,9 +13,8 @@ export class ListeningState extends State {
         document.body.classList.add("down-size");
         this.components.vad.onStopCallback = () => {
             setTimeout(() => {
-                this.components.avs.stopRecording();
                 this.transitionTo(this.allowedStateTransitions.get("speaking"));
-            }, 500);
+            }, 2000);
         };
     }
 

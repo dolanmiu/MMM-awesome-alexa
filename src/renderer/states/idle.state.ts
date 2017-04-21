@@ -8,7 +8,6 @@ export class IdleState extends State {
     }
 
     public onEnter(): void {
-        this.components.avs.stopRecording();
         this.components.div.classList.remove("wrapper-active");
         document.body.classList.remove("down-size");
     }

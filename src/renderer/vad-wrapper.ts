@@ -1,8 +1,10 @@
+import { Utility } from "./utility";
 const vad = require("voice-activity-detection");
 
 declare var window: any;
 declare var navigator: any;
 const STOP_SPEECH_DELAY_TIME = 500;
+
 
 export class VADWrapper {
     public onStopCallback: () => void;
@@ -21,12 +23,14 @@ export class VADWrapper {
             navigator.getUserMedia({ audio: true }, (stream: any) => {
                 const options = {
                     onVoiceStart: () => {
-                        this.onStartCallback();
+                        const func = this.onStartCallback || Utility.Noop;
+                        func();
                         clearTimeout(this.speechTimeout);
                     },
                     onVoiceStop: () => {
                         this.speechTimeout = setTimeout(() => {
-                            this.onStopCallback();
+                            const func = this.onStopCallback || Utility.Noop;
+                            func();
                         }, STOP_SPEECH_DELAY_TIME);
                     },
                     onUpdate: (val: number) => {

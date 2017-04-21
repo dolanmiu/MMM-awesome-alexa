@@ -1,4 +1,5 @@
 // import * as AVS from "alexa-voice-service";
+import { Utility } from "./utility";
 const AVS = require("alexa-voice-service");
 
 const refreshToken = "Atzr|IwEBILVXEPwQ1WBP0g28icIpbX8UnfwfeZ0U4ffd_uQz0txBZqS2NZ-F0Jl8iUKHasQDzdwhrgvIOz5uaTKED8ZYPMNpYjJz0tUz07j_Ba2M0Y0t3m-VU6n_dRdJ0N7y6xEDwXbIFDq-dQ_Ufe_OOlUGNEyXP3XyQD_kKyb4UX5sWAjrr_0i-CcOtUUsEieMEabgncpAm4ocRfa7NUR3SGBz9nPYnSbRMT8yDRaZRYJbz9voDWAl0LkIr1OMwHrM59YbKLu9IMtQya3JAJXpamsnjAaWS9NPQ7OLFcf5jAKZNd_T2-wIB-radH6tgE4SWuW-qUHemf_dB64YC6xdjeOqdT83G46BftK8omPOt57W3mwfNuclHICvWEacGJ3z4zJT5foaH-QZEMPZSAPwE9fIQ2AuBGqSB4qC7Acr9gWx0Fj-43mMzWxnFBe4m3yKaZOqjoCGJiMoCwJROq0VhiP4hn7NvCbAn93R4hb4_6go0e5ExLeAzeBbp5exRjf6GVX0-pifxq6XF3NrRaAeG0k67m-vy3gPjtEN0MutCdKQ8HAIFA";
@@ -9,7 +10,6 @@ export class AVSWrapper {
     public onPlayCallback: () => void;
 
     private avs: any;
-    private isRecording: boolean;
 
     constructor() {
         this.initAvs();
@@ -27,6 +27,12 @@ export class AVSWrapper {
     public stopRecording(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.avs.stopRecording().then((dataView: any) => {
+                console.log("dataview");
+                console.log(dataView);
+                if (dataView === undefined) {
+                    reject();
+                    return;
+                }
                 this.avs.sendAudio(dataView).then(({ xhr, response }: any) => {
                     const map = this.createDirectives(xhr, response);
                     this.runDirectives(map.directives, map.audioMap);
@@ -37,10 +43,6 @@ export class AVSWrapper {
                 });
             });
         });
-    }
-
-    public get IsRecording(): boolean {
-        return this.isRecording;
     }
 
     public get AudioContext(): AudioContext {
@@ -61,17 +63,18 @@ export class AVSWrapper {
         });
 
         this.avs.on(AVS.EventTypes.RECORD_START, () => {
-            this.isRecording = true;
-            this.onStartRecordingCallback();
+            const func = this.onStartRecordingCallback || Utility.Noop;
+            func();
         });
 
         this.avs.on(AVS.EventTypes.RECORD_STOP, () => {
-            this.isRecording = false;
-            this.onStopRecordingCallback();
+            const func = this.onStopRecordingCallback || Utility.Noop;
+            func();
         });
 
         this.avs.player.on(AVS.Player.EventTypes.PLAY, () => {
-            this.onPlayCallback();
+            const func = this.onPlayCallback || Utility.Noop;
+            func();
         });
     }
 

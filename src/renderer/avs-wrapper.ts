@@ -27,10 +27,8 @@ export class AVSWrapper {
     public stopRecording(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.avs.stopRecording().then((dataView: any) => {
-                console.log("dataview");
-                console.log(dataView);
                 if (dataView === undefined) {
-                    reject();
+                    resolve();
                     return;
                 }
                 this.avs.sendAudio(dataView).then(({ xhr, response }: any) => {
@@ -38,8 +36,8 @@ export class AVSWrapper {
                     this.runDirectives(map.directives, map.audioMap);
                 }).catch((error: Error) => {
                     console.error(error);
-                    reject(error);
-                    this.initAvs();
+                    resolve();
+                    // this.initAvs();
                 });
             });
         });

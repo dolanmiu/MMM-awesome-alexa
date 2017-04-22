@@ -10,8 +10,8 @@ export class AlexaMirror {
     private visualizer: Visualizer;
     private alexaStateMachine: AlexaStateMachine;
 
-    constructor(mainDiv: HTMLElement, canvas: HTMLCanvasElement) {
-        this.avsWrapper = new AVSWrapper();
+    constructor(mainDiv: HTMLElement, canvas: HTMLCanvasElement, config: Config) {
+        this.avsWrapper = new AVSWrapper(config.refreshToken);
 
         this.vadWrapper = new VADWrapper();
         this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);

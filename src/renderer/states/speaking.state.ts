@@ -12,7 +12,6 @@ export class SpeakingState extends State {
         // this.components.visualizer.play(this.components.avs.Source);
         this.components.avs.stopRecording();
         setTimeout(() => {
-            console.log('trying to go to idle');
             this.transitionTo(this.allowedStateTransitions.get("idle"));
         }, 2000);
     }

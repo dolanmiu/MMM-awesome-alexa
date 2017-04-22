@@ -9,7 +9,7 @@
 
 let alexaMirror;
 
-Module.register("MMM-alexa-hands-free", {
+Module.register("MMM-awesome-alexa", {
 
     // Default module config.
     defaults: {

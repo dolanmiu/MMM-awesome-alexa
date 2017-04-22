@@ -1,4 +1,4 @@
-# MMM-alexa-hands-free
+# MMM-awesome-alexa
 A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
 
 # Features

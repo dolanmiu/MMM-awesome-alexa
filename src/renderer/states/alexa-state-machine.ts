@@ -18,7 +18,7 @@ export class AlexaStateMachine {
     private listeningState: ListeningState;
     private speakingState: SpeakingState;
 
-    constructor(private components: IStateMachineComponents) {
+    constructor(components: IStateMachineComponents) {
         this.idleState = new IdleState(components);
         this.listeningState = new ListeningState(components);
         this.speakingState = new SpeakingState(components);

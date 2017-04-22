@@ -44,7 +44,7 @@ export class AVSWrapper {
     }
 
     public stopRecording(): Promise<any> {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.avs.stopRecording().then((dataView: any) => {
                 if (dataView === undefined) {
                     resolve();

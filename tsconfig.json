@@ -10,7 +10,9 @@
         "lib": [
             "dom",
             "es7"
-        ]
+        ],
+        "noUnusedParameters": true,
+        "noUnusedLocals": true
     },
     "exclude": [
         "./node_modules"

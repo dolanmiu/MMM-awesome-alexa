@@ -5,7 +5,6 @@ declare var window: any;
 declare var navigator: any;
 const STOP_SPEECH_DELAY_TIME = 500;
 
-
 export class VADWrapper {
     public onStopCallback: () => void;
     public onStartCallback: () => void;

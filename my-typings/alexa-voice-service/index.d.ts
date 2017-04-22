@@ -1,3 +1,3 @@
-declare class AlexaVoice {
-    constructor();
+declare interface AVS {
+
 }

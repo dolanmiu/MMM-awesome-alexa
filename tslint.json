@@ -1,39 +1,35 @@
 {
-    "extends": [
-        "tslint:recommended"
+  "extends": "tslint:latest",
+  "exclude": [
+    "typings"
+  ],
+  "rules": {
+    "curly": true,
+    "one-variable-per-declaration": [
+      true
     ],
-    "rules": {
-        "typedef": [
-            true,
-            "call-signature",
-            "parameter",
-            "member-variable-declaration",
-            "property-declaration"
-        ],
-        "quotemark": [
-            true,
-            "double"
-        ],
-        "no-namespace": [
-            false
-        ],
-        "max-line-length": [
-            false
-        ],
-        "array-type": [
-            "array"
-        ],
-        "no-unused-variable": [
-            true
-        ],
-        "member-access": [
-            true
-        ],
-        "indent": [
-            true,
-            "spaces"
-        ],
-        "object-literal-sort-keys": false,
-        "object-literal-shorthand": false
-    }
+    "no-any": true,
+    "no-consecutive-blank-lines": [
+      true
+    ],
+    "no-require-imports": true,
+    "member-access": [
+      true
+    ],
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "property-declaration"
+    ],
+    "max-line-length": [
+      false
+    ]
+  }
 }

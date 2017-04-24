@@ -10,7 +10,7 @@ cd ~/MagicMirror/modules # navigate to module folder
 git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
 ```
 
-2\. Go to [LINK HERE] and generate a config for your alexa module. If you want an extremely easy set up, you can **omit** this step, and set 3 completely!
+2\. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
 
 3\. Then, add the previously generated config from the website above and put it into the `modules` section of your `config/config.js` file.
 

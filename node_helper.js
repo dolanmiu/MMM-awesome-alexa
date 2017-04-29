@@ -24,8 +24,15 @@ module.exports = NodeHelper.create({
                 res.json(urls);
             });
         });
+    },
 
-        const main = new Main(() => {
+    // Because this.config is not accessible from node_helper for some reason. Need to pass from the js file.
+    socketNotificationReceived: function (notification, payload) {
+        if (notification !== "WAKE_WORD") {
+            return;
+        }
+
+        const main = new Main(payload, () => {
             this.sendSocketNotification("hotword", {});
         });
     },

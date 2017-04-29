@@ -5,7 +5,7 @@ export class AlexaModels extends Models {
         super();
 
         this.add({
-            file: cwd + "/resources/alexa.umdl",
+            file: cwd + "/resources/models/alexa.umdl",
             sensitivity: "0.5",
             hotwords: "alexa",
         });

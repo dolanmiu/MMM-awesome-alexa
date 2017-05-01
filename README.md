@@ -1,3 +1,5 @@
+[![Chat on Gitter][gitter-image]][gitter-url]
+
 # MMM-awesome-alexa
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
 
@@ -30,3 +32,7 @@ Right Now it only supports Alexa
 - Alexa
 - Jarvis
 - Smart Mirror
+
+[gitter-image]: https://badges.gitter.im/dolanmiu/awesome-alexa.svg
+[gitter-url]: https://gitter.im/awesome-alexa/Lobby
+

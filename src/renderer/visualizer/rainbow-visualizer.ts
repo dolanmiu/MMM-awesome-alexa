@@ -10,12 +10,12 @@ export class RainbowVisualizer extends Visualizer {
         this.drawFunction = (freqs, times, drawContext) => {
             // Draw the frequency domain chart.
             for (let i = 0; i < freqs.length; i++) {
-                let value = freqs[i];
-                let percent = value / 256;
-                let height = HEIGHT * percent;
-                let offset = HEIGHT - height - 1;
-                let barWidth = WIDTH / freqs.length;
-                let hue = i / freqs.length * 360;
+                const value = freqs[i];
+                const percent = value / 256;
+                const height = HEIGHT * percent;
+                const offset = HEIGHT - height - 1;
+                const barWidth = WIDTH / freqs.length;
+                const hue = i / freqs.length * 360;
 
                 drawContext.fillStyle = "hsl(" + hue + ", 100%, 50%)";
                 drawContext.fillRect(i * barWidth, offset, barWidth, height);
@@ -23,11 +23,11 @@ export class RainbowVisualizer extends Visualizer {
 
             // Draw the time domain chart.
             for (let i = 0; i < times.length; i++) {
-                let value = times[i];
-                let percent = value / 256;
-                let height = HEIGHT * percent;
-                let offset = HEIGHT - height - 1;
-                let barWidth = WIDTH / times.length;
+                const value = times[i];
+                const percent = value / 256;
+                const height = HEIGHT * percent;
+                const offset = HEIGHT - height - 1;
+                const barWidth = WIDTH / times.length;
 
                 drawContext.fillStyle = "white";
                 drawContext.fillRect(i * barWidth, offset, 1, 2);

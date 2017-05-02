@@ -23,7 +23,6 @@ export abstract class State {
             console.error(`Invalid transition to state: ${state}`);
             return;
         }
-
         console.log(`transiting to state: ${state.name}`);
 
         this.transition(state);
@@ -38,6 +37,7 @@ export abstract class State {
     }
 
     private transition(state: State): void {
+        this.onExit();
         this.onStateChangeFunc(state);
         state.onEnter();
     }

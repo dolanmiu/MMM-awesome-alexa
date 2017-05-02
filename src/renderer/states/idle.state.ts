@@ -13,11 +13,11 @@ export class IdleState extends State {
     }
 
     public onExit(): void {
-        this.components.avs.onStartRecordingCallback = undefined;
+        // Not needed to do as its not set anywhere
+        // this.components.avs.onStartRecordingCallback = undefined;
     }
 
     public broadcast(type: NotificationType, data: any): void {
-        this.components.avs.startRecording();
         this.transitionTo(this.allowedStateTransitions.get("listening"));
     }
 }

@@ -10,6 +10,7 @@ export class SpeakingState extends State {
     public onEnter(): void {
         // this.visualizer.play(this.avsWrapper.avs.player._currentSource);
         // this.components.visualizer.play(this.components.avs.Source);
+
         this.components.avs.stopRecording();
         setTimeout(() => {
             this.transitionTo(this.allowedStateTransitions.get("idle"));

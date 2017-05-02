@@ -11,10 +11,9 @@ export class SpeakingState extends State {
         // this.visualizer.play(this.avsWrapper.avs.player._currentSource);
         // this.components.visualizer.play(this.components.avs.Source);
 
-        this.components.avs.stopRecording();
-        setTimeout(() => {
+        this.components.avs.stopRecording().then(() => {
             this.transition(this.allowedStateTransitions.get("idle"));
-        }, 2000);
+        });
     }
 
     public onExit(): void {

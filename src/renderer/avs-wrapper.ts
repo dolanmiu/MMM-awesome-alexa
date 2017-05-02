@@ -173,8 +173,11 @@ export class AVSWrapper {
                 }
 
                 Promise.all(promises).then(() => {
-                    this.avs.player.playQueue();
-                    resolve();
+                    const promise = this.avs.player.playQueue();
+                    promise.then(() => {
+                        console.log('finished playing alegedly');
+                        resolve();
+                    });
                 });
             });
         });

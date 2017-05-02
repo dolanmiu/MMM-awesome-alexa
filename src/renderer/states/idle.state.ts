@@ -13,8 +13,7 @@ export class IdleState extends State {
     }
 
     public onExit(): void {
-        // Not needed to do as its not set anywhere
-        // this.components.avs.onStartRecordingCallback = undefined;
+        // Not Needed
     }
 
     public broadcast(type: NotificationType, data: any): void {

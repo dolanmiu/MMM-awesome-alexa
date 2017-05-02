@@ -13,7 +13,7 @@ export class SpeakingState extends State {
 
         this.components.avs.stopRecording();
         setTimeout(() => {
-            this.transitionTo(this.allowedStateTransitions.get("idle"));
+            this.transition(this.allowedStateTransitions.get("idle"));
         }, 2000);
     }
 

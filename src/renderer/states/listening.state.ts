@@ -19,10 +19,8 @@ export class ListeningState extends State {
                 return;
             }
 
-            console.log(status);
             setTimeout(() => {
-                console.log('dench guy');
-                this.transitionTo(this.allowedStateTransitions.get("speaking"));
+                this.transition(this.allowedStateTransitions.get("speaking"));
             }, 2000);
         });
     }

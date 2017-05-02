@@ -18,6 +18,6 @@ export class IdleState extends State {
     }
 
     public broadcast(type: NotificationType, data: any): void {
-        this.transitionTo(this.allowedStateTransitions.get("listening"));
+        this.transition(this.allowedStateTransitions.get("listening"));
     }
 }

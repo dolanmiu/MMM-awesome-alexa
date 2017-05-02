@@ -18,14 +18,16 @@ export abstract class State {
         this.onStateChangeFunc = event;
     }
 
-    protected transitionTo(state: State): void {
+    protected transition(state: State): void {
         if (!this.canTransition(state)) {
             console.error(`Invalid transition to state: ${state}`);
             return;
         }
         console.log(`transiting to state: ${state.name}`);
 
-        this.transition(state);
+        this.onExit();
+        this.onStateChangeFunc(state);
+        state.onEnter();
     }
 
     private canTransition(state: State): boolean {
@@ -34,12 +36,6 @@ export abstract class State {
         } else {
             return false;
         }
-    }
-
-    private transition(state: State): void {
-        this.onExit();
-        this.onStateChangeFunc(state);
-        state.onEnter();
     }
 
     public set AllowedStateTransitions(states: Map<StateName, State>) {

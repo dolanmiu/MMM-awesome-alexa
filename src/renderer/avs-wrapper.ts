@@ -1,12 +1,7 @@
 // import * as AVS from "alexa-voice-service";
-import { Utility } from "./utility";
 const AVS = require("alexa-voice-service");
 
 export class AVSWrapper {
-    public onStartRecordingCallback: () => void;
-    public onStopRecordingCallback: () => void;
-    public onPlayCallback: () => void;
-
     private avs: any;
 
     constructor(config: Config) {
@@ -19,18 +14,15 @@ export class AVSWrapper {
         });
 
         this.avs.on(AVS.EventTypes.RECORD_START, () => {
-            const func = this.onStartRecordingCallback || Utility.Noop;
-            func();
+            // Observable here
         });
 
         this.avs.on(AVS.EventTypes.RECORD_STOP, () => {
-            const func = this.onStopRecordingCallback || Utility.Noop;
-            func();
+            // Observable here
         });
 
         this.avs.player.on(AVS.Player.EventTypes.PLAY, () => {
-            const func = this.onPlayCallback || Utility.Noop;
-            func();
+            // Observable here
         });
     }
 

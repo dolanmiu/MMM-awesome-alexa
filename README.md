@@ -25,12 +25,15 @@ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this reposit
 - Custom Wake Word
 - Very easy set up
 - Easy config tool
-- Visualisation
 - All-in-one solution.
+
+### Coming Soon
+- Visualisation
 
 ## Supported Wake Words
 Right Now it only supports Alexa
-### Coming Soon:
+
+### Coming Soon
 - Alexa
 - Jarvis
 - Smart Mirror

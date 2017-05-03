@@ -38,5 +38,5 @@ Right Now it only supports Alexa
 [gitter-image]: https://badges.gitter.im/dolanmiu/awesome-alexa.svg
 [gitter-url]: https://gitter.im/awesome-alexa/Lobby
 
-[gemnasium-image]: https://gemnasium.com/badges/github.com/dolanmiu/MMM-alexa-hands-free.svg
-[gemnasium-url]: https://gemnasium.com/github.com/dolanmiu/MMM-alexa-hands-free
+[gemnasium-image]: https://gemnasium.com/badges/github.com/dolanmiu/MMM-awesome-alexa.svg
+[gemnasium-url]: https://gemnasium.com/github.com/dolanmiu/MMM-awesome-alexa

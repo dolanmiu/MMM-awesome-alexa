@@ -18,6 +18,8 @@ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this reposit
 
 3\. Then, add the previously generated config from the website above and put it into the `modules` section of your `config/config.js` file.
 
+4\. Finally, say boot up `Magic Mirror` and say "Alexa, what time is it?" 😊
+
 **Note:** For an easy set up, you can omit step 2, and 3, and this will instead use alexa credentials I created, so that even novices can get started. But it is highly recommended you use your own!
 
 # Features

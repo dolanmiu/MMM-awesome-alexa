@@ -12,7 +12,6 @@ export default class Main {
         if (modelConfig === undefined) {
             console.error(`model ${wakeWord} is not found, so using Alexa instead`);
             modelConfig = MODELS.Alexa;
-            console.log(modelConfig);
         }
 
         const models = new AlexaModels(modulePath, modelConfig);

@@ -167,7 +167,7 @@ export class AVSWrapper {
                 Promise.all(promises).then(() => {
                     const promise = this.avs.player.playQueue();
                     promise.then(() => {
-                        console.log('finished playing alegedly');
+                        // Finished playing clip
                         resolve();
                     });
                 });

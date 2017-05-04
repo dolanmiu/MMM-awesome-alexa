@@ -23,7 +23,7 @@ export class AlexaDetector extends Detector {
         });
 
         this.on("hotword", (index, hotword) => {
-            console.log("hotword", index, hotword);
+            // console.log("hotword", index, hotword);
             hotWordDetectedCallback();
         });
     }

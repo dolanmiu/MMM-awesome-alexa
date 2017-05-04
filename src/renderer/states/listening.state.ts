@@ -26,7 +26,6 @@ export class ListeningState extends State {
     }
 
     public onExit(): void {
-        console.log('EXITING THE LISTENING STATE, UNSUBBING');
         this.statusSubscription.unsubscribe();
     }
 

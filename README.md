@@ -34,7 +34,7 @@ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this reposit
 Right Now it only supports Alexa
 
 ### Coming Soon
-- Alexa
+- Computer
 - Jarvis
 - Smart Mirror
 

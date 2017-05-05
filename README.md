@@ -13,6 +13,7 @@
 cd ~/MagicMirror/modules # navigate to module folder
 git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
 cd MMM-awesome-alexa
+npm install
 npm run build
 ```
 

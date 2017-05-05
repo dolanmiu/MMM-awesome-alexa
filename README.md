@@ -12,9 +12,9 @@
 ```bash
 $ cd ~/MagicMirror/modules # navigate to module folder
 $ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
-$ cd MMM-awesome-alexa
-$ npm install
-$ npm run build
+$ cd MMM-awesome-alexa # go into the module directory
+$ npm install # install all the dependancies
+$ npm run build # build the project
 ```
 
 2\. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.

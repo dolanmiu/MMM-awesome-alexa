@@ -1,5 +1,6 @@
 var webpack = require("webpack");
 var fs = require("fs");
+var path = require("path");
 
 var nodeModules = {};
 fs.readdirSync("node_modules")
@@ -18,7 +19,7 @@ module.exports = {
     },
 
     output: {
-        path: "./dist",
+        path: path.resolve(__dirname, "dist"),
         publicPath: "./",
         filename: "[name].js",
         chunkFilename: "[id].chunk.js",

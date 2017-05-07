@@ -18,7 +18,7 @@ $ npm run build # build the project
 ```
 2. You need to install `sox`:
 
-   For OS X (need homebrew):
+   For OS X (need [homebrew](https://brew.sh/)):
 
    ```bash
    $ brew install sox
@@ -31,6 +31,7 @@ $ npm run build # build the project
    ```
    
    For Windows:
+   
    [Download from SourceForge](https://sourceforge.net/projects/sox/files/latest/download)
 
 3. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.

@@ -16,7 +16,7 @@ $ cd MMM-awesome-alexa # go into the module directory
 $ npm install # install all the dependancies
 $ npm run build # build the project
 ```
-2. You need to install `sox`:
+2. You need to install `SoX`:
 
    For OS X (need [homebrew](https://brew.sh/)):
 

@@ -7,7 +7,7 @@
 
 ## Installation
 
-1\. Execute the following commands to install the module:
+1. Execute the following commands to install the module:
 
 ```bash
 $ cd ~/MagicMirror/modules # navigate to module folder
@@ -16,12 +16,28 @@ $ cd MMM-awesome-alexa # go into the module directory
 $ npm install # install all the dependancies
 $ npm run build # build the project
 ```
+2. You need to install `sox`:
 
-2\. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
+   For OS X (need homebrew):
 
-3\. Then, add the previously generated config from the website above and put it into the `modules` section of your `config/config.js` file.
+   ```bash
+   $ brew install sox
+   ```
 
-4\. Finally, say boot up `Magic Mirror` and say "Alexa, what time is it?" 😊
+   For Linux (and thus Raspberry Pi):
+
+   ```bash
+   $ sudo apt-get install sox libsox-fmt-all
+   ```
+   
+   For Windows:
+   [Download from SourceForge](https://sourceforge.net/projects/sox/files/latest/download)
+
+3. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
+
+4. Then, add the previously generated config from the website above and put it into the `modules` section of your `config/config.js` file.
+
+5. Finally, say boot up `Magic Mirror` and say "Alexa, what time is it?" 😊
 
 # Features
 - Wake Word support

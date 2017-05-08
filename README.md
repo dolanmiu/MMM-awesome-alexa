@@ -13,7 +13,8 @@
 $ cd ~/MagicMirror/modules # navigate to module folder
 $ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
 $ cd MMM-awesome-alexa # go into the module directory
-$ npm install # install all the dependancies
+$ npm install --unsafe-perm # install all the dependancies
+$ sudo npm install --unsafe-perm # If on a mac
 $ npm run build # build the project
 ```
 2. You need to install `SoX`:

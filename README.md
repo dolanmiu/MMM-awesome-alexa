@@ -25,7 +25,7 @@ $ npm run build # build the project
    $ brew install sox
    ```
 
-   For Linux (and thus Raspberry Pi):
+   For Linux (and thus `Raspberry Pi`):
 
    ```bash
    $ sudo apt-get install sox libsox-fmt-all
@@ -34,6 +34,19 @@ $ npm run build # build the project
    For Windows:
    
    [Download from SourceForge](https://sourceforge.net/projects/sox/files/latest/download)
+
+3. If you are using `Raspberry Pi` install the following:
+
+   ```bash
+   $ sudo apt-get install swig3.0 python-pyaudio python3-pyaudio sox
+   $ pip install pyaudio
+   ```
+
+   Then install the atlas matrix computing library:
+
+   ```bash
+   $ sudo apt-get install libatlas-base-dev
+   ```
 
 3. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
 

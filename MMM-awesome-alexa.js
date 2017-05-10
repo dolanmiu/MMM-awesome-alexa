@@ -19,6 +19,9 @@ Module.register("MMM-awesome-alexa", {
     },
 
     start: function () {
+        if (this.config.refreshToken === undefined) {
+            throw new Error("Refresh token must be set in the config before using this!");
+        }
         // Needed to initially connect to node_helper;
         this.sendSocketNotification("CONNECT_TEST", {});
         this.sendSocketNotification("WAKE_WORD", this.config.wakeWord);

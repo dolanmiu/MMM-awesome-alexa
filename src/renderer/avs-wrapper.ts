@@ -5,13 +5,16 @@ export class AVSWrapper {
     private avs: any;
 
     constructor(config: Config) {
-        this.avs = new AVS({
+        const options = {
             debug: true,
             clientId: config.clientId,
             clientSecret: config.clientSecret,
             deviceId: config.deviceId,
             refreshToken: config.refreshToken,
-        });
+        };
+        console.log("Initialising AVS with the following options:");
+        console.log(options);
+        this.avs = new AVS(options);
 
         this.avs.on(AVS.EventTypes.RECORD_START, () => {
             // Observable here
@@ -27,8 +30,14 @@ export class AVSWrapper {
     }
 
     public init(): void {
-        this.avs.refreshToken().then(() => this.avs.requestMic())
-            .catch((error: Error) => { console.error(error); });
+        this.avs.refreshToken().then((tokens: object) => {
+            console.log("Obtained tokens!");
+            console.log(tokens);
+        }).catch((error: Error) => {
+            console.error(error);
+            console.error("Failed to get token");
+        });
+        this.avs.requestMic();
     }
 
     public startRecording(): void {

@@ -49,8 +49,27 @@ $ npm run build # build the project
    ```
 
 3. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
+   
+   Sometimes, this does not work, because it would be missing a `Refresh Token`, please follow this guide to manually do it:
 
-4. Then, add the previously generated config from the website above and put it into the `modules` section of your `config/config.js` file.
+   https://miguelmota.com/blog/alexa-voice-service-authentication/
+
+   The `config` should look like:
+
+   ```json
+   {
+     "module": "MMM-awesome-alexa",
+     "position": "bottom_bar",
+     "config": {
+       "wakeWord": "Alexa",
+       "clientId": "YOUR_CLIENT_ID",
+       "clientSecret": "YOUR_CLIENT_SECRET",
+       "deviceId": "YOUR_DEVICE_ID",
+       "refreshToken": "YOUR_REFRESH_TOKEN"
+   }
+   ```
+
+4. Then, add the config from the website above and put it into the `modules` section of your `config/config.js` file.
 
 5. Finally, say boot up `Magic Mirror` and say "Alexa, what time is it?" 😊
 

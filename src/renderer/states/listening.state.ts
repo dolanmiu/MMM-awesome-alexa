@@ -1,6 +1,7 @@
+import { Subscription } from "rxjs/Subscription";
+
 import { IStateMachineComponents } from "./alexa-state-machine";
 import { State } from "./base.state";
-import { Subscription } from "rxjs/Subscription";
 
 export class ListeningState extends State {
 

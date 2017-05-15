@@ -4,6 +4,8 @@ declare module "node-record-lpcm16" {
         verbose: boolean,
     }): Mic;
 
+    export function stop(): any;
+
     export class Mic {
         pipe(detector: any): void;
     }

@@ -30,6 +30,9 @@
     ],
     "max-line-length": [
       false
+    ],
+    "no-console": [
+      false
     ]
   }
 }

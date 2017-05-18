@@ -1,6 +1,6 @@
 import * as record from "node-record-lpcm16";
 
-import { AVSWrapper } from "./avs-wrapper";
+// import { AVSWrapper } from "./avs-wrapper";
 import { AlexaDetector } from "./detector";
 import { MODELS } from "./model-dictionary";
 import { AlexaModels } from "./models";
@@ -32,11 +32,11 @@ export default class Main {
     }
 
     private createStateMachine(config: Config): AlexaStateMachine {
-        const avsWrapper = new AVSWrapper(config);
+        // const avsWrapper = new AVSWrapper(config);
         const vadWrapper = new VADWrapper();
 
         const alexaStateMachine = new AlexaStateMachine({
-            avs: avsWrapper,
+            avs: undefined,
             vad: vadWrapper,
         });
 

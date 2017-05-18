@@ -29,7 +29,7 @@ export class AlexaMirror {
         // this.visualizer.init();
     }
 
-    public receivedNotification(type: NotificationType, payload: any): void {
+    public receivedNotification<T>(type: NotificationType, payload: T): void {
         this.alexaStateMachine.broadcast(type, payload);
     }
 

@@ -1,5 +1,8 @@
 // import * as AVS from "alexa-voice-service";
+/*tslint:disable*/
 const AVS = require("alexa-voice-service");
+/*tslint:enable*/
+/*tslint:disable:no-any*/
 
 export class AVSWrapper {
     private avs: any;

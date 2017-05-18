@@ -40,6 +40,9 @@ export default class Main {
             vad: vadWrapper,
         });
 
+        // avsWrapper.init();
+        vadWrapper.init();
+
         return alexaStateMachine;
     }
 }

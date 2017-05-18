@@ -28,8 +28,6 @@ export class AlexaStateMachine {
         this.speakingState.AllowedStateTransitions = new Map<StateName, State>([["idle", this.idleState]]);
 
         this.currentState = this.idleState;
-
-        this.setupStateEvents(this.currentState);
     }
 
     public get CurrentState(): State {
@@ -38,12 +36,5 @@ export class AlexaStateMachine {
 
     public broadcast(type: NotificationType, data: any): void {
         this.currentState.broadcast(type, data);
-    }
-
-    private setupStateEvents(state: State): void {
-        this.currentState.onStateChange((newState) => {
-            this.currentState = newState;
-            this.setupStateEvents(this.currentState);
-        });
     }
 }

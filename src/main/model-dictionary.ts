@@ -1,5 +1,3 @@
-import { IModelConfig } from "./model-config";
-
 const MODELS: { [key: string]: IModelConfig } = {
     "Alexa": {
         file: "alexa.umdl",

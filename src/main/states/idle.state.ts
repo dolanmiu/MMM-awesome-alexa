@@ -8,8 +8,7 @@ export class IdleState extends State {
     }
 
     public onEnter(): void {
-        this.components.div.classList.remove("wrapper-active");
-        document.body.classList.remove("down-size");
+        // Todo
     }
 
     public onExit(): void {

@@ -13,8 +13,6 @@ export class ListeningState extends State {
 
     public onEnter(): void {
         this.components.avs.startRecording();
-        this.components.div.classList.add("wrapper-active");
-        document.body.classList.add("down-size");
         this.statusSubscription = this.components.vad.Status.subscribe((status) => {
             if (status !== VadStatus.Stopped) {
                 return;

@@ -1,5 +1,4 @@
 import { Models } from "snowboy";
-import { IModelFile } from "./model-file";
 
 export class AlexaModels extends Models {
     constructor(cwd: string, model: IModelFile) {

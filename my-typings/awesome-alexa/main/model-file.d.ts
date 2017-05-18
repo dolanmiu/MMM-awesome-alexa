@@ -1,4 +1,4 @@
-export interface IModelFile {
+declare interface IModelFile {
     name: string;
     file: string;
 }

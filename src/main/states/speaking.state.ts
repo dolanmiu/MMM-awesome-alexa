@@ -8,9 +8,6 @@ export class SpeakingState extends State {
     }
 
     public onEnter(): void {
-        // this.components.visualizer.play(this.components.avs.Avs.player._currentSource);
-        // this.components.visualizer.play(this.components.avs.Source);
-
         this.components.avs.stopRecording().then(() => {
             this.transition(this.allowedStateTransitions.get("idle"));
         });
@@ -20,7 +17,7 @@ export class SpeakingState extends State {
         // Clean up
     }
 
-    public broadcast(type: NotificationType, data: any): void {
+    public broadcast<T>(type: NotificationType, data: T): void {
         // cancel speaking + go back to listening?
         // Or do nothing
     }

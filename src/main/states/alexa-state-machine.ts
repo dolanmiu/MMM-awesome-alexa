@@ -1,6 +1,5 @@
 import { AVSWrapper } from "../avs-wrapper";
 import { VADWrapper } from "../vad-wrapper";
-import { Visualizer } from "../visualizer/visualizer";
 import { State } from "./base.state";
 import { IdleState } from "./idle.state";
 import { ListeningState } from "./listening.state";
@@ -9,9 +8,8 @@ import { SpeakingState } from "./speaking.state";
 export interface IStateMachineComponents {
     avs: AVSWrapper;
     vad: VADWrapper;
-    visualizer: Visualizer;
-    div: HTMLElement;
 }
+
 export class AlexaStateMachine {
     private currentState: State;
     private idleState: IdleState;
@@ -34,7 +32,7 @@ export class AlexaStateMachine {
         return this.currentState;
     }
 
-    public broadcast(type: NotificationType, data: any): void {
+    public broadcast<T>(type: NotificationType, data: T): void {
         this.currentState.broadcast(type, data);
     }
 }

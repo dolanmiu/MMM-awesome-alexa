@@ -25,6 +25,7 @@ Module.register("MMM-awesome-alexa", {
         // Needed to initially connect to node_helper;
         this.sendSocketNotification("CONNECT_TEST", {});
         this.sendSocketNotification("WAKE_WORD", this.config.wakeWord);
+        this.sendSocketNotification("CONFIG", this.config);
     },
 
     getDom: function () {

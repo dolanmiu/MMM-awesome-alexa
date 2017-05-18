@@ -28,7 +28,7 @@ export class ListeningState extends State {
         this.statusSubscription.unsubscribe();
     }
 
-    public broadcast(type: NotificationType, data: any): void {
+    public broadcast<T>(type: NotificationType, data: T): void {
         // Do nothing, already in listening state
     }
 }

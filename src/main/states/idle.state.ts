@@ -15,7 +15,7 @@ export class IdleState extends State {
         // Not Needed
     }
 
-    public broadcast(type: NotificationType, data: any): void {
+    public broadcast<T>(type: NotificationType, data: T): void {
         this.transition(this.allowedStateTransitions.get("listening"));
     }
 }

@@ -18,26 +18,25 @@ export class AlexaDetector extends Detector {
 
         this.on("silence", () => {
             console.log("silence");
+            //If recording started
             if(this.recording != null) {
+              //Silence counter havent been started before
+              if(this.silenceCounter.isStarted() == false){
+                  this.silenceCounter.start();
+              }
 
-            if(this.silenceCounter.isStarted() == false){
-                this.silenceCounter.start();
-            }
-
-            console.log(this.silenceCounter.timeFromStart());
-
-            if(this.silenceCounter.timeFromStart() >  1600){
-                console.log("silence Counter = 3 seconds");
-                this.stopRecord();
-                this.recording = null;     
-                }
-            }
+              //console.log(this.silenceCounter.timeFromStart());
+              //User have been silence for 1.6 seconds
+              if(this.silenceCounter.timeFromStart() >  1600){
+                  this.stopRecord();
+                  this.recording = null;     
+                  }
+              }
         });
 
         this.on("sound", () => {
-            
             this.silenceCounter.stop();
-            console.log("sound");
+            //console.log("sound");
 
 
         });
@@ -55,19 +54,17 @@ export class AlexaDetector extends Detector {
         });
     }
 
-
     public recordMode() :void {
         const date = new Date();
-
         const out = fs.createWriteStream("modules/MMM-awesome-alexa/temp/"+date.getTime+'.wav');
-
-         this.recording = record.start({
+        this.recording = record.start({
             threshold: 0,
             verbose: true,
         });
         this.recording.pipe(out);
         console.log("recording");
     }
+
     public stopRecord() :void {
         record.stop();
     }

@@ -56,7 +56,7 @@ export class AlexaDetector extends Detector {
 
     public recordMode(): void {
         const date = new Date();
-        const out = fs.createWriteStream("modules/MMM-awesome-alexa/temp/" + date.getTime + '.wav');
+        const out = fs.createWriteStream("modules/MMM-awesome-alexa/temp/" + date.getTime() + '.wav');
         this.recording = record.start({
             threshold: 0,
             verbose: true,

@@ -57,6 +57,6 @@ Module.register("MMM-awesome-alexa", {
 
     socketNotificationReceived: function (notification, payload) {
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-        alexaMirror.receivedNotification(notification, payload);
+        // alexaMirror.receivedNotification(notification, payload);
     },
 });

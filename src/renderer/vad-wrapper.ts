@@ -21,9 +21,12 @@ export class VADWrapper {
                     const options = {
                         onVoiceStart: () => {
                             observer.next(VadStatus.Started);
+                            console.log("Voice Started");
                         },
                         onVoiceStop: () => {
                             observer.next(VadStatus.Stopped);
+                            console.log("Voice Stop");
+                            
                         },
                         onUpdate: (val: number) => {
                             // No need

@@ -27,6 +27,7 @@ export default class Main {
         const mic = record.start({
             threshold: 0,
             verbose: true,
+            
         });
         mic.pipe(detector);
     }

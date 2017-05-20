@@ -5,6 +5,8 @@
 # MMM-awesome-alexa
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
 
+> At the moment, this only works for MacOS. Raspberry Pi support will come soon!
+
 ## Installation
 
 1. Execute the following commands to install the module:

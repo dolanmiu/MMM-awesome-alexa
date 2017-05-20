@@ -32,6 +32,7 @@ export default class Main {
         //     threshold: 0,
         //     verbose: true,
         // });
+            
         // mic.pipe(detector);
 
         // Do nullcheck on config

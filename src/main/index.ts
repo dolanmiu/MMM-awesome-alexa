@@ -32,7 +32,7 @@ export default class Main {
         //     threshold: 0,
         //     verbose: true,
         // });
-            
+
         // mic.pipe(detector);
 
         // Do nullcheck on config
@@ -48,9 +48,11 @@ export default class Main {
         const audioService = new AudioService();
 
         f.refreshToken(options).then((token) => {
-            console.log(token);
-            const file = fs.readFileSync(path.join(__dirname, "../../hello.wav"));
-            audioService.sendAudio(token.access_token, file).catch((err) => {
+            console.log(token.access_token);
+            const file = fs.createReadStream(path.join(__dirname, "../../hello.wav"));
+            audioService.sendAudio(token.access_token, file).then((result) => {
+                console.log(result);
+            }).catch((err) => {
                 console.log(err);
             });
         });

@@ -5,10 +5,10 @@ var Timer = require('timer-machine')
 //import {VADWrapper} from  "../renderer/vad-wrapper";
 export class AlexaDetector extends Detector {
 
-    recording : any;
+    recording: any;
     silenceCounter = new Timer();
 
-    constructor(models: Models, cwd: string, hotWordDetectedCallback: () => void = () => {return; }) {
+    constructor(models: Models, cwd: string, hotWordDetectedCallback: () => void = () => { return; }) {
 
         super({
             resource: cwd + "/resources/common.res",
@@ -19,19 +19,19 @@ export class AlexaDetector extends Detector {
         this.on("silence", () => {
             console.log("silence");
             //If recording started
-            if(this.recording != null) {
-              //Silence counter havent been started before
-              if(this.silenceCounter.isStarted() == false){
-                  this.silenceCounter.start();
-              }
+            if (this.recording != null) {
+                //Silence counter havent been started before
+                if (this.silenceCounter.isStarted() == false) {
+                    this.silenceCounter.start();
+                }
 
-              //console.log(this.silenceCounter.timeFromStart());
-              //User have been silence for 1.6 seconds
-              if(this.silenceCounter.timeFromStart() >  1600){
-                  this.stopRecord();
-                  this.recording = null;     
-                  }
-              }
+                //console.log(this.silenceCounter.timeFromStart());
+                //User have been silence for 1.6 seconds
+                if (this.silenceCounter.timeFromStart() > 1600) {
+                    this.stopRecord();
+                    this.recording = null;
+                }
+            }
         });
 
         this.on("sound", () => {
@@ -54,9 +54,9 @@ export class AlexaDetector extends Detector {
         });
     }
 
-    public recordMode() :void {
+    public recordMode(): void {
         const date = new Date();
-        const out = fs.createWriteStream("modules/MMM-awesome-alexa/temp/"+date.getTime+'.wav');
+        const out = fs.createWriteStream("modules/MMM-awesome-alexa/temp/" + date.getTime + '.wav');
         this.recording = record.start({
             threshold: 0,
             verbose: true,
@@ -65,7 +65,7 @@ export class AlexaDetector extends Detector {
         console.log("recording");
     }
 
-    public stopRecord() :void {
+    public stopRecord(): void {
         record.stop();
     }
 }

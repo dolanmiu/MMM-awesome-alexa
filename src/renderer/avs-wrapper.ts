@@ -37,7 +37,7 @@ export class AVSWrapper {
             console.error(error);
             console.error("Failed to get token");
         });
-        this.avs.requestMic();
+        //this.avs.requestMic();
     }
 
     public startRecording(): void {

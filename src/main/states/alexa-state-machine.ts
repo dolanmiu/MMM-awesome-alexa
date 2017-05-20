@@ -6,8 +6,8 @@ import { ListeningState } from "./listening.state";
 import { SpeakingState } from "./speaking.state";
 
 export interface IStateMachineComponents {
-    avs: AVSWrapper;
-    vad: VADWrapper;
+    avs?: AVSWrapper;
+    vad?: VADWrapper;
 }
 
 export class AlexaStateMachine {

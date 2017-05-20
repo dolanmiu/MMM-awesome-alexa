@@ -76,7 +76,7 @@ export class AVSWrapper {
         return this.avs.player._currentSource;
     }
 
-    private createDirectives(xhr: any, response: any): { directives: any, audioMap: any } {
+    private createDirectives(xhr: any, response: any): any {
         let directives = null;
         const audioMap: { [key: string]: any } = {};
 

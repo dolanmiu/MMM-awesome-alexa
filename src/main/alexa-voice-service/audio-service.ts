@@ -1,112 +1,89 @@
 import * as request from "request";
-import { IAVSOptions } from "./avs-options";
 
 const url = "https://access-alexa-na.amazon.com/v1/avs/speechrecognizer/recognize";
 
 export class AudioService {
 
-    constructor(private options: IAVSOptions) {
-    }
-
-    public sendAudio(dataView: DataView): Promise {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-
+    public sendAudio(token: string, file: Buffer): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            console.log(file.toString("utf8"));
             request.post({
                 uri: url,
                 headers: {
-                    "Authorization": `Bearer ${this.options.token}`,
-                    "Content-Type": "multipart/form-data; boundary=" + "BOUNDARY1234",
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data;",
+                },
+                formData: {
+                    metadata: {
+                        options: {
+                            messageHeader: {},
+                            messageBody: {
+                                profile: "alexa-close-talk",
+                                locale: "en-us",
+                                format: "audio/L16; rate=16000; channels=1",
+                            },
+                        },
+                    },
+                    audio: {
+                        value: file.toString("utf8"),
+                    },
                 },
             }, (err, response, body) => {
+                if (err !== null) {
+                    reject(err);
+                    return;
+                }
+
+                if (response.statusCode < 200 || response.statusCode >= 300) {
+                    reject(body);
+                    return;
+                }
+
+                resolve(body);
             });
 
-            xhr.open('POST', url, true);
-            xhr.responseType = 'arraybuffer';
-            xhr.onload = (event) => {
-                const buffer = new Buffer(xhr.response);
+            // const BOUNDARY = 'BOUNDARY1234';
+            // const BOUNDARY_DASHES = '--';
+            // const NEWLINE = '\r\n';
+            // const METADATA_CONTENT_DISPOSITION = 'Content-Disposition: form-data; name="metadata"';
+            // const METADATA_CONTENT_TYPE = 'Content-Type: application/json; charset=UTF-8';
+            // const AUDIO_CONTENT_TYPE = 'Content-Type: audio/L16; rate=16000; channels=1';
+            // const AUDIO_CONTENT_DISPOSITION = 'Content-Disposition: form-data; name="audio"';
 
-                if (xhr.status === 200) {
-                    const parsedMessage = httpMessageParser(buffer);
-                    resolve({ xhr, response: parsedMessage });
-                } else {
-                    let error = new Error('An error occured with request.');
-                    let response = {};
+            // const metadata = {
+            //     messageHeader: {},
+            //     messageBody: {
+            //         profile: 'alexa-close-talk',
+            //         locale: 'en-us',
+            //         format: 'audio/L16; rate=16000; channels=1'
+            //     }
+            // };
 
-                    if (!xhr.response.byteLength) {
-                        error = new Error('Empty response.');
-                    } else {
-                        try {
-                            response = JSON.parse(arrayBufferToString(buffer));
-                        } catch (err) {
-                            error = err;
-                        }
-                    }
+            // const postDataStart = [
+            //     NEWLINE, BOUNDARY_DASHES, BOUNDARY, NEWLINE, METADATA_CONTENT_DISPOSITION, NEWLINE, METADATA_CONTENT_TYPE,
+            //     NEWLINE, NEWLINE, JSON.stringify(metadata), NEWLINE, BOUNDARY_DASHES, BOUNDARY, NEWLINE,
+            //     AUDIO_CONTENT_DISPOSITION, NEWLINE, AUDIO_CONTENT_TYPE, NEWLINE, NEWLINE
+            // ].join('');
 
-                    if (response.error instanceof Object) {
-                        if (response.error.code === AMAZON_ERROR_CODES.InvalidAccessTokenException) {
-                            this.emit(AVS.EventTypes.TOKEN_INVALID);
-                        }
+            // const postDataEnd = [NEWLINE, BOUNDARY_DASHES, BOUNDARY, BOUNDARY_DASHES, NEWLINE].join('');
 
-                        error = response.error.message;
-                    }
+            // const size = postDataStart.length + dataView.byteLength + postDataEnd.length;
+            // const uint8Array = new Uint8Array(size);
+            // let i = 0;
 
-                    this.emit(AVS.EventTypes.ERROR, error);
-                    return reject(error);
-                }
-            };
+            // for (; i < postDataStart.length; i++) {
+            //     uint8Array[i] = postDataStart.charCodeAt(i) & 0xFF;
+            // }
 
-            xhr.onerror = (error) => {
-                this._log(error);
-                reject(error);
-            };
+            // for (let j = 0; j < dataView.byteLength; i++ , j++) {
+            //     uint8Array[i] = dataView.getUint8(j);
+            // }
 
-            const BOUNDARY = 'BOUNDARY1234';
-            const BOUNDARY_DASHES = '--';
-            const NEWLINE = '\r\n';
-            const METADATA_CONTENT_DISPOSITION = 'Content-Disposition: form-data; name="metadata"';
-            const METADATA_CONTENT_TYPE = 'Content-Type: application/json; charset=UTF-8';
-            const AUDIO_CONTENT_TYPE = 'Content-Type: audio/L16; rate=16000; channels=1';
-            const AUDIO_CONTENT_DISPOSITION = 'Content-Disposition: form-data; name="audio"';
+            // for (let j = 0; j < postDataEnd.length; i++ , j++) {
+            //     uint8Array[i] = postDataEnd.charCodeAt(j) & 0xFF;
+            // }
 
-            const metadata = {
-                messageHeader: {},
-                messageBody: {
-                    profile: 'alexa-close-talk',
-                    locale: 'en-us',
-                    format: 'audio/L16; rate=16000; channels=1'
-                }
-            };
-
-            const postDataStart = [
-                NEWLINE, BOUNDARY_DASHES, BOUNDARY, NEWLINE, METADATA_CONTENT_DISPOSITION, NEWLINE, METADATA_CONTENT_TYPE,
-                NEWLINE, NEWLINE, JSON.stringify(metadata), NEWLINE, BOUNDARY_DASHES, BOUNDARY, NEWLINE,
-                AUDIO_CONTENT_DISPOSITION, NEWLINE, AUDIO_CONTENT_TYPE, NEWLINE, NEWLINE
-            ].join('');
-
-            const postDataEnd = [NEWLINE, BOUNDARY_DASHES, BOUNDARY, BOUNDARY_DASHES, NEWLINE].join('');
-
-            const size = postDataStart.length + dataView.byteLength + postDataEnd.length;
-            const uint8Array = new Uint8Array(size);
-            let i = 0;
-
-            for (; i < postDataStart.length; i++) {
-                uint8Array[i] = postDataStart.charCodeAt(i) & 0xFF;
-            }
-
-            for (let j = 0; j < dataView.byteLength; i++ , j++) {
-                uint8Array[i] = dataView.getUint8(j);
-            }
-
-            for (let j = 0; j < postDataEnd.length; i++ , j++) {
-                uint8Array[i] = postDataEnd.charCodeAt(j) & 0xFF;
-            }
-
-            const payload = uint8Array.buffer;
-
-            xhr.setRequestHeader('Authorization', `Bearer ${this.options.token}`);
-            xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + BOUNDARY);
-            xhr.send(payload);
+            // const payload = uint8Array.buffer;
         });
     }
 

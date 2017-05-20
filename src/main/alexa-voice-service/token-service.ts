@@ -2,10 +2,21 @@ import * as request from "request";
 
 import { IAVSOptions } from "./avs-options";
 
+interface IAmazonTokenResponse {
+    access_token: string;
+    refresh_token: string;
+    token_type: string;
+    expires_in: string;
+}
+
 export class TokenService {
 
-    public refreshToken(options: IAVSOptions): Promise<any> {
-        return new Promise((resolve, reject) => {
+    public refreshToken(options: IAVSOptions): Promise<IAmazonTokenResponse> {
+        return new Promise<IAmazonTokenResponse>((resolve, reject) => {
+            if (options.redirectUrl === undefined) {
+                throw new Error("redirectUrl required");
+            }
+
             const grantType = "refresh_token";
             const postData = `grant_type=${grantType}&refresh_token=${options.refreshToken}&client_id=${options.clientId}&client_secret=${options.clientSecret}&redirect_uri=${encodeURIComponent(options.redirectUrl)}`;
 
@@ -16,28 +27,18 @@ export class TokenService {
                     "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
                 },
                 body: postData,
-            }, (err, response, body) => {
+            }, (err, response, body: IAmazonTokenResponse) => {
                 if (err !== null) {
                     reject(err);
                     return;
                 }
 
-                if (response.statusCode < 200 || response.statusCode >= 300) {
+                if (response.statusCode !== undefined && (response.statusCode < 200 || response.statusCode >= 300)) {
                     reject(body);
                     return;
                 }
 
-                console.log(body);
-
                 resolve(body);
-
-                // const token = response.access_token;
-                // const refreshToken = response.refresh_token;
-
-                // this.setToken(token);
-                // this.setRefreshToken(refreshToken);
-
-                // return resolve(token);
             });
         });
     }

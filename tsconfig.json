@@ -12,6 +12,7 @@
             "es7"
         ],
         "noUnusedLocals": true
+        // "strictNullChecks": true
     },
     "exclude": [
         "./node_modules"

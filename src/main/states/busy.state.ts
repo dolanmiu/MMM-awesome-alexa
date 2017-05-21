@@ -11,7 +11,7 @@ export class BusyState extends State {
     }
 
     public onEnter(): void {
-        const file = fs.createReadStream(path.join(__dirname, "../../../hello.wav"));
+        const file = fs.createReadStream(path.join(__dirname, "../../../temp/to-amazon.wav"));
         const accessToken = this.components.configService.Config.accessToken;
         console.log(accessToken);
         this.components.audioService.sendAudio(accessToken, file).then((result) => {

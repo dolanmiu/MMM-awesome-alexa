@@ -15,14 +15,15 @@ export class ListeningState extends State {
         this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
             switch (value) {
                 case DETECTOR.Silence:
-                    this.transition(this.allowedStateTransitions.get("speaking"));
+                    this.components.recorder.stop().then(() => {
+                        this.transition(this.allowedStateTransitions.get("speaking"));
+                    });
                     break;
             }
         });
     }
 
     public onExit(): void {
-        this.components.recorder.stop();
         this.detectorSubscription.unsubscribe();
     }
 }

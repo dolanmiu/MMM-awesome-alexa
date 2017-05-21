@@ -3,6 +3,7 @@ import * as record from "node-record-lpcm16";
 
 export class Recorder {
     private mic: record.Mic;
+    private writeStream: fs.WriteStream;
 
     constructor(private cwd: string) {
     }
@@ -12,20 +13,26 @@ export class Recorder {
             return;
         }
 
-        const out = fs.createWriteStream(`${this.cwd}/temp/to-amazon.wav`);
+        this.writeStream = fs.createWriteStream(`${this.cwd}/temp/to-amazon.wav`);
         this.mic = record.start({
             threshold: 0,
             verbose: true,
         });
-        this.mic.pipe(out);
+        this.mic.pipe(this.writeStream);
     }
 
-    public stop(): void {
+    public stop(): Promise<void> {
         if (this.mic === undefined) {
             return;
         }
 
         record.stop();
         this.mic = undefined;
+
+        return new Promise<void>((resolve) => {
+            this.writeStream.on("finish", () => {
+                resolve();
+            });
+        });
     }
 }

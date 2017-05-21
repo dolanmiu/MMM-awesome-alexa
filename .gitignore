@@ -41,3 +41,6 @@ dist
 
 # VSCode
 .vscode
+
+# Project specific
+temp

@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import * as path from "path";
 
 import { IStateMachineComponents } from "./alexa-state-machine";
 import { State } from "./base.state";
@@ -11,10 +10,11 @@ export class BusyState extends State {
     }
 
     public onEnter(): void {
-        const file = fs.createReadStream(path.join(__dirname, "../../../temp/to-amazon.wav"));
+        const file = fs.createReadStream(`${this.components.cwd}/temp/to-amazon.wav`);
         const accessToken = this.components.configService.Config.accessToken;
         console.log(accessToken);
         this.components.audioService.sendAudio(accessToken, file).then((result) => {
+            console.log("Received sound from Amazon");
             // this.transition(this.allowedStateTransitions.get("idle"));
         }).catch((err) => {
             console.error(err);

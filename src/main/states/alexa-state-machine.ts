@@ -12,6 +12,7 @@ export interface IStateMachineComponents {
     detector: AlexaDetector;
     audioService: AudioService;
     configService: ConfigService;
+    cwd: string;
 }
 
 export class AlexaStateMachine {

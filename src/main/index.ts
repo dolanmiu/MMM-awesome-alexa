@@ -34,7 +34,7 @@ export default class Main {
         const models = this.createAlexaModels(configService.Config);
         const detector = new AlexaDetector(models, modulePath);
         const recorder = new Recorder(modulePath);
-        const audioService = new AudioService();
+        const audioService = new AudioService(modulePath);
 
         detector.start();
 
@@ -43,6 +43,7 @@ export default class Main {
             recorder: recorder,
             audioService: audioService,
             configService: configService,
+            cwd: modulePath,
         });
 
         return alexaStateMachine;

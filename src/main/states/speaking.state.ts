@@ -8,17 +8,12 @@ export class SpeakingState extends State {
     }
 
     public onEnter(): void {
-        this.components.avs.stopRecording().then(() => {
+        /*this.components.avs.stopRecording().then(() => {
             this.transition(this.allowedStateTransitions.get("idle"));
-        });
+        });*/
     }
 
     public onExit(): void {
         // Clean up
-    }
-
-    public broadcast<T>(type: NotificationType, data: T): void {
-        // cancel speaking + go back to listening?
-        // Or do nothing
     }
 }

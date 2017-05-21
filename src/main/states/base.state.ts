@@ -11,8 +11,6 @@ export abstract class State {
 
     public abstract onExit(): void;
 
-    public abstract broadcast<T>(type: NotificationType, data: T): void;
-
     protected transition(state: State): void {
         if (!this.canTransition(state)) {
             console.error(`Invalid transition to state: ${state}`);

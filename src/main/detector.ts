@@ -1,71 +1,60 @@
-import { Detector, Models } from "snowboy";
-import * as fs from "fs";
 import * as record from "node-record-lpcm16";
-var Timer = require('timer-machine')
-//import {VADWrapper} from  "../renderer/vad-wrapper";
+import { Observable } from "rxjs/Observable";
+import { Detector, Models } from "snowboy";
+/* tslint:disable */
+const Timer = require('timer-machine');
+/* tslint:enable */
+
 export class AlexaDetector extends Detector {
+    private silenceTimer = new Timer();
+    private observable: Observable<DETECTOR>;
 
-    recording: any;
-    silenceCounter = new Timer();
-
-    constructor(models: Models, cwd: string, hotWordDetectedCallback: () => void = () => { return; }) {
-
+    constructor(models: Models, cwd: string) {
         super({
             resource: cwd + "/resources/common.res",
             models: models,
             audioGain: 2.0,
         });
-
-        this.on("silence", () => {
-            console.log("silence");
-            //If recording started
-            if (this.recording != null) {
-                //Silence counter havent been started before
-                if (this.silenceCounter.isStarted() == false) {
-                    this.silenceCounter.start();
-                }
-
-                //console.log(this.silenceCounter.timeFromStart());
-                //User have been silence for 1.6 seconds
-                if (this.silenceCounter.timeFromStart() > 1600) {
-                    this.stopRecord();
-                    this.recording = null;
-                }
-            }
-        });
-
-        this.on("sound", () => {
-            this.silenceCounter.stop();
-            //console.log("sound");
-
-
-        });
-
-        this.on("error", () => {
-            // console.log("error");
-        });
-
-        this.on("hotword", (index, hotword) => {
-            // console.log("hotword", index, hotword);
-            hotWordDetectedCallback();
-            console.log('detected hotword, recording audio');
-            this.recordMode();
-
-        });
+        this.observable = this.setUp();
     }
 
-    public recordMode(): void {
-        const date = new Date();
-        const out = fs.createWriteStream("modules/MMM-awesome-alexa/temp/" + date.getTime() + '.wav');
-        this.recording = record.start({
+    public start(): void {
+        const mic = record.start({
             threshold: 0,
             verbose: true,
         });
-        this.recording.pipe(out);
-        console.log("recording");
+
+        mic.pipe(this);
     }
 
-    public stopRecord(): void {
-        record.stop();
+    private setUp(): Observable<DETECTOR> {
+        return new Observable<DETECTOR>((observer) => {
+            this.on("silence", () => {
+                if (this.silenceTimer.isStarted() === false) {
+                    this.silenceTimer.start();
+                }
+
+                if (this.silenceTimer.timeFromStart() > 1600) {
+                    observer.next(DETECTOR.Silence);
+                }
+            });
+
+            this.on("sound", () => {
+                this.silenceTimer.stop();
+            });
+
+            this.on("error", (error) => {
+                console.error(error);
+            });
+
+            this.on("hotword", (index, hotword) => {
+                console.log("hotword", index, hotword);
+                observer.next(DETECTOR.Hotword);
+            });
+        });
+    }
+
+    public get Observable(): Observable<DETECTOR> {
+        return this.observable;
     }
 }

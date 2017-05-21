@@ -1,4 +1,5 @@
 import * as request from "request";
+import { Observable } from "rxjs/Observable";
 
 import { IAVSOptions } from "./avs-options";
 
@@ -10,13 +11,26 @@ interface IAmazonTokenResponse {
 }
 
 export class TokenService {
+    private observable: Observable<IAmazonTokenResponse>;
 
-    public refreshToken(options: IAVSOptions): Promise<IAmazonTokenResponse> {
-        return new Promise<IAmazonTokenResponse>((resolve, reject) => {
+    constructor(options: IAVSOptions) {
+        this.observable = new Observable<IAmazonTokenResponse>((observer) => {
             if (options.redirectUrl === undefined) {
                 throw new Error("redirectUrl required");
             }
 
+            setInterval(() => {
+                this.obtainToken(options).then((token) => {
+                    observer.next(token);
+                }).catch((err) => {
+                    throw new Error(err);
+                });
+            }, 3000 * 1000);
+        });
+    }
+
+    private obtainToken(options: IAVSOptions): Promise<IAmazonTokenResponse> {
+        return new Promise<IAmazonTokenResponse>((resolve, reject) => {
             const grantType = "refresh_token";
             const postData = `grant_type=${grantType}&refresh_token=${options.refreshToken}&client_id=${options.clientId}&client_secret=${options.clientSecret}&redirect_uri=${encodeURIComponent(options.redirectUrl)}`;
 
@@ -41,5 +55,9 @@ export class TokenService {
                 resolve(body);
             });
         });
+    }
+
+    public get Observable(): Observable<IAmazonTokenResponse> {
+        return this.observable;
     }
 }

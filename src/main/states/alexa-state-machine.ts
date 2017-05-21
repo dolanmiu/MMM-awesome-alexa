@@ -1,13 +1,14 @@
-import { AVSWrapper } from "../avs-wrapper";
-import { VADWrapper } from "../vad-wrapper";
+import { } from "../alexa-voice-service";
+import { AlexaDetector } from "../detector";
+import { Recorder } from "../recorder";
 import { State } from "./base.state";
 import { IdleState } from "./idle.state";
 import { ListeningState } from "./listening.state";
 import { SpeakingState } from "./speaking.state";
 
 export interface IStateMachineComponents {
-    avs?: AVSWrapper;
-    vad?: VADWrapper;
+    recorder: Recorder;
+    detector: AlexaDetector;
 }
 
 export class AlexaStateMachine {
@@ -26,13 +27,10 @@ export class AlexaStateMachine {
         this.speakingState.AllowedStateTransitions = new Map<StateName, State>([["idle", this.idleState]]);
 
         this.currentState = this.idleState;
+        this.currentState.onEnter();
     }
 
     public get CurrentState(): State {
         return this.currentState;
-    }
-
-    public broadcast<T>(type: NotificationType, data: T): void {
-        this.currentState.broadcast(type, data);
     }
 }

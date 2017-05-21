@@ -32,8 +32,7 @@ module.exports = NodeHelper.create({
             return;
         }
 
-        const main = new Main(payload, () => {
-            this.sendSocketNotification("hotword", {});
-        });
+        const main = new Main(payload);
+        this.sendSocketNotification("hotword", {});
     },
 });

@@ -4,31 +4,25 @@ import { IStateMachineComponents } from "./alexa-state-machine";
 import { State } from "./base.state";
 
 export class ListeningState extends State {
-
-    private statusSubscription: Subscription;
+    private detectorSubscription: Subscription;
 
     constructor(components: IStateMachineComponents) {
         super(components, "listening");
     }
 
     public onEnter(): void {
-        this.components.avs.startRecording();
-        this.statusSubscription = this.components.vad.Status.subscribe((status) => {
-            if (status !== VadStatus.Stopped) {
-                return;
+        this.components.recorder.start();
+        this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
+            switch (value) {
+                case DETECTOR.Silence:
+                    this.transition(this.allowedStateTransitions.get("speaking"));
+                    break;
             }
-
-            setTimeout(() => {
-                this.transition(this.allowedStateTransitions.get("speaking"));
-            }, 2000);
         });
     }
 
     public onExit(): void {
-        this.statusSubscription.unsubscribe();
-    }
-
-    public broadcast<T>(type: NotificationType, data: T): void {
-        // Do nothing, already in listening state
+        this.components.recorder.stop();
+        this.detectorSubscription.unsubscribe();
     }
 }

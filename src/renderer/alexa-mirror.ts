@@ -10,7 +10,7 @@ export class AlexaMirror {
     private visualizer: Visualizer;
     private alexaStateMachine: AlexaStateMachine;
 
-    constructor(mainDiv: HTMLElement, canvas: HTMLCanvasElement, config: Config) {
+    constructor(private mainDiv: HTMLElement, canvas: HTMLCanvasElement, config: Config) {
         this.avsWrapper = new AVSWrapper(config);
         this.vadWrapper = new VADWrapper();
         // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
@@ -31,6 +31,16 @@ export class AlexaMirror {
 
     public receivedNotification<T>(type: NotificationType, payload: T): void {
         this.alexaStateMachine.broadcast(type, payload);
+    }
+
+    public listening(): void {
+        this.mainDiv.classList.add("wrapper-active");
+        document.body.classList.add("down-size");
+    }
+
+    public idle(): void {
+        this.mainDiv.classList.remove("wrapper-active");
+        document.body.classList.remove("down-size");
     }
 
 }

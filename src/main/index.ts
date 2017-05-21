@@ -3,7 +3,6 @@ import { ConfigService } from "./config-service";
 import { AlexaDetector } from "./detector";
 import { AlexaModels, MODELS } from "./models";
 import { Recorder } from "./recorder";
-import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
 const cwd = process.env.PWD + "/modules/MMM-awesome-alexa";
@@ -11,10 +10,10 @@ const cwd = process.env.PWD + "/modules/MMM-awesome-alexa";
 export default class Main {
     private alexaStateMachine: AlexaStateMachine;
 
-    constructor(uncheckedConfig: UncheckedConfig) {
+    constructor(uncheckedConfig: UncheckedConfig, rendererSend: (event: string, payload: object) => void) {
         const config = this.checkConfig(uncheckedConfig);
         const configService = new ConfigService(config);
-        this.alexaStateMachine = this.createStateMachine(configService);
+        this.alexaStateMachine = this.createStateMachine(configService, rendererSend);
 
         const tokenService = new TokenService({
             refreshToken: config.refreshToken,
@@ -30,12 +29,11 @@ export default class Main {
         });
     }
 
-    private createStateMachine(configService: ConfigService): AlexaStateMachine {
+    private createStateMachine(configService: ConfigService, rendererSend: (event: string, payload: object) => void): AlexaStateMachine {
         const models = this.createAlexaModels(configService.Config);
         const detector = new AlexaDetector(models, cwd);
         const recorder = new Recorder(cwd);
         const audioService = new AudioService(cwd);
-        const rendererCommunicator = new RendererCommunicator();
 
         detector.start();
 
@@ -45,7 +43,7 @@ export default class Main {
             audioService: audioService,
             configService: configService,
             cwd: cwd,
-            rendererCommunicator: rendererCommunicator,
+            rendererSend: rendererSend,
         });
 
         return alexaStateMachine;

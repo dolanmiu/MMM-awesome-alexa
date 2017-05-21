@@ -11,7 +11,7 @@ export class AlexaDetector extends Detector {
 
     constructor(models: Models, cwd: string) {
         super({
-            resource: cwd + "/resources/common.res",
+            resource: `${cwd}/resources/common.res`,
             models: models,
             audioGain: 2.0,
         });

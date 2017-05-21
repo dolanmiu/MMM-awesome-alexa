@@ -16,6 +16,7 @@ export class BusyState extends State {
         this.components.audioService.sendAudio(accessToken, file).then((result) => {
             console.log("Received sound from Amazon");
             // this.transition(this.allowedStateTransitions.get("idle"));
+            this.components.rendererSend("play", {});
         }).catch((err) => {
             console.error(err);
         });

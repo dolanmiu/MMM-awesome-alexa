@@ -9,8 +9,9 @@ export class AudioService {
     }
 
     public sendAudio(token: string, file: fs.ReadStream): Promise<void> {
+        const stream = fs.createWriteStream(`${this.cwd}/temp/output.mpeg`);
+
         return new Promise<void>((resolve, reject) => {
-            const stream = fs.createWriteStream(`${this.cwd}/temp/output.mpeg`);
 
             request.post({
                 uri: url,

@@ -1,1 +1,1 @@
-declare type NotificationType = "idle" | "busy" | "listening";
+declare type NotificationType = "idle" | "busy" | "listening" | "speak";

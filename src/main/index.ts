@@ -24,7 +24,6 @@ export default class Main {
         });
 
         tokenService.Observable.subscribe((token) => {
-            console.log(token);
             configService.Config.accessToken = token.access_token;
         });
     }

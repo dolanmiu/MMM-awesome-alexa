@@ -16,47 +16,45 @@ export default class Main {
     private alexaStateMachine: AlexaStateMachine;
 
     constructor(uncheckedConfig: UncheckedConfig) {
-        ConfigService.config = this.checkConfig(uncheckedConfig);
-        this.alexaStateMachine = this.createStateMachine();
+        const config = this.checkConfig(uncheckedConfig);
+        const configService = new ConfigService(config);
+        this.alexaStateMachine = this.createStateMachine(configService);
 
         const f = new TokenService({
-            refreshToken: ConfigService.config.refreshToken,
-            clientId: ConfigService.config.clientId,
+            refreshToken: config.refreshToken,
+            clientId: config.clientId,
             clientSecret: "10aa15ddc1a0fc1ff3c4afdd6ad0f259546b8942d75c50fcd5990bb12ff5ab5a",
             deviceId: "dolan_alexa_test",
             redirectUrl: "http://localhost:4200/authresponse",
         });
-        const audioService = new AudioService();
 
         f.Observable.subscribe((token) => {
-            ConfigService.config.accessToken = token.access_token;
-            const file = fs.createReadStream(path.join(__dirname, "../../hello.wav"));
-            audioService.sendAudio(token.access_token, file).then((result) => {
-                console.log(result);
-            }).catch((err) => {
-                console.log(err);
-            });
+            configService.Config.accessToken = token.access_token;
         });
     }
 
-    private createStateMachine(): AlexaStateMachine {
-        const models = this.createAlexaModels();
+    private createStateMachine(configService: ConfigService): AlexaStateMachine {
+        const models = this.createAlexaModels(configService.Config);
         const detector = new AlexaDetector(models, modulePath);
         const recorder = new Recorder(modulePath);
+        const audioService = new AudioService();
+
         detector.start();
 
         const alexaStateMachine = new AlexaStateMachine({
             detector: detector,
             recorder: recorder,
+            audioService: audioService,
+            configService: configService,
         });
 
         return alexaStateMachine;
     }
 
-    private createAlexaModels(): AlexaModels {
-        let modelConfig = MODELS[ConfigService.config.wakeWord];
+    private createAlexaModels(config: Config): AlexaModels {
+        let modelConfig = MODELS[config.wakeWord];
         if (modelConfig === undefined) {
-            console.error(`model ${ConfigService.config.wakeWord} is not found, so using Alexa instead`);
+            console.error(`model ${config.wakeWord} is not found, so using Alexa instead`);
             modelConfig = MODELS.Alexa;
         }
 

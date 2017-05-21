@@ -1,30 +1,33 @@
-import { } from "../alexa-voice-service";
+import { AudioService } from "../alexa-voice-service";
+import { ConfigService } from "../config-service";
 import { AlexaDetector } from "../detector";
 import { Recorder } from "../recorder";
 import { State } from "./base.state";
+import { BusyState } from "./busy.state";
 import { IdleState } from "./idle.state";
 import { ListeningState } from "./listening.state";
-import { SpeakingState } from "./speaking.state";
 
 export interface IStateMachineComponents {
     recorder: Recorder;
     detector: AlexaDetector;
+    audioService: AudioService;
+    configService: ConfigService;
 }
 
 export class AlexaStateMachine {
     private currentState: State;
     private idleState: IdleState;
     private listeningState: ListeningState;
-    private speakingState: SpeakingState;
+    private busyState: BusyState;
 
     constructor(components: IStateMachineComponents) {
         this.idleState = new IdleState(components);
         this.listeningState = new ListeningState(components);
-        this.speakingState = new SpeakingState(components);
+        this.busyState = new BusyState(components);
 
         this.idleState.AllowedStateTransitions = new Map<StateName, State>([["listening", this.listeningState]]);
-        this.listeningState.AllowedStateTransitions = new Map<StateName, State>([["speaking", this.speakingState], ["idle", this.idleState]]);
-        this.speakingState.AllowedStateTransitions = new Map<StateName, State>([["idle", this.idleState]]);
+        this.listeningState.AllowedStateTransitions = new Map<StateName, State>([["speaking", this.busyState], ["idle", this.idleState]]);
+        this.busyState.AllowedStateTransitions = new Map<StateName, State>([["idle", this.idleState]]);
 
         this.currentState = this.idleState;
         this.currentState.onEnter();

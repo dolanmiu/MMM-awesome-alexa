@@ -21,7 +21,7 @@ export class AlexaDetector extends Detector {
     public start(): void {
         const mic = record.start({
             threshold: 0,
-            verbose: true,
+            verbose: false,
         });
 
         mic.pipe(this);

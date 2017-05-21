@@ -29,7 +29,7 @@ export default class Main {
         });
     }
 
-    private createStateMachine(configService: ConfigService, rendererSend: (event: string, payload: object) => void): AlexaStateMachine {
+    private createStateMachine(configService: ConfigService, rendererSend: (event: NotificationType, payload: object) => void): AlexaStateMachine {
         const models = this.createAlexaModels(configService.Config);
         const detector = new AlexaDetector(models, cwd);
         const recorder = new Recorder(cwd);

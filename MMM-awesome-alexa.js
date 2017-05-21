@@ -23,8 +23,7 @@ Module.register("MMM-awesome-alexa", {
             throw new Error("Refresh token must be set in the config before using this!");
         }
         // Needed to initially connect to node_helper;
-        this.sendSocketNotification("CONNECT_TEST", {});
-        this.sendSocketNotification("WAKE_WORD", this.config.wakeWord);
+        // this.sendSocketNotification("CONNECT_TEST", {});
         this.sendSocketNotification("CONFIG", this.config);
     },
 
@@ -37,9 +36,9 @@ Module.register("MMM-awesome-alexa", {
         alexaVisualiserCanvas.height = 300;
         alexaWrapper.appendChild(alexaVisualiserCanvas);
 
-        // alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, alexaVisualiserCanvas, this.config);
+        alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, alexaVisualiserCanvas, this.config);
 
-        // alexaMirror.start();
+        alexaMirror.start();
         return alexaWrapper;
     },
 
@@ -57,6 +56,6 @@ Module.register("MMM-awesome-alexa", {
 
     socketNotificationReceived: function (notification, payload) {
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-        // alexaMirror.receivedNotification(notification, payload);
+        alexaMirror.receivedNotification(notification, payload);
     },
 });

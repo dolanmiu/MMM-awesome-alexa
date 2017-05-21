@@ -13,7 +13,16 @@ export class AlexaMirror {
     }
 
     public receivedNotification<T>(type: NotificationType, payload: T): void {
-        // TODO
+        switch (type) {
+            case "idle":
+                this.idle();
+                break;
+            case "listening":
+                this.listening();
+                break;
+            case "busy":
+                break;
+        }
     }
 
     public listening(): void {

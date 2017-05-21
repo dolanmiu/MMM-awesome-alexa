@@ -11,7 +11,7 @@ export class IdleState extends State {
     }
 
     public onEnter(): void {
-        console.log("now in idle state");
+        this.components.rendererSend("idle", {});
         this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
             switch (value) {
                 case DETECTOR.Hotword:

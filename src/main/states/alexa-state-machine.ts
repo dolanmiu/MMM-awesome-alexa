@@ -13,7 +13,7 @@ export interface IStateMachineComponents {
     audioService: AudioService;
     configService: ConfigService;
     cwd: string;
-    rendererSend: (event: string, payload: object) => void;
+    rendererSend: (event: NotificationType, payload: object) => void;
 }
 
 export class AlexaStateMachine {

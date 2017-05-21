@@ -11,6 +11,7 @@ export class ListeningState extends State {
     }
 
     public onEnter(): void {
+        this.components.rendererSend("listening", {});
         this.components.recorder.start();
         this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
             switch (value) {

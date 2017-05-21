@@ -6,8 +6,13 @@ const url = "https://access-alexa-na.amazon.com/v1/avs/speechrecognizer/recogniz
 
 export class AudioService {
 
+    constructor() {
+    }
+
     public sendAudio(token: string, file: fs.ReadStream): Promise<void> {
         return new Promise<void>((resolve, reject) => {
+            const stream = fs.createWriteStream(path.join(__dirname, "../../../temp/output.mpeg"));
+
             request.post({
                 uri: url,
                 headers: {
@@ -46,9 +51,11 @@ export class AudioService {
                     reject(body);
                     return;
                 }
+            }).pipe(stream);
 
+            stream.on("finish", () => {
                 resolve();
-            }).pipe(fs.createWriteStream(path.join(__dirname, "../../output.mpeg")));
+            });
         });
     }
 }

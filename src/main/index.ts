@@ -1,14 +1,10 @@
-import * as fs from "fs";
-import * as path from "path";
-
+import { AudioService, TokenService } from "./alexa-voice-service";
 import { ConfigService } from "./config-service";
 import { AlexaDetector } from "./detector";
 import { MODELS } from "./model-dictionary";
 import { AlexaModels } from "./models";
 import { Recorder } from "./recorder";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
-
-import { AudioService, TokenService } from "./alexa-voice-service";
 
 const modulePath = process.env.PWD + "/modules/MMM-awesome-alexa";
 
@@ -20,7 +16,7 @@ export default class Main {
         const configService = new ConfigService(config);
         this.alexaStateMachine = this.createStateMachine(configService);
 
-        const f = new TokenService({
+        const tokenService = new TokenService({
             refreshToken: config.refreshToken,
             clientId: config.clientId,
             clientSecret: "10aa15ddc1a0fc1ff3c4afdd6ad0f259546b8942d75c50fcd5990bb12ff5ab5a",
@@ -28,7 +24,8 @@ export default class Main {
             redirectUrl: "http://localhost:4200/authresponse",
         });
 
-        f.Observable.subscribe((token) => {
+        tokenService.Observable.subscribe((token) => {
+            console.log(token);
             configService.Config.accessToken = token.access_token;
         });
     }

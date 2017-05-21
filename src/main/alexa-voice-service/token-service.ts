@@ -19,6 +19,12 @@ export class TokenService {
                 throw new Error("redirectUrl required");
             }
 
+            this.obtainToken(options).then((token) => {
+                observer.next(token);
+            }).catch((err) => {
+                throw new Error(err);
+            });
+
             setInterval(() => {
                 this.obtainToken(options).then((token) => {
                     observer.next(token);

@@ -1,4 +1,6 @@
-import { ConfigService } from "../config-service";
+import * as fs from "fs";
+import * as path from "path";
+
 import { IStateMachineComponents } from "./alexa-state-machine";
 import { State } from "./base.state";
 
@@ -9,10 +11,14 @@ export class BusyState extends State {
     }
 
     public onEnter(): void {
-        this.components.audioService.sendAudio()
-        /*this.components.avs.stopRecording().then(() => {
-            this.transition(this.allowedStateTransitions.get("idle"));
-        });*/
+        const file = fs.createReadStream(path.join(__dirname, "../../../hello.wav"));
+        const accessToken = this.components.configService.Config.accessToken;
+        console.log(accessToken);
+        this.components.audioService.sendAudio(accessToken, file).then((result) => {
+            // this.transition(this.allowedStateTransitions.get("idle"));
+        }).catch((err) => {
+            console.error(err);
+        });
     }
 
     public onExit(): void {

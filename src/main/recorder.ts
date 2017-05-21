@@ -12,8 +12,7 @@ export class Recorder {
             return;
         }
 
-        const date = new Date();
-        const out = fs.createWriteStream(`${this.cwd}/temp/${date.getTime()}.wav`);
+        const out = fs.createWriteStream(`${this.cwd}/temp/to-amazon.wav`);
         this.mic = record.start({
             threshold: 0,
             verbose: true,

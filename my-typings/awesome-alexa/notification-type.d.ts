@@ -1,1 +1,1 @@
-declare type NotificationType = "hotword";
+declare type NotificationType = "idle" | "busy" | "listening" | "speak" | "finishedSpeaking";

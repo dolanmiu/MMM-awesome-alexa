@@ -19,12 +19,14 @@
     "@types/node": "^7.0.5",
     "@types/request": "0.0.39",
     "alexa-voice-service": "0.0.7",
-    "node-record-lpcm16": "^0.2.0",
+    "node-record-lpcm16": "^0.3.0",
     "request": "^2.79.0",
     "rimraf": "^2.6.1",
-    "rxjs": "^5.3.1",
+    "rxjs": "^5.4.0",
     "snowboy": "^1.1.0",
-    "voice-activity-detection": "0.0.4"
+    "timer-machine": "^1.1.0",
+    "voice-activity-detection": "0.0.4",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.0.4-rc.2",

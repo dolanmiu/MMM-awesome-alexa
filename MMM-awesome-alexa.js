@@ -23,8 +23,8 @@ Module.register("MMM-awesome-alexa", {
             throw new Error("Refresh token must be set in the config before using this!");
         }
         // Needed to initially connect to node_helper;
-        this.sendSocketNotification("CONNECT_TEST", {});
-        this.sendSocketNotification("WAKE_WORD", this.config.wakeWord);
+        // this.sendSocketNotification("CONNECT_TEST", {});
+        this.sendSocketNotification("CONFIG", this.config);
     },
 
     getDom: function () {
@@ -36,7 +36,9 @@ Module.register("MMM-awesome-alexa", {
         alexaVisualiserCanvas.height = 300;
         alexaWrapper.appendChild(alexaVisualiserCanvas);
 
-        alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, alexaVisualiserCanvas, this.config);
+        alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, alexaVisualiserCanvas, this.config, (event, payload) => {
+            this.sendSocketNotification(event, payload);
+        });
 
         alexaMirror.start();
         return alexaWrapper;

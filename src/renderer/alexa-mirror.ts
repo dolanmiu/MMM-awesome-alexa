@@ -1,36 +1,48 @@
-import { AVSWrapper } from "./avs-wrapper";
-import { AlexaStateMachine } from "./states/alexa-state-machine";
-import { VADWrapper } from "./vad-wrapper";
 // import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
-import { Visualizer } from "./visualizer/visualizer";
+// import { Visualizer } from "./visualizer/visualizer";
 
 export class AlexaMirror {
-    private avsWrapper: AVSWrapper;
-    private vadWrapper: VADWrapper;
-    private visualizer: Visualizer;
-    private alexaStateMachine: AlexaStateMachine;
+    // private visualizer: Visualizer;
 
-    constructor(mainDiv: HTMLElement, canvas: HTMLCanvasElement, config: Config) {
-        this.avsWrapper = new AVSWrapper(config);
-
-        this.vadWrapper = new VADWrapper();
+    constructor(private mainDiv: HTMLElement, canvas: HTMLCanvasElement, config: Config, private mainSend: (event: NotificationType, payload: object) => void) {
         // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
-        this.alexaStateMachine = new AlexaStateMachine({
-            avs: this.avsWrapper,
-            vad: this.vadWrapper,
-            visualizer: this.visualizer,
-            div: mainDiv,
-        });
     }
 
     public start(): void {
-        this.avsWrapper.init();
-        this.vadWrapper.init();
         // this.visualizer.init();
     }
 
-    public receivedNotification(type: NotificationType, payload: any): void {
-        this.alexaStateMachine.broadcast(type, payload);
+    public receivedNotification<T>(type: NotificationType, payload: T): void {
+        switch (type) {
+            case "idle":
+                this.idle();
+                break;
+            case "listening":
+                this.listening();
+                break;
+            case "busy":
+                break;
+            case "speak":
+                this.speaking();
+                break;
+        }
     }
 
+    public listening(): void {
+        this.mainDiv.classList.add("wrapper-active");
+        document.body.classList.add("down-size");
+    }
+
+    public idle(): void {
+        this.mainDiv.classList.remove("wrapper-active");
+        document.body.classList.remove("down-size");
+    }
+
+    public speaking(): void {
+        const sound = new Audio("/output.mpeg");
+        sound.play();
+        sound.addEventListener("ended", () => {
+            this.mainSend("finishedSpeaking", {});
+        });
+    }
 }

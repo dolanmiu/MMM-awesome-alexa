@@ -13,7 +13,7 @@ export class BusyState extends State {
 
     public onEnter(): void {
         this.components.rendererSend("busy", {});
-        const file = fs.createReadStream(`${this.components.cwd}/temp/to-amazon.wav`);
+        const file = fs.createReadStream(`${process.env.CWD}/temp/to-amazon.wav`);
         const accessToken = this.components.configService.Config.accessToken;
 
         this.components.audioService.sendAudio(accessToken, file).then((result) => {

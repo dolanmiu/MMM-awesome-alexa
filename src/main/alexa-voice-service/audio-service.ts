@@ -4,12 +4,8 @@ import * as request from "request";
 const url = "https://access-alexa-na.amazon.com/v1/avs/speechrecognizer/recognize";
 
 export class AudioService {
-
-    constructor(private cwd: string) {
-    }
-
     public sendAudio(token: string, file: fs.ReadStream): Promise<void> {
-        const stream = fs.createWriteStream(`${this.cwd}/temp/output.mpeg`);
+        const stream = fs.createWriteStream(`${process.env.CWD}/temp/output.mpeg`);
 
         return new Promise<void>((resolve, reject) => {
 

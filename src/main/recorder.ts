@@ -5,15 +5,12 @@ export class Recorder {
     private mic: record.Mic;
     private writeStream: fs.WriteStream;
 
-    constructor(private cwd: string) {
-    }
-
     public start(): void {
         if (this.mic !== undefined) {
             return;
         }
 
-        this.writeStream = fs.createWriteStream(`${this.cwd}/temp/to-amazon.wav`);
+        this.writeStream = fs.createWriteStream(`${process.env.CWD}/temp/to-amazon.wav`);
         this.mic = record.start({
             threshold: 0,
             verbose: false,

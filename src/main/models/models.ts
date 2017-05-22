@@ -3,7 +3,7 @@ import { Models } from "snowboy";
 import { MODELS } from "./model-dictionary";
 
 export class AlexaModels extends Models {
-    constructor(cwd: string, wakeWord: string) {
+    constructor(wakeWord: string) {
         super();
 
         let model = MODELS[wakeWord];
@@ -13,7 +13,7 @@ export class AlexaModels extends Models {
         }
 
         this.add({
-            file: `${cwd}/resources/models/${model.file}`,
+            file: `${process.env.CWD}/resources/models/${model.file}`,
             sensitivity: "0.5",
             hotwords: model.name,
         });

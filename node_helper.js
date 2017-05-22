@@ -12,24 +12,6 @@ module.exports = NodeHelper.create({
     },
 
     start: function () {
-        this.expressApp.get("/parse-m3u", function (req, res) {
-            const m3uUrl = req.query.url;
-
-            if (!m3uUrl) {
-                return res.json([]);
-            }
-
-            const urls = [];
-
-            request(m3uUrl, function (error, response, bodyResponse) {
-                if (bodyResponse) {
-                    urls.push(bodyResponse);
-                }
-
-                res.json(urls);
-            });
-        });
-
         this.expressApp.get("/output.mpeg", function (req, res) {
             res.setHeader("Expires", new Date().toUTCString());
 

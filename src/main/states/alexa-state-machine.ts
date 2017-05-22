@@ -13,7 +13,6 @@ export interface IStateMachineComponents {
     detector: AlexaDetector;
     audioService: AudioService;
     configService: ConfigService;
-    cwd: string;
     rendererSend: (event: NotificationType, payload: object) => void;
     rendererCommunicator: RendererCommunicator;
 }

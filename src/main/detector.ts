@@ -12,9 +12,9 @@ export class AlexaDetector extends Detector {
     private silenceTimer = new Timer();
     private subject: Subject<DETECTOR>;
 
-    constructor(models: Models, cwd: string) {
+    constructor(models: Models) {
         super({
-            resource: `${cwd}/resources/common.res`,
+            resource: `${process.env.CWD}/resources/common.res`,
             models: models,
             audioGain: 2.0,
         });

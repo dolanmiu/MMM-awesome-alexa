@@ -6,8 +6,6 @@ import { Recorder } from "./recorder";
 import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
-const cwd = `${process.env.PWD}/modules/MMM-awesome-alexa`;
-
 export default class Main {
     private alexaStateMachine: AlexaStateMachine;
     private rendererCommunicator: RendererCommunicator;
@@ -36,10 +34,10 @@ export default class Main {
     }
 
     private createStateMachine(configService: ConfigService, rendererSend: (event: NotificationType, payload: object) => void): AlexaStateMachine {
-        const models = new AlexaModels(cwd, configService.Config.wakeWord);
-        const detector = new AlexaDetector(models, cwd);
-        const recorder = new Recorder(cwd);
-        const audioService = new AudioService(cwd);
+        const models = new AlexaModels(configService.Config.wakeWord);
+        const detector = new AlexaDetector(models);
+        const recorder = new Recorder();
+        const audioService = new AudioService();
 
         detector.start();
 
@@ -48,7 +46,6 @@ export default class Main {
             recorder: recorder,
             audioService: audioService,
             configService: configService,
-            cwd: cwd,
             rendererSend: rendererSend,
             rendererCommunicator: this.rendererCommunicator,
         });

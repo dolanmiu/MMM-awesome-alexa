@@ -1,8 +1,10 @@
 declare module "snowboy" {
-    export class Detector {
+    import { Stream } from "stream";
+    
+    export class Detector extends Stream {
         constructor(params: any);
 
-        on(event: string, callback: (index?: any, hotword?: any) => void): void;
+        on(event: string | symbol, callback: (index?: any, hotword?: any) => void): this;
     }
 
     export class Models {

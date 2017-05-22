@@ -1,6 +1,7 @@
 interface IExtendedConfig extends Config {
     accessToken?: string;
 }
+
 export class ConfigService {
     private config: IExtendedConfig;
 

@@ -1,7 +1,7 @@
 import { AudioService, TokenService } from "./alexa-voice-service";
 import { ConfigService } from "./config-service";
 import { AlexaDetector } from "./detector";
-import { AlexaModels, MODELS } from "./models";
+import { AlexaModels } from "./models";
 import { Recorder } from "./recorder";
 import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
@@ -36,7 +36,7 @@ export default class Main {
     }
 
     private createStateMachine(configService: ConfigService, rendererSend: (event: NotificationType, payload: object) => void): AlexaStateMachine {
-        const models = this.createAlexaModels(configService.Config);
+        const models = new AlexaModels(cwd, configService.Config.wakeWord);
         const detector = new AlexaDetector(models, cwd);
         const recorder = new Recorder(cwd);
         const audioService = new AudioService(cwd);
@@ -54,18 +54,6 @@ export default class Main {
         });
 
         return alexaStateMachine;
-    }
-
-    private createAlexaModels(config: Config): AlexaModels {
-        let modelConfig = MODELS[config.wakeWord];
-        if (modelConfig === undefined) {
-            console.error(`model ${config.wakeWord} is not found, so using Alexa instead`);
-            modelConfig = MODELS.Alexa;
-        }
-
-        const models = new AlexaModels(cwd, modelConfig);
-
-        return models;
     }
 
     private checkConfig(uncheckedConfig: UncheckedConfig): Config {

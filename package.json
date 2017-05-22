@@ -10,7 +10,8 @@
     "test": "npm run lint",
     "electron-rebuild": "electron-rebuild",
     "lint": "tslint --project .",
-    "tsc": "tsc -p ."
+    "tsc": "tsc -p .",
+    "node-pre-gyp": "node-pre-gyp clean configure build"
   },
   "author": "Dolan Miu",
   "license": "MIT",

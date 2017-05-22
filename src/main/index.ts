@@ -3,16 +3,19 @@ import { ConfigService } from "./config-service";
 import { AlexaDetector } from "./detector";
 import { AlexaModels, MODELS } from "./models";
 import { Recorder } from "./recorder";
+import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
 const cwd = process.env.PWD + "/modules/MMM-awesome-alexa";
 
 export default class Main {
     private alexaStateMachine: AlexaStateMachine;
+    private rendererCommunicator: RendererCommunicator;
 
     constructor(uncheckedConfig: UncheckedConfig, rendererSend: (event: string, payload: object) => void) {
         const config = this.checkConfig(uncheckedConfig);
         const configService = new ConfigService(config);
+        this.rendererCommunicator = new RendererCommunicator();
         this.alexaStateMachine = this.createStateMachine(configService, rendererSend);
 
         const tokenService = new TokenService({
@@ -26,6 +29,10 @@ export default class Main {
         tokenService.Observable.subscribe((token) => {
             configService.Config.accessToken = token.access_token;
         });
+    }
+
+    public receivedNotification<T>(type: NotificationType, payload: T): void {
+        this.rendererCommunicator.sendNotification(type);
     }
 
     private createStateMachine(configService: ConfigService, rendererSend: (event: NotificationType, payload: object) => void): AlexaStateMachine {
@@ -43,6 +50,7 @@ export default class Main {
             configService: configService,
             cwd: cwd,
             rendererSend: rendererSend,
+            rendererCommunicator: this.rendererCommunicator,
         });
 
         return alexaStateMachine;

@@ -1,11 +1,10 @@
 // import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
 // import { Visualizer } from "./visualizer/visualizer";
-// import * as path from "path";
 
 export class AlexaMirror {
     // private visualizer: Visualizer;
 
-    constructor(private mainDiv: HTMLElement, canvas: HTMLCanvasElement, config: Config) {
+    constructor(private mainDiv: HTMLElement, canvas: HTMLCanvasElement, config: Config, private mainSend: (event: NotificationType, payload: object) => void) {
         // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
     }
 
@@ -22,11 +21,9 @@ export class AlexaMirror {
                 this.listening();
                 break;
             case "busy":
-                console.log(payload);
                 break;
             case "speak":
-                const sound = new Audio("/modules/MMM-awesome-alexa/temp/output.mpeg");
-                sound.play();
+                this.speaking();
                 break;
         }
     }
@@ -41,4 +38,11 @@ export class AlexaMirror {
         document.body.classList.remove("down-size");
     }
 
+    public speaking(): void {
+        const sound = new Audio("/modules/MMM-awesome-alexa/temp/output.mpeg");
+        sound.play();
+        sound.addEventListener("ended", () => {
+            this.mainSend("finishedSpeaking", {});
+        });
+    }
 }

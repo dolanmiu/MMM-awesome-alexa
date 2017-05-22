@@ -1,6 +1,8 @@
 const NodeHelper = require("node_helper");
 const Main = require("./dist/main/index.js");
 
+let main;
+
 module.exports = NodeHelper.create({
     socketNotificationReceived: function (notification, payload) {
         // Renderer sends "main" a notification to connect
@@ -28,13 +30,13 @@ module.exports = NodeHelper.create({
 
     // Because this.config is not accessible from node_helper for some reason. Need to pass from the js file.
     socketNotificationReceived: function (notification, payload) {
-        if (notification !== "CONFIG") {
+        if (notification === "CONFIG") {
+            main = new Main(payload, (event, payload) => {
+                this.sendSocketNotification(event, payload);
+            }, this.socketNotificationReceived);
             return;
         }
 
-        const main = new Main(payload, (event, payload) => {
-            this.sendSocketNotification(event, payload);
-        });
-        this.sendSocketNotification("hotword", {});
+        main.receivedNotification(notification, payload);
     },
 });

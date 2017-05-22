@@ -2,6 +2,7 @@ import { AudioService } from "../alexa-voice-service";
 import { ConfigService } from "../config-service";
 import { AlexaDetector } from "../detector";
 import { Recorder } from "../recorder";
+import { RendererCommunicator } from "../renderer-communicator";
 import { State } from "./base.state";
 import { BusyState } from "./busy.state";
 import { IdleState } from "./idle.state";
@@ -14,6 +15,7 @@ export interface IStateMachineComponents {
     configService: ConfigService;
     cwd: string;
     rendererSend: (event: NotificationType, payload: object) => void;
+    rendererCommunicator: RendererCommunicator;
 }
 
 export class AlexaStateMachine {

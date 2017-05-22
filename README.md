@@ -1,5 +1,7 @@
 [![Chat on Gitter][gitter-image]][gitter-url]
 [![Dependency Status][gemnasium-image]][gemnasium-url]
+[![dependencies Status][daviddm-image]][daviddm-url]
+[![Build Status][travis-image]][travis-url]
 
 # MMM-awesome-alexa
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
@@ -99,3 +101,9 @@ Right Now it only supports Alexa
 
 [gemnasium-image]: https://gemnasium.com/badges/github.com/dolanmiu/MMM-awesome-alexa.svg
 [gemnasium-url]: https://gemnasium.com/github.com/dolanmiu/MMM-awesome-alexa
+
+[travis-image]: https://travis-ci.org/dolanmiu/MMM-awesome-alexa.svg?branch=master
+[travis-url]: https://travis-ci.org/dolanmiu/MMM-awesome-alexa
+
+[daviddm-image]: https://david-dm.org/dolanmiu/MMM-awesome-alexa/status.svg
+[daviddm-url]: https://david-dm.org/dolanmiu/MMM-awesome-alexa

@@ -1,13 +1,16 @@
 import * as record from "node-record-lpcm16";
 import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
 import { Detector, Models } from "snowboy";
 /* tslint:disable */
 const Timer = require('timer-machine');
 /* tslint:enable */
 
+const WAIT_TIME = 700;
+
 export class AlexaDetector extends Detector {
     private silenceTimer = new Timer();
-    private observable: Observable<DETECTOR>;
+    private subject: Subject<DETECTOR>;
 
     constructor(models: Models, cwd: string) {
         super({
@@ -15,7 +18,8 @@ export class AlexaDetector extends Detector {
             models: models,
             audioGain: 2.0,
         });
-        this.observable = this.setUp();
+        this.subject = new Subject<DETECTOR>();
+        this.setUp();
     }
 
     public start(): void {
@@ -27,34 +31,32 @@ export class AlexaDetector extends Detector {
         mic.pipe(this);
     }
 
-    private setUp(): Observable<DETECTOR> {
-        return new Observable<DETECTOR>((observer) => {
-            this.on("silence", () => {
-                if (this.silenceTimer.isStarted() === false) {
-                    this.silenceTimer.start();
-                }
+    private setUp(): void {
+        this.on("silence", () => {
+            if (this.silenceTimer.isStarted() === false) {
+                this.silenceTimer.start();
+            }
 
-                if (this.silenceTimer.timeFromStart() > 1600) {
-                    observer.next(DETECTOR.Silence);
-                }
-            });
+            if (this.silenceTimer.timeFromStart() > WAIT_TIME) {
+                this.subject.next(DETECTOR.Silence);
+            }
+        });
 
-            this.on("sound", () => {
-                this.silenceTimer.stop();
-            });
+        this.on("sound", () => {
+            this.silenceTimer.stop();
+        });
 
-            this.on("error", (error) => {
-                console.error(error);
-            });
+        this.on("error", (error) => {
+            console.error(error);
+        });
 
-            this.on("hotword", (index, hotword) => {
-                console.log("hotword", index, hotword);
-                observer.next(DETECTOR.Hotword);
-            });
+        this.on("hotword", (index, hotword) => {
+            console.log("hotword", index, hotword);
+            this.subject.next(DETECTOR.Hotword);
         });
     }
 
     public get Observable(): Observable<DETECTOR> {
-        return this.observable;
+        return this.subject.asObservable();
     }
 }

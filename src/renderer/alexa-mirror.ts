@@ -39,7 +39,7 @@ export class AlexaMirror {
     }
 
     public speaking(): void {
-        const sound = new Audio("/modules/MMM-awesome-alexa/temp/output.mpeg");
+        const sound = new Audio("/output.mpeg");
         sound.play();
         sound.addEventListener("ended", () => {
             this.mainSend("finishedSpeaking", {});

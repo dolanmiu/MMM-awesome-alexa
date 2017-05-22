@@ -1,7 +1,10 @@
+const fs = require("fs");
 const NodeHelper = require("node_helper");
 const Main = require("./dist/main/index.js");
 
 let main;
+
+process.env.CWD = `${process.env.PWD}/modules/MMM-awesome-alexa`;
 
 module.exports = NodeHelper.create({
     socketNotificationReceived: function (notification, payload) {
@@ -25,6 +28,13 @@ module.exports = NodeHelper.create({
 
                 res.json(urls);
             });
+        });
+
+        this.expressApp.get("/output.mpeg", function (req, res) {
+            res.setHeader("Expires", new Date().toUTCString());
+
+            var rstream = fs.createReadStream(`${process.env.CWD}/temp/output.mpeg`);
+            rstream.pipe(res);
         });
     },
 

@@ -6,7 +6,7 @@ import { Recorder } from "./recorder";
 import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
-const cwd = process.env.PWD + "/modules/MMM-awesome-alexa";
+const cwd = `${process.env.PWD}/modules/MMM-awesome-alexa`;
 
 export default class Main {
     private alexaStateMachine: AlexaStateMachine;
@@ -21,9 +21,9 @@ export default class Main {
         const tokenService = new TokenService({
             refreshToken: config.refreshToken,
             clientId: config.clientId,
-            clientSecret: "10aa15ddc1a0fc1ff3c4afdd6ad0f259546b8942d75c50fcd5990bb12ff5ab5a",
-            deviceId: "dolan_alexa_test",
-            redirectUrl: "http://localhost:4200/authresponse",
+            clientSecret: config.clientSecret,
+            deviceId: config.deviceId,
+            redirectUrl: "",
         });
 
         tokenService.Observable.subscribe((token) => {

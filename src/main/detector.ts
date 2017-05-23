@@ -2,9 +2,7 @@ import * as record from "node-record-lpcm16";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { Detector, Models } from "snowboy";
-/* tslint:disable */
-const Timer = require('timer-machine');
-/* tslint:enable */
+import * as Timer from "timer-machine";
 
 const WAIT_TIME = 700;
 

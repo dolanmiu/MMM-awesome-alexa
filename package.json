@@ -18,6 +18,7 @@
   "dependencies": {
     "@types/node": "^7.0.5",
     "@types/request": "0.0.39",
+    "@types/timer-machine": "^1.1.0",
     "alexa-voice-service": "0.0.7",
     "node-record-lpcm16": "^0.3.0",
     "request": "^2.79.0",

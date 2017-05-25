@@ -1,3 +1,4 @@
+// Reference: https://developer.amazon.com/public/solutions/alexa/alexa-voice-service/rest/speechrecognizer-recognize-request
 import * as fs from "fs";
 import * as request from "request";
 

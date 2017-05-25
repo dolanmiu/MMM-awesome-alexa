@@ -21,7 +21,6 @@ export class AlexaDetector extends Detector {
 
     private setUp(): void {
         this.on("silence", () => {
-            console.log("silence");
             if (this.silenceTimer.isStarted() === false) {
                 this.silenceTimer.start();
             }
@@ -32,7 +31,6 @@ export class AlexaDetector extends Detector {
         });
 
         this.on("sound", () => {
-            console.log("sound");
             this.silenceTimer.stop();
         });
 

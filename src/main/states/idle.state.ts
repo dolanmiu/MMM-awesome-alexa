@@ -1,3 +1,4 @@
+import * as record from "node-record-lpcm16";
 import { Subscription } from "rxjs/Subscription";
 
 import { AlexaDetector } from "../detector";
@@ -14,9 +15,9 @@ export class IdleState extends State {
     public onEnter(): void {
         this.components.rendererSend("idle", {});
         this.components.detector = new AlexaDetector(this.components.models);
-        this.components.micHandler.start();
+        this.components.mic = this.createMic();
         // tslint:disable-next-line:no-any
-        this.components.micHandler.Mic.pipe(this.components.detector as any);
+        this.components.mic.pipe(this.components.detector as any);
         this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
             switch (value) {
                 case DETECTOR.Hotword:
@@ -28,5 +29,14 @@ export class IdleState extends State {
 
     public onExit(): void {
         this.detectorSubscription.unsubscribe();
+    }
+
+    private createMic(): record.Mic {
+        const mic = record.start({
+            threshold: 0,
+            verbose: false,
+        });
+
+        return mic;
     }
 }

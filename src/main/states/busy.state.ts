@@ -13,10 +13,10 @@ export class BusyState extends State {
 
     public onEnter(): void {
         this.components.rendererSend("busy", {});
-        const file = fs.createReadStream(`${process.env.CWD}/temp/to-amazon.wav`);
+        const readStream = fs.createReadStream(`${process.env.CWD}/temp/to-amazon.wav`);
         const accessToken = this.components.configService.Config.accessToken;
 
-        this.components.audioService.sendAudio(accessToken, file).then((result) => {
+        this.components.audioService.sendAudio(accessToken, readStream).then((result) => {
             this.components.rendererSend("speak", {});
         }).catch((err) => {
             console.error(err);

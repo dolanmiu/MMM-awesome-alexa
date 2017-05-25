@@ -14,6 +14,7 @@ module.exports = NodeHelper.create({
     start: function () {
         this.expressApp.get("/output.mpeg", function (req, res) {
             res.setHeader("Expires", new Date().toUTCString());
+            const path = `${process.env.CWD}/temp/output.mpeg`;
 
             if (!fs.existsSync(path)) {
                 const rstream = fs.createReadStream(`${process.env.CWD}/audio/sorry-im-not-sure.mpeg`);
@@ -21,7 +22,7 @@ module.exports = NodeHelper.create({
                 return;
             }
 
-            const rstream = fs.createReadStream(`${process.env.CWD}/temp/output.mpeg`);
+            const rstream = fs.createReadStream(path);
             rstream.pipe(res);
         });
     },

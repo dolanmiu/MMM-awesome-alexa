@@ -16,9 +16,15 @@ export class ListeningState extends State {
         this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
             switch (value) {
                 case DETECTOR.Silence:
+                    if (this.components.recorder.IsStarted === false) {
+                        return;
+                    }
+
                     this.components.recorder.stop().then(() => {
                         this.transition(this.allowedStateTransitions.get("busy"));
                     });
+                    // this.transition(this.allowedStateTransitions.get("busy"));
+
                     break;
             }
         });

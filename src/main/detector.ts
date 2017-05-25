@@ -1,8 +1,9 @@
-import * as record from "node-record-lpcm16";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { Detector, Models } from "snowboy";
 import * as Timer from "timer-machine";
+
+import { MicHandler } from "./mic-handler";
 
 const WAIT_TIME = 700;
 
@@ -10,7 +11,7 @@ export class AlexaDetector extends Detector {
     private silenceTimer = new Timer();
     private subject: Subject<DETECTOR>;
 
-    constructor(models: Models) {
+    constructor(private micHandler: MicHandler, models: Models) {
         super({
             resource: `${process.env.CWD}/resources/common.res`,
             models: models,
@@ -21,16 +22,13 @@ export class AlexaDetector extends Detector {
     }
 
     public start(): void {
-        const mic = record.start({
-            threshold: 0,
-            verbose: false,
-        });
-
-        mic.pipe(this);
+        // tslint:disable-next-line:no-any
+        this.micHandler.pipe(this as any);
     }
 
     private setUp(): void {
         this.on("silence", () => {
+            console.log("silence");
             if (this.silenceTimer.isStarted() === false) {
                 this.silenceTimer.start();
             }
@@ -41,6 +39,7 @@ export class AlexaDetector extends Detector {
         });
 
         this.on("sound", () => {
+            console.log("sound");
             this.silenceTimer.stop();
         });
 

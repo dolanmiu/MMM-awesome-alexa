@@ -1,1 +1,1 @@
-declare type StateName = "idle" | "listening" | "speaking";
+declare type StateName = "idle" | "listening" | "busy";

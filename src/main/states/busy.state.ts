@@ -8,7 +8,7 @@ export class BusyState extends State {
     private rendererSubscription: Subscription;
 
     constructor(components: IStateMachineComponents) {
-        super(components, "speaking");
+        super(components, "busy");
     }
 
     public onEnter(): void {

@@ -29,7 +29,7 @@ export class AlexaStateMachine {
         this.busyState = new BusyState(components);
 
         this.idleState.AllowedStateTransitions = new Map<StateName, State>([["listening", this.listeningState]]);
-        this.listeningState.AllowedStateTransitions = new Map<StateName, State>([["speaking", this.busyState], ["idle", this.idleState]]);
+        this.listeningState.AllowedStateTransitions = new Map<StateName, State>([["busy", this.busyState], ["idle", this.idleState]]);
         this.busyState.AllowedStateTransitions = new Map<StateName, State>([["idle", this.idleState]]);
 
         this.currentState = this.idleState;

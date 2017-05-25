@@ -17,7 +17,7 @@ export class ListeningState extends State {
             switch (value) {
                 case DETECTOR.Silence:
                     this.components.recorder.stop().then(() => {
-                        this.transition(this.allowedStateTransitions.get("speaking"));
+                        this.transition(this.allowedStateTransitions.get("busy"));
                     });
                     break;
             }

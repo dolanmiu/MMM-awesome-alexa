@@ -1,6 +1,8 @@
+import { Models } from "snowboy";
 import { AudioService } from "../alexa-voice-service";
 import { ConfigService } from "../config-service";
 import { AlexaDetector } from "../detector";
+import { MicHandler } from "../mic-handler";
 import { Recorder } from "../recorder";
 import { RendererCommunicator } from "../renderer-communicator";
 import { State } from "./base.state";
@@ -10,11 +12,13 @@ import { ListeningState } from "./listening.state";
 
 export interface IStateMachineComponents {
     recorder: Recorder;
-    detector: AlexaDetector;
+    detector?: AlexaDetector;
     audioService: AudioService;
     configService: ConfigService;
     rendererSend: (event: NotificationType, payload: object) => void;
     rendererCommunicator: RendererCommunicator;
+    micHandler: MicHandler;
+    models: Models;
 }
 
 export class AlexaStateMachine {

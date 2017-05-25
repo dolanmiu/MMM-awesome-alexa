@@ -3,15 +3,13 @@ import { Subject } from "rxjs/Subject";
 import { Detector, Models } from "snowboy";
 import * as Timer from "timer-machine";
 
-import { MicHandler } from "./mic-handler";
-
 const WAIT_TIME = 700;
 
 export class AlexaDetector extends Detector {
     private silenceTimer = new Timer();
     private subject: Subject<DETECTOR>;
 
-    constructor(private micHandler: MicHandler, models: Models) {
+    constructor(models: Models) {
         super({
             resource: `${process.env.CWD}/resources/common.res`,
             models: models,
@@ -19,11 +17,6 @@ export class AlexaDetector extends Detector {
         });
         this.subject = new Subject<DETECTOR>();
         this.setUp();
-    }
-
-    public start(): void {
-        // tslint:disable-next-line:no-any
-        this.micHandler.pipe(this as any);
     }
 
     private setUp(): void {

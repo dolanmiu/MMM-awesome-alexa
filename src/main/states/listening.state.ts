@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import { Subscription } from "rxjs/Subscription";
 
 import { IStateMachineComponents } from "./alexa-state-machine";
@@ -12,19 +13,17 @@ export class ListeningState extends State {
 
     public onEnter(): void {
         this.components.rendererSend("listening", {});
-        this.components.recorder.start();
+        // this.components.recorder.start();
+        const writeStream = fs.createWriteStream(`${process.env.CWD}/temp/to-amazon.wav`);
+        writeStream.on("finish", () => {
+            this.transition(this.allowedStateTransitions.get("busy"));
+        });
+        this.components.micHandler.Mic.pipe(writeStream);
+
         this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
             switch (value) {
                 case DETECTOR.Silence:
-                    if (this.components.recorder.IsStarted === false) {
-                        return;
-                    }
-
-                    this.components.recorder.stop().then(() => {
-                        this.transition(this.allowedStateTransitions.get("busy"));
-                    });
-                    // this.transition(this.allowedStateTransitions.get("busy"));
-
+                    this.components.micHandler.stop();
                     break;
             }
         });

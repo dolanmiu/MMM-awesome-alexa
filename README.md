@@ -3,6 +3,10 @@
 [![dependencies Status][daviddm-image]][daviddm-url]
 [![Build Status][travis-image]][travis-url]
 
+<p align="center">
+   <img src="https://images.seeklogo.net/2017/03/amazon-alexa-logo.png" height="300">
+<p>
+
 # MMM-awesome-alexa
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
 

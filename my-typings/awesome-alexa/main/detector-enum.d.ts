@@ -1,3 +1,3 @@
 declare const enum DETECTOR {
-    Silence, Hotword
+    Silence, Hotword, Sound
 }

@@ -1,12 +1,18 @@
 declare module "node-record-lpcm16" {
+    import { Readable } from "stream";
+
     export function start(params: {
-        threshold: number,
-        verbose: boolean,
+        sampleRate?: number,
+        compress?: boolean,
+        threshold?: number,
+        thresholdStart?: any,
+        thresholdEnd?: any,
+        silence?: number,
+        verbose?: boolean,
+        recordProgram?: string
     }): Mic;
 
     export function stop(): any;
-
-    export class Mic {
-        pipe(detector: any): void;
+    export class Mic extends Readable {
     }
 }

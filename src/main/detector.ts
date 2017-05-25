@@ -1,4 +1,3 @@
-import * as record from "node-record-lpcm16";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { Detector, Models } from "snowboy";
@@ -18,16 +17,6 @@ export class AlexaDetector extends Detector {
         });
         this.subject = new Subject<DETECTOR>();
         this.setUp();
-    }
-
-    public start(): void {
-        const mic = record.start({
-            threshold: 0,
-            verbose: false,
-        });
-
-        // tslint:disable-next-line:no-any
-        mic.pipe(this as any);
     }
 
     private setUp(): void {

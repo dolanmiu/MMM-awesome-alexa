@@ -1,7 +1,8 @@
+import { Mic } from "node-record-lpcm16";
+import { Models } from "snowboy";
 import { AudioService } from "../alexa-voice-service";
 import { ConfigService } from "../config-service";
 import { AlexaDetector } from "../detector";
-import { Recorder } from "../recorder";
 import { RendererCommunicator } from "../renderer-communicator";
 import { State } from "./base.state";
 import { BusyState } from "./busy.state";
@@ -9,12 +10,13 @@ import { IdleState } from "./idle.state";
 import { ListeningState } from "./listening.state";
 
 export interface IStateMachineComponents {
-    recorder: Recorder;
-    detector: AlexaDetector;
+    detector?: AlexaDetector;
     audioService: AudioService;
     configService: ConfigService;
     rendererSend: (event: NotificationType, payload: object) => void;
     rendererCommunicator: RendererCommunicator;
+    mic?: Mic;
+    models: Models;
 }
 
 export class AlexaStateMachine {

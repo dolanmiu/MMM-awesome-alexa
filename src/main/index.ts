@@ -1,8 +1,6 @@
 import { AudioService, TokenService } from "./alexa-voice-service";
 import { ConfigService } from "./config-service";
-import { AlexaDetector } from "./detector";
 import { AlexaModels } from "./models";
-import { Recorder } from "./recorder";
 import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
@@ -35,19 +33,14 @@ export default class Main {
 
     private createStateMachine(configService: ConfigService, rendererSend: (event: NotificationType, payload: object) => void): AlexaStateMachine {
         const models = new AlexaModels(configService.Config.wakeWord);
-        const detector = new AlexaDetector(models);
-        const recorder = new Recorder();
         const audioService = new AudioService();
 
-        detector.start();
-
         const alexaStateMachine = new AlexaStateMachine({
-            detector: detector,
-            recorder: recorder,
             audioService: audioService,
             configService: configService,
             rendererSend: rendererSend,
             rendererCommunicator: this.rendererCommunicator,
+            models: models,
         });
 
         return alexaStateMachine;

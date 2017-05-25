@@ -26,7 +26,8 @@ export class AlexaDetector extends Detector {
             verbose: false,
         });
 
-        mic.pipe(this);
+        // tslint:disable-next-line:no-any
+        mic.pipe(this as any);
     }
 
     private setUp(): void {

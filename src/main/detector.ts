@@ -5,7 +5,7 @@ import * as Timer from "timer-machine";
 
 const WAIT_TIME = 700;
 
-export class AlexaDetector extends Detector {
+export class HotwordDetector extends Detector {
     private silenceTimer = new Timer();
     private subject: Subject<DETECTOR>;
 

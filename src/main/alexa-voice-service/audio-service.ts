@@ -50,6 +50,12 @@ export class AudioService {
             }).pipe(stream);
 
             stream.on("finish", () => {
+                if (stream.bytesWritten === 0) {
+                    fs.unlink(`${process.env.CWD}/temp/output.mpeg`, () => {
+                        resolve();
+                    });
+                    return;
+                }
                 resolve();
             });
         });

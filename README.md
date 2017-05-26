@@ -12,7 +12,7 @@
 
 > Just made an **AWESOME** release which adds Travis CI and very good code quality and best practices
 
-> At the moment, this only works for MacOS. Raspberry Pi support will come soon!
+> At the moment, this only works for MacOS and Ubuntu. Raspberry Pi support will come soon!
 
 ## Installation
 

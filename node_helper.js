@@ -17,7 +17,7 @@ module.exports = NodeHelper.create({
             const path = `${process.env.CWD}/temp/output.mpeg`;
 
             if (!fs.existsSync(path)) {
-                const rstream = fs.createReadStream(`${process.env.CWD}/audio/sorry-im-not-sure.mpeg`);
+                const rstream = fs.createReadStream(`${process.env.CWD}/resources/alexa/sorry-im-not-sure.mpeg`);
                 rstream.pipe(res);
                 return;
             }

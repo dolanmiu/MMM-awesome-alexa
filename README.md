@@ -61,7 +61,7 @@ $ npm run build # build the project
    
    Sometimes, this does not work, because it would be missing a `Refresh Token`, please follow this guide to manually do it:
 
-   https://miguelmota.com/blog/alexa-voice-service-authentication/
+   https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token
 
    The `config` should look like:
 

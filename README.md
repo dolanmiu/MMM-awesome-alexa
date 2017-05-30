@@ -101,13 +101,15 @@ Right Now it only supports Alexa
 - Smart Mirror
 
 # Troubleshoot
-If you are getting an error related to snowboy, run this command inside the `MMM-awesome-alexa` folder:
+If you are getting an error related to `snowboy`, run this command inside the `MMM-awesome-alexa` folder:
 
 ```bash
 $ npm run electron-rebuild
 ```
 
-If that still doesn't work, use node `6.10.x`, and re-run that above command.
+If that still doesn't work, use node `6.10.x`, and re-run the above command.
+
+Made with 💖 by Dolan
 
 [gitter-image]: https://badges.gitter.im/dolanmiu/awesome-alexa.svg
 [gitter-url]: https://gitter.im/awesome-alexa/Lobby

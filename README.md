@@ -109,6 +109,10 @@ $ npm run electron-rebuild
 
 If that still doesn't work, use node `6.10.x`, and re-run the above command.
 
+### Still doesn't work
+Follow `snowboy`'s official guide on how to recompile their package:
+https://github.com/Kitt-AI/snowboy#compile-a-node-addon
+
 ---
 
 Made with 💖 by Dolan

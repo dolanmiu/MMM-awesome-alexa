@@ -8,7 +8,7 @@
     "build": "rimraf dist && npm run webpack && npm run tsc",
     "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
     "test": "npm run lint",
-    "electron-rebuild": "electron-rebuild",
+    "electron-rebuild": "electron-rebuild --pre-gyp-fix",
     "lint": "tslint --project .",
     "tsc": "tsc -p ."
   },

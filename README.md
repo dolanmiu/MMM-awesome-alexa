@@ -109,6 +109,8 @@ $ npm run electron-rebuild
 
 If that still doesn't work, use node `6.10.x`, and re-run the above command.
 
+---
+
 Made with 💖 by Dolan
 
 [gitter-image]: https://badges.gitter.im/dolanmiu/awesome-alexa.svg

@@ -82,6 +82,9 @@ $ npm run build # build the project
 
 5. Finally, say boot up `Magic Mirror` and say "Alexa, what time is it?" 😊
 
+## What to do next?
+So you have got it this far and very happy with your working Alexa-enabled MagicMirror. You can then change your time/location; by default, the Alexa is based in Seattle: https://github.com/alexa/alexa-avs-sample-app/issues/222
+
 # Features
 - Wake Word support
 - Custom Wake Word

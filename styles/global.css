@@ -9,12 +9,13 @@
 }
 
 .wrapper-active {
-    backdrop-filter: blur(10px);
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .down-size {
     transform: scale(0.93);
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
 }
 
 body {

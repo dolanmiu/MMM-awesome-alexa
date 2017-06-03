@@ -14,7 +14,7 @@
 ## Installation
 
 ### Install Dependencies
-##### Sox
+#### Sox
 You need to install `SoX`:
 
 For OS X (need [homebrew](https://brew.sh/)):
@@ -33,7 +33,7 @@ For Windows:
 
 [Download from SourceForge](https://sourceforge.net/projects/sox/files/latest/download)
 
-##### Raspberry Pi Specific Dependencies
+#### Raspberry Pi Specific Dependencies
 If you are using `Raspberry Pi` install the following:
 ```bash
 $ sudo apt-get install swig3.0 python-pyaudio python3-pyaudio sox
@@ -120,7 +120,7 @@ $ npm run electron-rebuild
 
 If that still doesn't work, use node `6.10.x`, and re-run the above command.
 
-##### Still doesn't work
+### Still doesn't work
 Follow `snowboy`'s official guide on how to recompile their package:
 https://github.com/Kitt-AI/snowboy#compile-a-node-addon
 

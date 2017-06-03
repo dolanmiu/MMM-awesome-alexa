@@ -9,55 +9,54 @@
 
 # MMM-awesome-alexa
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
-
-> Just made an **AWESOME** release which adds Travis CI and very good code quality and best practices
-
 > At the moment, this only works for MacOS and Ubuntu. Raspberry Pi support will come soon!
 
 ## Installation
 
-1. Execute the following commands to install the module:
+### Install Dependencies
+##### Sox
+You need to install `SoX`:
 
+For OS X (need [homebrew](https://brew.sh/)):
+
+```bash
+$ brew install sox
+```
+
+For Linux (and thus `Raspberry Pi`):
+
+```bash
+$ sudo apt-get install sox libsox-fmt-all
+```
+
+For Windows:
+
+[Download from SourceForge](https://sourceforge.net/projects/sox/files/latest/download)
+
+##### Raspberry Pi Specific Dependencies
+If you are using `Raspberry Pi` install the following:
+```bash
+$ sudo apt-get install swig3.0 python-pyaudio python3-pyaudio sox
+$ pip install pyaudio
+```
+
+Then install the atlas matrix computing library:
+
+```bash
+$ sudo apt-get install libatlas-base-dev
+```
+   
+### Install Module
+Execute the following commands to install the module:
 ```bash
 $ cd ~/MagicMirror/modules # navigate to module folder
 $ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
 $ cd MMM-awesome-alexa # go into the module directory
-$ npm install --unsafe-perm # install all the dependancies
-$ sudo npm install --unsafe-perm # If on a mac
-$ npm run build # build the project
+$ npm install
 ```
-2. You need to install `SoX`:
 
-   For OS X (need [homebrew](https://brew.sh/)):
-
-   ```bash
-   $ brew install sox
-   ```
-
-   For Linux (and thus `Raspberry Pi`):
-
-   ```bash
-   $ sudo apt-get install sox libsox-fmt-all
-   ```
-   
-   For Windows:
-   
-   [Download from SourceForge](https://sourceforge.net/projects/sox/files/latest/download)
-
-3. If you are using `Raspberry Pi` install the following:
-
-   ```bash
-   $ sudo apt-get install swig3.0 python-pyaudio python3-pyaudio sox
-   $ pip install pyaudio
-   ```
-
-   Then install the atlas matrix computing library:
-
-   ```bash
-   $ sudo apt-get install libatlas-base-dev
-   ```
-
-3. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
+### Configuring the Module
+1. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
    
    Sometimes, this does not work, because it would be missing a `Refresh Token`, please follow this guide to manually do it:
 
@@ -78,9 +77,10 @@ $ npm run build # build the project
    }
    ```
 
-4. Then, add the config from the website above and put it into the `modules` section of your `config/config.js` file.
+2. Then, add the config from the website above and put it into the `modules` section of your `config/config.js` file.
 
-5. Finally, say boot up `Magic Mirror` and say "Alexa, what time is it?" 😊
+## Usage
+Boot up `Magic Mirror` and say "Alexa, what time is it?", or "Alexa, tell me a joke" 😊.
 
 ## What to do next?
 So you have got it this far and very happy with your working Alexa-enabled MagicMirror. You can then change your time/location; by default, the Alexa is based in Seattle: https://github.com/alexa/alexa-avs-sample-app/issues/222
@@ -104,6 +104,14 @@ Right Now it only supports Alexa
 - Smart Mirror
 
 # Troubleshoot
+First check if your mic works by typing in:
+```bash
+rec t.wav
+```
+
+If the above command doesn't work, please fix that before continuing. [Here is a link to help you (Raspberry pi)](https://www.raspberrypi.org/forums/viewtopic.php?t=13088&p=332703)
+
+## Snowboy problems
 If you are getting an error related to `snowboy`, run this command inside the `MMM-awesome-alexa` folder:
 
 ```bash
@@ -112,7 +120,7 @@ $ npm run electron-rebuild
 
 If that still doesn't work, use node `6.10.x`, and re-run the above command.
 
-### Still doesn't work
+##### Still doesn't work
 Follow `snowboy`'s official guide on how to recompile their package:
 https://github.com/Kitt-AI/snowboy#compile-a-node-addon
 

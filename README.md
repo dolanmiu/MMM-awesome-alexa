@@ -9,7 +9,7 @@
 
 # MMM-awesome-alexa
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
-> At the moment, this only works for MacOS and Ubuntu. Raspberry Pi support will come soon!
+> At the moment, this only works for MacOS and Ubuntu. Raspberry Pi has experimental support, it works when I tried it, but please try yourself and let us know on Gitter!
 
 ## Installation
 
@@ -118,7 +118,7 @@ If you are getting an error related to `snowboy`, run this command inside the `M
 $ npm run electron-rebuild
 ```
 
-If that still doesn't work, use node `6.10.x`, and re-run the above command.
+If that still doesn't work, use node `6.10.x`, there was this [issue about node `7.0.0`](https://github.com/Kitt-AI/snowboy/issues/117), and [node `8.0.0`](https://github.com/Kitt-AI/snowboy/issues/212), and re-run the above command.
 
 ### Still doesn't work
 Follow `snowboy`'s official guide on how to recompile their package:

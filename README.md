@@ -114,6 +114,9 @@ rec t.wav
 
 If the above command doesn't work, please fix that before continuing. [Here is a link to help you (Raspberry pi)](https://www.raspberrypi.org/forums/viewtopic.php?t=13088&p=332703)
 
+## PM2 problems
+For some reason, running MagicMirror on PM2 with this plugin doesn't seem to work on Raspberry Pi. The mic does not pick up. If anyone has a solution or cause for this, it would be greatly appreciated. I would recommend to start the MagicMirror the traditional way of `npm start`.
+
 ## Snowboy problems
 If you are getting an error related to `snowboy`, run this command inside the `MMM-awesome-alexa` folder:
 

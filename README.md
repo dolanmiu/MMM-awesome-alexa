@@ -74,6 +74,7 @@ $ npm install
        "clientSecret": "YOUR_CLIENT_SECRET",
        "deviceId": "YOUR_DEVICE_ID",
        "refreshToken": "YOUR_REFRESH_TOKEN"
+     }
    }
    ```
 

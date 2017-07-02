@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/node": "^7.0.5",
-    "@types/request": "0.0.39",
+    "@types/request": "0.0.45",
     "@types/timer-machine": "^1.1.0",
     "nan": "^2.6.2",
     "node-record-lpcm16": "^0.3.0",

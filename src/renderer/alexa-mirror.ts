@@ -4,7 +4,7 @@
 export class AlexaMirror {
     // private visualizer: Visualizer;
 
-    constructor(private mainDiv: HTMLElement, canvas: HTMLCanvasElement, config: Config, private mainSend: (event: NotificationType, payload: object) => void) {
+    constructor(private mainDiv: HTMLElement, canvas: HTMLCanvasElement, private mainSend: (event: NotificationType, payload: object) => void) {
         // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
     }
 

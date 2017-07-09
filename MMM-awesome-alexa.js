@@ -36,7 +36,6 @@ Module.register("MMM-awesome-alexa", {
         alexaVisualiserCanvas.height = 300;
         alexaWrapper.appendChild(alexaVisualiserCanvas);
 
-        alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, alexaVisualiserCanvas, this.config, (event, payload) => {
         alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, undefined, (event, payload) => {
             this.sendSocketNotification(event, payload);
         });

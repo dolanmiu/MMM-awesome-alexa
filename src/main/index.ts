@@ -1,10 +1,12 @@
 import { AudioService, TokenService } from "./alexa-voice-service";
 import { ConfigService } from "./config-service";
 import { AlexaModels } from "./models";
+import { RecTester } from "./rec-tester";
 import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
 export default class Main {
+    private recTester: RecTester;
     private alexaStateMachine: AlexaStateMachine;
     private rendererCommunicator: RendererCommunicator;
 
@@ -13,6 +15,7 @@ export default class Main {
         const configService = new ConfigService(config);
         this.rendererCommunicator = new RendererCommunicator();
         this.alexaStateMachine = this.createStateMachine(configService, rendererSend);
+        this.recTester = new RecTester();
 
         const tokenService = new TokenService({
             refreshToken: config.refreshToken,
@@ -25,6 +28,8 @@ export default class Main {
         tokenService.Observable.subscribe((token) => {
             configService.Config.accessToken = token.access_token;
         });
+
+        // this.recTester.test();
     }
 
     public receivedNotification<T>(type: NotificationType, payload: T): void {

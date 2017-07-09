@@ -11,7 +11,8 @@
     "electron-rebuild": "electron-rebuild --pre-gyp-fix",
     "lint": "tslint --project .",
     "tsc": "tsc -p .",
-    "node-pre-gyp": "node-pre-gyp clean configure build"
+    "node-pre-gyp": "node-pre-gyp clean configure build",
+    "test-rec": "bash test-rec.sh"
   },
   "author": "Dolan Miu",
   "license": "MIT",

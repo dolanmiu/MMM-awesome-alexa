@@ -8,6 +8,7 @@
  */
 
 let alexaMirror;
+let texts = [];
 
 Module.register("MMM-awesome-alexa", {
 
@@ -20,7 +21,7 @@ Module.register("MMM-awesome-alexa", {
 
     start: function () {
         if (this.config.refreshToken === undefined) {
-            throw new Error("Refresh token must be set in the config before using this!");
+            texts.push("Refresh token must be set in the config before using awesome-alexa!");
         }
         // Needed to initially connect to node_helper;
         // this.sendSocketNotification("CONNECT_TEST", {});
@@ -31,10 +32,18 @@ Module.register("MMM-awesome-alexa", {
         const alexaWrapper = document.createElement("div");
         alexaWrapper.setAttribute("id", "wrapper");
 
-        const alexaVisualiserCanvas = document.createElement("canvas");
-        alexaVisualiserCanvas.width = 400;
-        alexaVisualiserCanvas.height = 300;
-        alexaWrapper.appendChild(alexaVisualiserCanvas);
+        // const alexaVisualiserCanvas = document.createElement("canvas");
+        // alexaVisualiserCanvas.width = 400;
+        // alexaVisualiserCanvas.height = 300;
+        // alexaWrapper.appendChild(alexaVisualiserCanvas);
+
+        if (texts.length > 0) {
+            alexaWrapper.classList.add("wrapper-error");
+
+            for (const text of texts) {
+                alexaWrapper.appendChild(document.createTextNode(text));
+            }
+        }
 
         alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, undefined, (event, payload) => {
             this.sendSocketNotification(event, payload);

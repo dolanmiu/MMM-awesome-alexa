@@ -4,7 +4,7 @@
 [![Build Status][travis-image]][travis-url]
 
 <p align="center">
-   <img src="https://images.seeklogo.net/2017/03/amazon-alexa-logo.png" height="300">
+   <img src="https://user-images.githubusercontent.com/2917613/28090187-58f5d590-6683-11e7-97cb-09ee6c14433a.png" height="300">
 <p>
 
 # MMM-awesome-alexa

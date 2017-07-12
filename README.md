@@ -99,12 +99,13 @@ So you have got it this far and very happy with your working Alexa-enabled Magic
 - Visualisation
 
 ## Supported Wake Words
-Right Now it only supports Alexa
+- Alexa
+- Smart Mirror
 
 ### Coming Soon
 - Computer
 - Jarvis
-- Smart Mirror
+
 
 # Troubleshoot
 First check if your mic works by typing in:

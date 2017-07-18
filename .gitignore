@@ -37,7 +37,8 @@ jspm_packages
 .node_repl_history
 
 # build
-dist
+# Decided to add dist in build to make it easier for people
+# dist
 
 # VSCode
 .vscode

@@ -16,6 +16,10 @@
   },
   "author": "Dolan Miu",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dolanmiu/MMM-awesome-alexa.git"
+  },
   "dependencies": {
     "@types/node": "^8.0.7",
     "@types/request": "0.0.45",

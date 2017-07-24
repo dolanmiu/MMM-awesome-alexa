@@ -5,7 +5,10 @@
     left: 0;
     right: 0;
     z-index: 99;
-    transition: all 0.5s
+}
+
+.wrapper-smooth {
+    transition: all 0.5s;
 }
 
 .wrapper-active {
@@ -16,12 +19,22 @@
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.hidden {
+    display: none;
+}
+
 .down-size {
     transform: scale(0.93);
     filter: blur(2px);
     -webkit-filter: blur(2px);
 }
 
-body {
+.body-smooth {
     transition: all 0.5s;
+}
+
+.loading-spinner {
+    height: 30px;
+    width: 30px;
+    padding-top: 50px;
 }

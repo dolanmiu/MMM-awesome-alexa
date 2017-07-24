@@ -17,6 +17,7 @@ Module.register("MMM-awesome-alexa", {
         clientId: "amzn1.application-oa2-client.81574bebfb25437595d7376f44b54f8e",
         clientSecret: "87d49f998b3a6507b8e6a08760cda274e1d44a22a2bebade9433b1e7445d66a5",
         deviceId: "magic_mirror_alexa",
+        lite: false
     },
 
     start: function () {
@@ -31,11 +32,8 @@ Module.register("MMM-awesome-alexa", {
     getDom: function () {
         const alexaWrapper = document.createElement("div");
         alexaWrapper.setAttribute("id", "wrapper");
-
-        // const alexaVisualiserCanvas = document.createElement("canvas");
-        // alexaVisualiserCanvas.width = 400;
-        // alexaVisualiserCanvas.height = 300;
-        // alexaWrapper.appendChild(alexaVisualiserCanvas);
+        const spinner = this.createLoadingSpinner();
+        alexaWrapper.appendChild(spinner);
 
         if (texts.length > 0) {
             alexaWrapper.classList.add("wrapper-error");
@@ -45,7 +43,7 @@ Module.register("MMM-awesome-alexa", {
             }
         }
 
-        alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, undefined, (event, payload) => {
+        alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, undefined, this.config.lite, (event, payload) => {
             this.sendSocketNotification(event, payload);
         });
 
@@ -69,4 +67,20 @@ Module.register("MMM-awesome-alexa", {
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
         alexaMirror.receivedNotification(notification, payload);
     },
+
+    createLoadingSpinner: function () {
+        var img = document.createElement("img");
+        img.setAttribute('src', 'modules/MMM-awesome-alexa/styles/loading.gif');
+        img.setAttribute('id', 'loading-spinner');
+        img.classList.add('loading-spinner');
+        img.classList.add('hidden');
+        return img;
+    },
+
+    createCanvas: function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = 400;
+        canvas.height = 300;
+        return canvas;
+    }
 });

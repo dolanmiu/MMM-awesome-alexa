@@ -4,6 +4,7 @@ interface Config {
     clientSecret: string;
     deviceId: string;
     refreshToken: string;
+    lite: boolean;
 }
 
 interface UncheckedConfig {
@@ -12,4 +13,5 @@ interface UncheckedConfig {
     clientSecret?: string;
     deviceId?: string;
     refreshToken?: string;
+    lite?: boolean;
 }

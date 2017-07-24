@@ -88,10 +88,15 @@ exports.RainbowVisualizer = rainbow_visualizer_1.RainbowVisualizer;
 Object.defineProperty(exports, "__esModule", { value: true });
 class AlexaMirror {
     // private visualizer: Visualizer;
-    constructor(mainDiv, canvas, mainSend) {
-        this.mainDiv = mainDiv;
-        this.mainSend = mainSend;
+    constructor(mainDiv, canvas, lite, mainSend) {
         // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
+        this.mainDiv = mainDiv;
+        this.lite = lite;
+        this.mainSend = mainSend;
+        if (!this.lite) {
+            this.mainDiv.classList.add("wrapper-smooth");
+            document.body.classList.add("body-smooth");
+        }
     }
     start() {
         // this.visualizer.init();
@@ -112,12 +117,20 @@ class AlexaMirror {
         }
     }
     listening() {
-        this.mainDiv.classList.add("wrapper-active");
-        document.body.classList.add("down-size");
+        if (!this.lite) {
+            this.mainDiv.classList.add("wrapper-active");
+            document.body.classList.add("down-size");
+        }
+        else {
+            const spinner = document.getElementById("loading-spinner");
+            spinner.classList.remove("hidden");
+        }
     }
     idle() {
-        this.mainDiv.classList.remove("wrapper-active");
-        document.body.classList.remove("down-size");
+        if (!this.lite) {
+            this.mainDiv.classList.remove("wrapper-active");
+            document.body.classList.remove("down-size");
+        }
     }
     speaking() {
         const sound = new Audio("/output.mpeg");
@@ -125,6 +138,10 @@ class AlexaMirror {
         sound.addEventListener("ended", () => {
             this.mainSend("finishedSpeaking", {});
         });
+        if (this.lite) {
+            const spinner = document.getElementById("loading-spinner");
+            spinner.classList.add("hidden");
+        }
     }
 }
 exports.AlexaMirror = AlexaMirror;

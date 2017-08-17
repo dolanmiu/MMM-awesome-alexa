@@ -2,6 +2,7 @@
 [![Dependency Status][gemnasium-image]][gemnasium-url]
 [![dependencies Status][daviddm-image]][daviddm-url]
 [![Build Status][travis-image]][travis-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/dolanmiu/MMM-awesome-alexa.svg)](https://greenkeeper.io/)
 
 <p align="center">
    <img src="https://user-images.githubusercontent.com/2917613/28090232-861702b0-6683-11e7-8379-1347e01c9411.png" height="300">
@@ -9,7 +10,6 @@
 
 # MMM-awesome-alexa
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/dolanmiu/MMM-awesome-alexa.svg)](https://greenkeeper.io/)
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
 > At the moment, this only works for MacOS and Ubuntu. Raspberry Pi has experimental support, it works when I tried it, but please try yourself and let us know on Gitter!
 

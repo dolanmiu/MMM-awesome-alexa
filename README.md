@@ -2,12 +2,14 @@
 [![Dependency Status][gemnasium-image]][gemnasium-url]
 [![dependencies Status][daviddm-image]][daviddm-url]
 [![Build Status][travis-image]][travis-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/dolanmiu/MMM-awesome-alexa.svg)](https://greenkeeper.io/)
 
 <p align="center">
    <img src="https://user-images.githubusercontent.com/2917613/28090232-861702b0-6683-11e7-8379-1347e01c9411.png" height="300">
 <p>
 
 # MMM-awesome-alexa
+
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
 > At the moment, this only works for MacOS and Ubuntu. Raspberry Pi has experimental support, it works when I tried it, but please try yourself and let us know on Gitter!
 
@@ -53,6 +55,7 @@ $ cd ~/MagicMirror/modules # navigate to module folder
 $ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
 $ cd MMM-awesome-alexa # go into the module directory
 $ npm install
+$ npm run electron-rebuild # You MAY need to run this if MagicMirror complains about Snowboy
 ```
 
 ### Configuring the Module

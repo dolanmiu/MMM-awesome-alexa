@@ -36,6 +36,7 @@
     ],
     "array-type": [
       "array"
-    ]
+    ],
+    "no-submodule-imports": false
   }
 }

@@ -1,5 +1,5 @@
 import * as request from "request";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs/Rx";
 
 import { IAVSOptions } from "./avs-options";
 

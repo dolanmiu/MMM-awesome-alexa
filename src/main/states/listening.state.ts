@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as record from "node-record-lpcm16";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs/Rx";
 
 import { IStateMachineComponents } from "./alexa-state-machine";
 import { State } from "./base.state";

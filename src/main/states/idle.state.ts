@@ -1,5 +1,5 @@
 import * as record from "node-record-lpcm16";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs/Rx";
 
 import { HotwordDetector } from "../detector";
 import { IStateMachineComponents } from "./alexa-state-machine";

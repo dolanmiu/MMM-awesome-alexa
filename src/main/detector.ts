@@ -1,5 +1,4 @@
-import { Observable } from "rxjs/Observable";
-import { Subject } from "rxjs/Subject";
+import { Observable, Subject } from "rxjs/Rx";
 import { Detector, Models } from "snowboy";
 import * as Timer from "timer-machine";
 

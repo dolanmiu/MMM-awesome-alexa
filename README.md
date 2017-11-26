@@ -66,6 +66,10 @@ $ npm run electron-rebuild # You MAY need to run this if MagicMirror complains a
    https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token
 
    https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token-2
+   
+  [IN the shfiles directory are two files..... auth_code.sh and auth_code2.sh 
+    RUN auth_code.sh first then the other... MAKE SURE YOU ENTER YOUR DATA IN
+    THE FILES BEFORE RUNNING!!!!]
 
    The `config` should look like:
 

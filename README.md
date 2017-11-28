@@ -61,15 +61,15 @@ $ npm run electron-rebuild # You MAY need to run this if MagicMirror complains a
 ### Configuring the Module
 1. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
    
-   Sometimes, this does not work, because it would be missing a `Refresh Token`, please follow this guide to manually do it with these two ways:
+   Sometimes, this does not work, because it would be missing a `Refresh Token`, please follow this guide to manually do it with these Three ways:
 
-   https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token
+   * https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token
 
-   https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token-2
+   * https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token-2
    
-  [IN the shfiles directory are two files..... auth_code.sh and auth_code2.sh 
-    RUN auth_code.sh first then the other... MAKE SURE YOU ENTER YOUR DATA IN
-    THE FILES BEFORE RUNNING!!!!]
+   * > In the `help/bash-scripts` directory are two files: `auth_code.sh` and `auth_code2.sh`
+     > Run `auth_code.sh` first then the `auth_code2.sh`. 
+     > **MAKE SURE YOU ENTER YOUR DATA IN THE FILES BEFORE RUNNING!**
 
    The `config` should look like:
 

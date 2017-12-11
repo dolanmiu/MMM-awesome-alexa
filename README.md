@@ -55,7 +55,6 @@ $ cd ~/MagicMirror/modules # navigate to module folder
 $ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
 $ cd MMM-awesome-alexa # go into the module directory
 $ npm install
-$ npm run electron-rebuild # You MAY need to run this if MagicMirror complains about Snowboy
 ```
 
 ### Configuring the Module
@@ -93,8 +92,6 @@ $ npm run electron-rebuild # You MAY need to run this if MagicMirror complains a
 ## Usage
 Boot up `Magic Mirror` and say "Alexa, what time is it?", or "Alexa, tell me a joke" 😊.
 
-**Note:** If you are using Raspberry Pi, you most likely will experience a `snowboy` issue. Please go to the [Troubleshoot](#troubleshoot) section down below
-
 ## What to do next?
 So you have got it this far and very happy with your working Alexa-enabled MagicMirror. You can then change your time/location; by default, the Alexa is based in Seattle: https://github.com/alexa/alexa-avs-sample-app/issues/222
 
@@ -127,19 +124,6 @@ If the above command doesn't work, please fix that before continuing. [Here is a
 
 ## PM2 problems
 For some reason, running MagicMirror on `PM2` with this module doesn't seem to work on Raspberry Pi. The mic does not pick up. If anyone has a solution or cause for this, it would be greatly appreciated. I would recommend to start the MagicMirror the traditional way of `npm start`.
-
-## Snowboy problems
-If you are getting an error related to `snowboy`, run this command inside the `MMM-awesome-alexa` folder:
-
-```bash
-$ npm run electron-rebuild
-```
-
-If that still doesn't work, use node `6.10.x`, there was this [issue about node `7.0.0`](https://github.com/Kitt-AI/snowboy/issues/117), and [node `8.0.0`](https://github.com/Kitt-AI/snowboy/issues/212), and re-run the above command.
-
-### Still doesn't work
-Follow `snowboy`'s official guide on how to recompile their package:
-https://github.com/Kitt-AI/snowboy#compile-a-node-addon
 
 ---
 

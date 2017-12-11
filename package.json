@@ -4,10 +4,10 @@
   "description": "Easy Alexa module for Magic Mirror",
   "main": "MMM-awesome-alexa.js",
   "scripts": {
+    "postinstall": "electron-rebuild --pre-gyp-fix",
     "build": "rimraf dist && npm run webpack && npm run tsc",
     "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
     "test": "npm run lint",
-    "electron-rebuild": "electron-rebuild --pre-gyp-fix",
     "lint": "tslint --project .",
     "tsc": "tsc -p .",
     "node-pre-gyp": "node-pre-gyp clean configure build",

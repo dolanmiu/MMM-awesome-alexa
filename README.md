@@ -92,8 +92,6 @@ $ npm install
 ## Usage
 Boot up `Magic Mirror` and say "Alexa, what time is it?", or "Alexa, tell me a joke" 😊.
 
-**Note:** If you are using Raspberry Pi, you most likely will experience a `snowboy` issue. Please go to the [Troubleshoot](#troubleshoot) section down below
-
 ## What to do next?
 So you have got it this far and very happy with your working Alexa-enabled MagicMirror. You can then change your time/location; by default, the Alexa is based in Seattle: https://github.com/alexa/alexa-avs-sample-app/issues/222
 

@@ -10,10 +10,6 @@ script:
 - npm run build
 deploy:
   provider: script
-  script:
-  - git config --global user.email "travis@travis-ci.org"
-  - git config --global user.name "Travis CI"
-  - git add ./dist
-  - git commit --message "Travis build $TRAVIS_BUILD_NUMBER"
+  script: deploy.sh
   on:
     branch: master

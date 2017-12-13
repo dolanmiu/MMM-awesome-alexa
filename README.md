@@ -116,6 +116,9 @@ So you have got it this far and very happy with your working Alexa-enabled Magic
 - Computer
 - Jarvis
 
+# Contribution Guide
+Want to contribute? Read the guide here: https://github.com/dolanmiu/MMM-awesome-alexa/wiki/Contribution-Guide
+
 
 # Troubleshoot
 First check if your mic works by typing in:

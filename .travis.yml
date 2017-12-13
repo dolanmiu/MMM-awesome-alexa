@@ -8,9 +8,9 @@ before_script:
 script:
 - npm run lint
 - npm run build
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: deploy.sh
-  on:
-    branch: master
+# deploy:
+#   provider: script
+#   skip_cleanup: true
+#   script: deploy.sh
+#   on:
+#     branch: master

@@ -8,9 +8,10 @@ before_script:
 script:
 - npm run lint
 - npm run build
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: chmod +x $TRAVIS_BUILD_DIR/deploy.bash && $TRAVIS_BUILD_DIR/deploy.bash
-  on:
-    branch: master
+# Not working
+# deploy:
+#   provider: script
+#   skip_cleanup: true
+#   script: chmod +x $TRAVIS_BUILD_DIR/deploy.bash && $TRAVIS_BUILD_DIR/deploy.bash
+#   on:
+#     branch: master

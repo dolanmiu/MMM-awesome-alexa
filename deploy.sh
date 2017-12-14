@@ -1,7 +1,7 @@
 # function to make a commit on a branch in a Travis CI build
 # be sure to avoid creating a Travis CI fork bomb
 # see https://github.com/travis-ci/travis-ci/issues/1701
-function travis-branch-commit() {
+function travis-branch-commit {
     local head_ref branch_ref
     head_ref=$(git rev-parse HEAD)
     if [[ $? -ne 0 || ! $head_ref ]]; then
@@ -52,11 +52,11 @@ function travis-branch-commit() {
     fi
 }
 
-function msg() {
+function msg {
     echo "travis-commit: $*"
 }
 
-function err() {
+function err {
     msg "$*" 1>&2
 }
 

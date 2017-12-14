@@ -11,6 +11,6 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: chmod +x $TRAVIS_BUILD_DIR/deploy.sh && $TRAVIS_BUILD_DIR/deploy.sh
+  script: chmod +x $TRAVIS_BUILD_DIR/deploy.bash && $TRAVIS_BUILD_DIR/deploy.bash
   on:
     branch: master

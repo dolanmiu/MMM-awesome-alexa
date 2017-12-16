@@ -27,10 +27,6 @@ export class ListeningState extends State {
                     break;
             }
         });
-
-        setTimeout(() => {
-            record.stop();
-        }, 5000);
     }
 
     public onExit(): void {

@@ -4,6 +4,7 @@ import { Detector, Models } from "snowboy";
 export class HotwordDetector extends Detector {
     private subject: Subject<DETECTOR>;
     private hotwordStartAt: number;
+    private hasSaidSomething: boolean;
 
     constructor(models: Models) {
         super({
@@ -17,13 +18,18 @@ export class HotwordDetector extends Detector {
 
     private setUp(): void {
         this.on("silence", () => {
-            if (Date.now() - this.hotwordStartAt > 3000) {
-                this.hotwordStartAt = undefined;
+            if (this.hasSaidSomething || Date.now() - this.hotwordStartAt > 10000) {
                 this.subject.next(DETECTOR.Silence);
+                this.hotwordStartAt = undefined;
+                this.hasSaidSomething = false;
             }
         });
 
-        this.on("sound", () => {});
+        this.on("sound", () => {
+            if (this.hotwordStartAt) {
+                this.hasSaidSomething = true;
+            }
+        });
 
         this.on("error", console.error);
 

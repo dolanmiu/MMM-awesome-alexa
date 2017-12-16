@@ -21,9 +21,6 @@ class ListeningState extends base_state_1.State {
                     break;
             }
         });
-        setTimeout(() => {
-            record.stop();
-        }, 5000);
     }
     onExit() {
         this.detectorSubscription.unsubscribe();

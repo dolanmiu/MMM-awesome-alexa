@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Rx_1 = require("rxjs/Rx");
 const snowboy_1 = require("snowboy");
-const Timer = require("timer-machine");
-const WAIT_TIME = 700;
 class HotwordDetector extends snowboy_1.Detector {
     constructor(models) {
         super({
@@ -11,29 +9,27 @@ class HotwordDetector extends snowboy_1.Detector {
             models: models,
             audioGain: 2.0,
         });
-        this.silenceTimer = new Timer();
         this.subject = new Rx_1.Subject();
         this.setUp();
     }
     setUp() {
-        this.on("silence", () => {
-            if (this.silenceTimer.isStarted() === false) {
-                this.silenceTimer.start();
-            }
-            if (this.silenceTimer.timeFromStart() > WAIT_TIME) {
-                this.subject.next(0 /* Silence */);
-            }
-        });
-        this.on("sound", () => {
-            this.silenceTimer.stop();
-        });
-        this.on("error", (error) => {
-            console.error(error);
-        });
-        this.on("hotword", (index, hotword) => {
-            console.log("hotword", index, hotword);
+        this.on("hotword", () => {
+            this.hotwordStartAt = Date.now();
             this.subject.next(1 /* Hotword */);
         });
+        this.on("sound", () => {
+            if (this.hotwordStartAt) {
+                this.hasSaidSomething = true;
+            }
+        });
+        this.on("silence", () => {
+            if (this.hasSaidSomething || Date.now() - this.hotwordStartAt > 5000) {
+                this.subject.next(0 /* Silence */);
+                this.hotwordStartAt = undefined;
+                this.hasSaidSomething = false;
+            }
+        });
+        this.on("error", console.error);
     }
     get Observable() {
         return this.subject.asObservable();

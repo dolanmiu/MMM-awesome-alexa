@@ -1,12 +1,9 @@
 import { Observable, Subject } from "rxjs/Rx";
 import { Detector, Models } from "snowboy";
-import * as Timer from "timer-machine";
-
-const WAIT_TIME = 700;
 
 export class HotwordDetector extends Detector {
-    private silenceTimer = new Timer();
     private subject: Subject<DETECTOR>;
+    private hotwordStartAt: number;
 
     constructor(models: Models) {
         super({
@@ -20,24 +17,18 @@ export class HotwordDetector extends Detector {
 
     private setUp(): void {
         this.on("silence", () => {
-            if (!this.silenceTimer.isStarted()) {
-                this.silenceTimer.start();
-            }
-
-            if (this.silenceTimer.timeFromStart() > WAIT_TIME) {
+            if (Date.now() - this.hotwordStartAt > 3000) {
+                this.hotwordStartAt = undefined;
                 this.subject.next(DETECTOR.Silence);
             }
         });
 
-        this.on("sound", () => {
-            this.silenceTimer.stop();
-        });
+        this.on("sound", () => {});
 
-        this.on("error", (error) => {
-            console.error(error);
-        });
+        this.on("error", console.error);
 
         this.on("hotword", (index, hotword) => {
+            this.hotwordStartAt = Date.now();
             console.log("hotword", index, hotword);
             this.subject.next(DETECTOR.Hotword);
         });

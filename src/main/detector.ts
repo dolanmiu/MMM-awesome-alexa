@@ -20,7 +20,7 @@ export class HotwordDetector extends Detector {
 
     private setUp(): void {
         this.on("silence", () => {
-            if (this.silenceTimer.isStarted() === false) {
+            if (!this.silenceTimer.isStarted()) {
                 this.silenceTimer.start();
             }
 

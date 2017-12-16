@@ -4,7 +4,7 @@
   "description": "Easy Alexa module for Magic Mirror",
   "main": "MMM-awesome-alexa.js",
   "scripts": {
-    "build": "rimraf dist && npm run webpack && npm run tsc",
+    "build": "npm run webpack && npm run tsc",
     "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
     "test": "npm run lint",
     "electron-rebuild": "electron-rebuild --pre-gyp-fix",
@@ -27,7 +27,6 @@
     "nan": "^2.6.2",
     "node-record-lpcm16": "^0.3.0",
     "request": "^2.79.0",
-    "rimraf": "^2.6.1",
     "rxjs": "^5.4.0",
     "snowboy": "^1.2.0",
     "timer-machine": "^1.1.0",

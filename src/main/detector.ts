@@ -29,7 +29,7 @@ export class HotwordDetector extends Detector {
         });
 
         this.on("silence", () => {
-            if (this.hasSaidSomething || Date.now() - this.hotwordStartAt > 10000) {
+            if (this.hasSaidSomething || Date.now() - this.hotwordStartAt > 5000) {
                 this.subject.next(DETECTOR.Silence);
                 this.hotwordStartAt = undefined;
                 this.hasSaidSomething = false;

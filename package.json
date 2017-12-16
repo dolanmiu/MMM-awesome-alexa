@@ -4,8 +4,7 @@
   "description": "Easy Alexa module for Magic Mirror",
   "main": "MMM-awesome-alexa.js",
   "scripts": {
-    "build": "npm run webpack && npm run tsc",
-    "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
+    "build": "npm run tsc",
     "test": "npm run lint",
     "electron-rebuild": "electron-rebuild --pre-gyp-fix",
     "lint": "tslint --project .",
@@ -38,7 +37,6 @@
     "json-loader": "^0.5.4",
     "transform-loader": "^0.2.3",
     "tslint": "^5.1.0",
-    "typescript": "2.5.2",
-    "webpack": "^3.0.0"
+    "typescript": "2.5.2"
   }
 }

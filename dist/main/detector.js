@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Subject_1 = require("rxjs/Subject");
+const Rx_1 = require("rxjs/Rx");
 const snowboy_1 = require("snowboy");
 const Timer = require("timer-machine");
 const WAIT_TIME = 700;
@@ -12,7 +12,7 @@ class HotwordDetector extends snowboy_1.Detector {
             audioGain: 2.0,
         });
         this.silenceTimer = new Timer();
-        this.subject = new Subject_1.Subject();
+        this.subject = new Rx_1.Subject();
         this.setUp();
     }
     setUp() {

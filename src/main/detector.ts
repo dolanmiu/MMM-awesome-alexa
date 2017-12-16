@@ -17,12 +17,9 @@ export class HotwordDetector extends Detector {
     }
 
     private setUp(): void {
-        this.on("silence", () => {
-            if (this.hasSaidSomething || Date.now() - this.hotwordStartAt > 10000) {
-                this.subject.next(DETECTOR.Silence);
-                this.hotwordStartAt = undefined;
-                this.hasSaidSomething = false;
-            }
+        this.on("hotword", () => {
+            this.hotwordStartAt = Date.now();
+            this.subject.next(DETECTOR.Hotword);
         });
 
         this.on("sound", () => {
@@ -31,13 +28,15 @@ export class HotwordDetector extends Detector {
             }
         });
 
-        this.on("error", console.error);
-
-        this.on("hotword", (index, hotword) => {
-            this.hotwordStartAt = Date.now();
-            console.log("hotword", index, hotword);
-            this.subject.next(DETECTOR.Hotword);
+        this.on("silence", () => {
+            if (this.hasSaidSomething || Date.now() - this.hotwordStartAt > 10000) {
+                this.subject.next(DETECTOR.Silence);
+                this.hotwordStartAt = undefined;
+                this.hasSaidSomething = false;
+            }
         });
+
+        this.on("error", console.error);
     }
 
     public get Observable(): Observable<DETECTOR> {

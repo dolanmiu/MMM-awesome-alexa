@@ -30,11 +30,7 @@
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^3.2.1",
-    "brfs": "^1.4.3",
     "electron-rebuild": "^1.5.7",
-    "json-loader": "^0.5.4",
-    "transform-loader": "^0.2.3",
     "tslint": "^5.1.0",
     "typescript": "2.5.2"
   }

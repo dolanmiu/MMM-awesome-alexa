@@ -27,8 +27,7 @@
     "node-record-lpcm16": "^0.3.0",
     "request": "^2.79.0",
     "rxjs": "^5.4.0",
-    "snowboy": "^1.2.0",
-    "xmlhttprequest": "^1.8.0"
+    "snowboy": "^1.2.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",

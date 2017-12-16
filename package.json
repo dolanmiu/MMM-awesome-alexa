@@ -4,13 +4,14 @@
   "description": "Easy Alexa module for Magic Mirror",
   "main": "MMM-awesome-alexa.js",
   "scripts": {
-    "build": "tsc -p .",
+    "build": "npm run webpack && tsc -p .",
     "dev": "npm run build -- -w",
     "test": "npm run lint",
     "electron-rebuild": "electron-rebuild --pre-gyp-fix",
     "lint": "tslint --project .",
     "node-pre-gyp": "node-pre-gyp clean configure build",
-    "test-rec": "bash test-rec.sh"
+    "test-rec": "bash test-rec.sh",
+    "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details"
   },
   "author": "Dolan Miu",
   "license": "MIT",
@@ -30,8 +31,13 @@
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.4.1",
+    "brfs": "^1.4.3",
     "electron-rebuild": "^1.5.7",
+    "json-loader": "^0.5.7",
+    "transform-loader": "^0.2.4",
     "tslint": "^5.1.0",
-    "typescript": "2.5.2"
+    "typescript": "2.5.2",
+    "webpack": "^3.10.0"
   }
 }

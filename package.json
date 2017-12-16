@@ -4,11 +4,11 @@
   "description": "Easy Alexa module for Magic Mirror",
   "main": "MMM-awesome-alexa.js",
   "scripts": {
-    "build": "npm run tsc",
+    "build": "tsc -p .",
+    "dev": "npm run build -- -w",
     "test": "npm run lint",
     "electron-rebuild": "electron-rebuild --pre-gyp-fix",
     "lint": "tslint --project .",
-    "tsc": "tsc -p .",
     "node-pre-gyp": "node-pre-gyp clean configure build",
     "test-rec": "bash test-rec.sh"
   },

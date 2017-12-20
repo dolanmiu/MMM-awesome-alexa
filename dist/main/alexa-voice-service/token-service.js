@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
-const Observable_1 = require("rxjs/Observable");
+const Rx_1 = require("rxjs/Rx");
 class TokenService {
     constructor(options) {
-        this.observable = new Observable_1.Observable((observer) => {
+        this.observable = new Rx_1.Observable((observer) => {
             if (options.redirectUrl === undefined) {
                 throw new Error("redirectUrl required");
             }

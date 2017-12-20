@@ -20,6 +20,7 @@ export class BusyState extends State {
             this.components.rendererSend("speak", {});
         }).catch((err) => {
             console.error(err);
+            this.transition(this.allowedStateTransitions.get("idle"));
         });
 
         this.rendererSubscription = this.components.rendererCommunicator.Observable.subscribe((type) => {

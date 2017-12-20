@@ -1,6 +1,6 @@
 const fs = require("fs");
 const NodeHelper = require("node_helper");
-const Main = require("./dist/main/index.js");
+const Main = require("./dist/main");
 
 let main;
 

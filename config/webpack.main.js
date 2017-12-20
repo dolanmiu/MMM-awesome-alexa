@@ -2,15 +2,6 @@ var webpack = require("webpack");
 var fs = require("fs");
 var path = require("path");
 
-var nodeModules = {};
-fs.readdirSync("node_modules")
-    .filter(function (x) {
-        return [".bin"].indexOf(x) === -1;
-    })
-    .forEach(function (mod) {
-        nodeModules[mod] = "commonjs " + mod;
-    });
-
 module.exports = {
     // devtool: "source-map",
 
@@ -46,6 +37,4 @@ module.exports = {
     },
 
     // target: "node",
-
-    // externals: nodeModules,
 };

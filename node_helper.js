@@ -7,10 +7,6 @@ let main;
 process.env.CWD = `${process.env.PWD}/modules/MMM-awesome-alexa`;
 
 module.exports = NodeHelper.create({
-    socketNotificationReceived: function (notification, payload) {
-        // Renderer sends "main" a notification to connect
-    },
-
     start: function () {
         this.expressApp.get("/output.mpeg", function (req, res) {
             res.setHeader("Expires", new Date().toUTCString());
@@ -29,6 +25,7 @@ module.exports = NodeHelper.create({
 
     // Because this.config is not accessible from node_helper for some reason. Need to pass from the js file.
     socketNotificationReceived: function (notification, payload) {
+        // Renderer sends "main" a notification to connect
         if (notification === "CONFIG") {
             main = new Main(payload, (event, payload) => {
                 this.sendSocketNotification(event, payload);

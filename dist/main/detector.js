@@ -37,3 +37,4 @@ class HotwordDetector extends snowboy_1.Detector {
     }
 }
 exports.HotwordDetector = HotwordDetector;
+//# sourceMappingURL=detector.js.map

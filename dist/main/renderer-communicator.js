@@ -13,3 +13,4 @@ class RendererCommunicator {
     }
 }
 exports.RendererCommunicator = RendererCommunicator;
+//# sourceMappingURL=renderer-communicator.js.map

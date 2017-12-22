@@ -23,11 +23,7 @@ export abstract class State {
     }
 
     private canTransition(state: State): boolean {
-        if (this.allowedStateTransitions.has(state.name)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.allowedStateTransitions.has(state.name);
     }
 
     public set AllowedStateTransitions(states: Map<StateName, State>) {

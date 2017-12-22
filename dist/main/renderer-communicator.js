@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Subject_1 = require("rxjs/Subject");
+const Rx_1 = require("rxjs/Rx");
 class RendererCommunicator {
     constructor() {
-        this.subject = new Subject_1.Subject();
+        this.subject = new Rx_1.Subject();
     }
     sendNotification(type) {
         this.subject.next(type);

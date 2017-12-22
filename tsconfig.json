@@ -7,10 +7,6 @@
         "outDir": "./dist",
         "declaration": false,
         "rootDir": "./src",
-        "lib": [
-            "dom",
-            "es7"
-        ],
         "noUnusedLocals": true
         // "strictNullChecks": true
     },

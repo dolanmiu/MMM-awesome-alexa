@@ -16,12 +16,7 @@ class State {
         state.onEnter();
     }
     canTransition(state) {
-        if (this.allowedStateTransitions.has(state.name)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.allowedStateTransitions.has(state.name);
     }
     set AllowedStateTransitions(states) {
         this.allowedStateTransitions = states;

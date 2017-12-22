@@ -4,14 +4,14 @@
   "description": "Easy Alexa module for Magic Mirror",
   "main": "MMM-awesome-alexa.js",
   "scripts": {
-    "build": "rimraf dist && npm run webpack && npm run tsc",
-    "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details",
+    "build": "npm run webpack && tsc -p .",
+    "dev": "npm run build -- -w",
     "test": "npm run lint",
     "electron-rebuild": "electron-rebuild --pre-gyp-fix",
     "lint": "tslint --project .",
-    "tsc": "tsc -p .",
     "node-pre-gyp": "node-pre-gyp clean configure build",
-    "test-rec": "bash test-rec.sh"
+    "test-rec": "bash test-rec.sh",
+    "webpack": "webpack --config config/webpack.main.js --progress --profile --bail --display-error-details"
   },
   "author": "Dolan Miu",
   "license": "MIT",
@@ -23,25 +23,20 @@
     "@types/node": "^8.0.7",
     "@types/request": "2.0.9",
     "@types/snowboy": "^1.2.0",
-    "@types/timer-machine": "^1.1.0",
     "nan": "^2.6.2",
     "node-record-lpcm16": "^0.3.0",
     "request": "^2.79.0",
-    "rimraf": "^2.6.1",
     "rxjs": "^5.4.0",
-    "snowboy": "^1.2.0",
-    "timer-machine": "^1.1.0",
-    "voice-activity-detection": "0.0.4",
-    "xmlhttprequest": "^1.8.0"
+    "snowboy": "^1.2.0"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^3.2.1",
+    "awesome-typescript-loader": "^3.4.1",
     "brfs": "^1.4.3",
     "electron-rebuild": "^1.5.7",
-    "json-loader": "^0.5.4",
-    "transform-loader": "^0.2.3",
+    "json-loader": "^0.5.7",
+    "transform-loader": "^0.2.4",
     "tslint": "^5.1.0",
     "typescript": "2.5.2",
-    "webpack": "^3.0.0"
+    "webpack": "^3.10.0"
   }
 }

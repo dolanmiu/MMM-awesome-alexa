@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
+const path = require("path");
 const base_state_1 = require("./base.state");
 class BusyState extends base_state_1.State {
     constructor(components) {
@@ -8,7 +9,7 @@ class BusyState extends base_state_1.State {
     }
     onEnter() {
         this.components.rendererSend("busy", {});
-        const readStream = fs.createReadStream(`${process.env.CWD}/temp/to-amazon.wav`);
+        const readStream = fs.createReadStream(path.resolve(__dirname, '../../../temp/to-amazon.wav'));
         const accessToken = this.components.configService.Config.accessToken;
         this.components.audioService.sendAudio(accessToken, readStream).then((result) => {
             this.components.rendererSend("speak", {});

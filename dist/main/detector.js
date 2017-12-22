@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Rx_1 = require("rxjs/Rx");
 const snowboy_1 = require("snowboy");
+const path = require("path");
 class HotwordDetector extends snowboy_1.Detector {
     constructor(models) {
         super({
-            resource: `${process.env.CWD}/resources/common.res`,
+            resource: path.resolve(__dirname, '../../resources/common.res'),
             models: models,
             audioGain: 2.0,
         });

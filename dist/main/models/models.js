@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const snowboy_1 = require("snowboy");
 const path = require("path");
+const snowboy_1 = require("snowboy");
 const model_dictionary_1 = require("./model-dictionary");
 class AlexaModels extends snowboy_1.Models {
     constructor(wakeWord) {
@@ -12,7 +12,7 @@ class AlexaModels extends snowboy_1.Models {
             model = model_dictionary_1.MODELS.Alexa;
         }
         this.add({
-            file: path.resolve(__dirname, '../../../resources/models', model.file),
+            file: path.resolve(__dirname, "../../../resources/models", model.file),
             sensitivity: "0.5",
             hotwords: model.name,
         });

@@ -117,6 +117,8 @@ class AlexaMirror {
         }
     }
     listening() {
+        const sound = new Audio("/med_ui_wakesound.wav");
+        sound.play();
         if (!this.lite) {
             this.mainDiv.classList.add("wrapper-active");
             document.body.classList.add("down-size");

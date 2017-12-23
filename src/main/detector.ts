@@ -1,3 +1,4 @@
+import * as path from "path";
 import { Observable, Subject } from "rxjs/Rx";
 import { Detector, Models } from "snowboy";
 
@@ -8,7 +9,7 @@ export class HotwordDetector extends Detector {
 
     constructor(models: Models) {
         super({
-            resource: `${process.env.CWD}/resources/common.res`,
+            resource: path.resolve(__dirname, "../../resources/common.res"),
             models: models,
             audioGain: 2.0,
         });

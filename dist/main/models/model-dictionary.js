@@ -19,3 +19,4 @@ const MODELS = {
     },
 };
 exports.MODELS = MODELS;
+//# sourceMappingURL=model-dictionary.js.map

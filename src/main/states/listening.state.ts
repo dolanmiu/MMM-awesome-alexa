@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as record from "node-record-lpcm16";
+import * as path from "path";
 import { Subscription } from "rxjs/Rx";
 
 import { IStateMachineComponents } from "./alexa-state-machine";
@@ -14,7 +15,7 @@ export class ListeningState extends State {
 
     public onEnter(): void {
         this.components.rendererSend("listening", {});
-        const writeStream = fs.createWriteStream(`${process.env.CWD}/temp/to-amazon.wav`);
+        const writeStream = fs.createWriteStream(path.resolve(__dirname, "../../../temp/to-amazon.wav"));
         writeStream.on("finish", () => {
             this.transition(this.allowedStateTransitions.get("busy"));
         });

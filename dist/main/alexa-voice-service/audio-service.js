@@ -2,11 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // Reference: https://developer.amazon.com/public/solutions/alexa/alexa-voice-service/rest/speechrecognizer-recognize-request
 const fs = require("fs");
+const path = require("path");
 const request = require("request");
 const url = "https://access-alexa-na.amazon.com/v1/avs/speechrecognizer/recognize";
 class AudioService {
     sendAudio(token, file) {
-        const stream = fs.createWriteStream(`${process.env.CWD}/temp/output.mpeg`);
+        const stream = fs.createWriteStream(path.resolve(__dirname, "../../../temp/output.mpeg"));
         return new Promise((resolve, reject) => {
             request.post({
                 uri: url,
@@ -48,7 +49,7 @@ class AudioService {
             }).pipe(stream);
             stream.on("finish", () => {
                 if (stream.bytesWritten === 0) {
-                    fs.unlink(`${process.env.CWD}/temp/output.mpeg`, () => {
+                    fs.unlink(path.resolve(__dirname, "../../../temp/output.mpeg"), () => {
                         resolve();
                     });
                     return;
@@ -59,3 +60,4 @@ class AudioService {
     }
 }
 exports.AudioService = AudioService;
+//# sourceMappingURL=audio-service.js.map

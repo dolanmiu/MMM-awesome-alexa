@@ -1,3 +1,4 @@
+import * as path from "path";
 import { Models } from "snowboy";
 
 import { MODELS } from "./model-dictionary";
@@ -13,7 +14,7 @@ export class AlexaModels extends Models {
         }
 
         this.add({
-            file: `${process.env.CWD}/resources/models/${model.file}`,
+            file: path.resolve(__dirname, "../../../resources/models", model.file),
             sensitivity: "0.5",
             hotwords: model.name,
         });

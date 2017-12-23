@@ -8,7 +8,12 @@ interface IConfig {
 export class AlexaMirror {
     // private visualizer: Visualizer;
 
-    constructor(private mainDiv: HTMLElement, canvas: HTMLCanvasElement, private config: IConfig, private mainSend: (event: NotificationType, payload: object) => void) {
+    constructor(
+        private mainDiv: HTMLElement,
+        canvas: HTMLCanvasElement,
+        private config: IConfig,
+        private mainSend: (event: NotificationType, payload: object) => void,
+    ) {
         // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
 
         if (!this.config.lite) {

@@ -125,7 +125,6 @@ class AlexaMirror {
         if (!this.config.lite) {
             this.alexaCircle.classList.add("alexa-circle--listening");
             this.mainDiv.classList.add("wrapper-active");
-            this.mainDiv.classList.add("down-size");
         }
         else {
             const spinner = document.getElementById("loading-spinner");
@@ -135,7 +134,6 @@ class AlexaMirror {
     idle() {
         if (!this.config.lite) {
             this.mainDiv.classList.remove("wrapper-active");
-            this.mainDiv.classList.remove("down-size");
         }
     }
     busy() {

@@ -50,7 +50,6 @@ export class AlexaMirror {
         if (!this.config.lite) {
             this.alexaCircle.classList.add("alexa-circle--listening");
             this.mainDiv.classList.add("wrapper-active");
-            this.mainDiv.classList.add("down-size");
         } else {
             const spinner = document.getElementById("loading-spinner");
             spinner.classList.remove("hidden");
@@ -60,7 +59,6 @@ export class AlexaMirror {
     public idle(): void {
         if (!this.config.lite) {
             this.mainDiv.classList.remove("wrapper-active");
-            this.mainDiv.classList.remove("down-size");
         }
     }
 

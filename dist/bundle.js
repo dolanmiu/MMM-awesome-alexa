@@ -88,12 +88,12 @@ exports.RainbowVisualizer = rainbow_visualizer_1.RainbowVisualizer;
 Object.defineProperty(exports, "__esModule", { value: true });
 class AlexaMirror {
     // private visualizer: Visualizer;
-    constructor(mainDiv, canvas, lite, mainSend) {
+    constructor(mainDiv, canvas, config, mainSend) {
         // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
         this.mainDiv = mainDiv;
-        this.lite = lite;
+        this.config = config;
         this.mainSend = mainSend;
-        if (!this.lite) {
+        if (!this.config.lite) {
             this.mainDiv.classList.add("wrapper-smooth");
             document.body.classList.add("body-smooth");
         }
@@ -117,9 +117,11 @@ class AlexaMirror {
         }
     }
     listening() {
-        const sound = new Audio("/med_ui_wakesound.wav");
-        sound.play();
-        if (!this.lite) {
+        if (this.config.isWakeUpSoundEnabled) {
+            const sound = new Audio("/med_ui_wakesound.wav");
+            sound.play();
+        }
+        if (!this.config.lite) {
             this.mainDiv.classList.add("wrapper-active");
             document.body.classList.add("down-size");
         }
@@ -129,7 +131,7 @@ class AlexaMirror {
         }
     }
     idle() {
-        if (!this.lite) {
+        if (!this.config.lite) {
             this.mainDiv.classList.remove("wrapper-active");
             document.body.classList.remove("down-size");
         }
@@ -140,7 +142,7 @@ class AlexaMirror {
         sound.addEventListener("ended", () => {
             this.mainSend("finishedSpeaking", {});
         });
-        if (this.lite) {
+        if (this.config.lite) {
             const spinner = document.getElementById("loading-spinner");
             spinner.classList.add("hidden");
         }

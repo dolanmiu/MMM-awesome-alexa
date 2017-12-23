@@ -17,7 +17,8 @@ Module.register("MMM-awesome-alexa", {
         clientId: "amzn1.application-oa2-client.81574bebfb25437595d7376f44b54f8e",
         clientSecret: "87d49f998b3a6507b8e6a08760cda274e1d44a22a2bebade9433b1e7445d66a5",
         deviceId: "magic_mirror_alexa",
-        lite: false
+        lite: false,
+        isWakeUpSoundEnabled: true
     },
 
     start: function () {
@@ -43,7 +44,7 @@ Module.register("MMM-awesome-alexa", {
             }
         }
 
-        alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, undefined, this.config.lite, (event, payload) => {
+        alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, undefined, this.config, (event, payload) => {
             this.sendSocketNotification(event, payload);
         });
 

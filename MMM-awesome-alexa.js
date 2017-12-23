@@ -33,8 +33,12 @@ Module.register("MMM-awesome-alexa", {
     getDom: function () {
         const alexaWrapper = document.createElement("div");
         alexaWrapper.setAttribute("id", "wrapper");
+        alexaWrapper.classList.add("wrapper");
         const spinner = this.createLoadingSpinner();
+        const alexaCircle = document.createElement("div");
+        alexaCircle.classList.add("alexa-circle");
         alexaWrapper.appendChild(spinner);
+        alexaWrapper.appendChild(alexaCircle);
 
         if (texts.length > 0) {
             alexaWrapper.classList.add("wrapper-error");
@@ -46,7 +50,7 @@ Module.register("MMM-awesome-alexa", {
 
         alexaMirror = new AlexaVoiceService.AlexaMirror(alexaWrapper, undefined, this.config, (event, payload) => {
             this.sendSocketNotification(event, payload);
-        });
+        }, alexaCircle);
 
         alexaMirror.start();
         return alexaWrapper;

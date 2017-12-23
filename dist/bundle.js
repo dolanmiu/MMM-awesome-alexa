@@ -88,15 +88,12 @@ exports.RainbowVisualizer = rainbow_visualizer_1.RainbowVisualizer;
 Object.defineProperty(exports, "__esModule", { value: true });
 class AlexaMirror {
     // private visualizer: Visualizer;
-    constructor(mainDiv, canvas, config, mainSend) {
-        // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
+    constructor(mainDiv, canvas, config, mainSend, alexaCircle) {
         this.mainDiv = mainDiv;
         this.config = config;
         this.mainSend = mainSend;
-        if (!this.config.lite) {
-            this.mainDiv.classList.add("wrapper-smooth");
-            document.body.classList.add("body-smooth");
-        }
+        this.alexaCircle = alexaCircle;
+        // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
     }
     start() {
         // this.visualizer.init();
@@ -110,6 +107,7 @@ class AlexaMirror {
                 this.listening();
                 break;
             case "busy":
+                this.alexaCircle.classList.add("alexa-circle--busy");
                 break;
             case "speak":
                 this.speaking();
@@ -122,8 +120,9 @@ class AlexaMirror {
             sound.play();
         }
         if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--listening");
             this.mainDiv.classList.add("wrapper-active");
-            document.body.classList.add("down-size");
+            this.mainDiv.classList.add("down-size");
         }
         else {
             const spinner = document.getElementById("loading-spinner");
@@ -133,7 +132,7 @@ class AlexaMirror {
     idle() {
         if (!this.config.lite) {
             this.mainDiv.classList.remove("wrapper-active");
-            document.body.classList.remove("down-size");
+            this.mainDiv.classList.remove("down-size");
         }
     }
     speaking() {
@@ -146,6 +145,7 @@ class AlexaMirror {
             const spinner = document.getElementById("loading-spinner");
             spinner.classList.add("hidden");
         }
+        this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
     }
 }
 exports.AlexaMirror = AlexaMirror;

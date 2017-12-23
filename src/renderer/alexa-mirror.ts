@@ -15,6 +15,9 @@ export class AlexaMirror {
         private mainSend: (event: NotificationType, payload: object) => void,
         private alexaCircle: HTMLElement,
     ) {
+        if (this.config.lite) {
+            alexaCircle.remove();
+        }
         // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
     }
 
@@ -31,7 +34,7 @@ export class AlexaMirror {
                 this.listening();
                 break;
             case "busy":
-                this.alexaCircle.classList.add("alexa-circle--busy");
+                this.busy();
                 break;
             case "speak":
                 this.speaking();
@@ -61,6 +64,12 @@ export class AlexaMirror {
         }
     }
 
+    public busy(): void {
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--busy");
+        }
+    }
+
     public speaking(): void {
         const sound = new Audio("/output.mpeg");
         sound.play();
@@ -71,7 +80,8 @@ export class AlexaMirror {
         if (this.config.lite) {
             const spinner = document.getElementById("loading-spinner");
             spinner.classList.add("hidden");
+        } else {
+            this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
         }
-        this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
     }
 }

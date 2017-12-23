@@ -93,6 +93,9 @@ class AlexaMirror {
         this.config = config;
         this.mainSend = mainSend;
         this.alexaCircle = alexaCircle;
+        if (this.config.lite) {
+            alexaCircle.remove();
+        }
         // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
     }
     start() {
@@ -107,7 +110,7 @@ class AlexaMirror {
                 this.listening();
                 break;
             case "busy":
-                this.alexaCircle.classList.add("alexa-circle--busy");
+                this.busy();
                 break;
             case "speak":
                 this.speaking();
@@ -135,6 +138,11 @@ class AlexaMirror {
             this.mainDiv.classList.remove("down-size");
         }
     }
+    busy() {
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--busy");
+        }
+    }
     speaking() {
         const sound = new Audio("/output.mpeg");
         sound.play();
@@ -145,7 +153,9 @@ class AlexaMirror {
             const spinner = document.getElementById("loading-spinner");
             spinner.classList.add("hidden");
         }
-        this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
+        else {
+            this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
+        }
     }
 }
 exports.AlexaMirror = AlexaMirror;

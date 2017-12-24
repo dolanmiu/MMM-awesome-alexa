@@ -20,13 +20,6 @@ module.exports = {
         loaders: [{
             test: /\.ts$/,
             loaders: ["awesome-typescript-loader"],
-        }, {
-            test: /aws-sdk/,
-            loaders: ["transform-loader?brfs"],
-        },
-        {
-            test: /\.json$/,
-            loaders: ["json-loader"],
         }],
     },
 };

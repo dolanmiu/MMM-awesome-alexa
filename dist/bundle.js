@@ -86,6 +86,13 @@ exports.RainbowVisualizer = rainbow_visualizer_1.RainbowVisualizer;
 // import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
 // import { Visualizer } from "./visualizer/visualizer";
 Object.defineProperty(exports, "__esModule", { value: true });
+var AlexaNotification;
+(function (AlexaNotification) {
+    AlexaNotification["Idle"] = "idle";
+    AlexaNotification["Listening"] = "listening";
+    AlexaNotification["Busy"] = "busy";
+    AlexaNotification["Speaking"] = "speak";
+})(AlexaNotification || (AlexaNotification = {}));
 class AlexaMirror {
     // private visualizer: Visualizer;
     constructor(mainDiv, canvas, config, mainSend, alexaCircle) {
@@ -103,16 +110,16 @@ class AlexaMirror {
     }
     receivedNotification(type, payload) {
         switch (type) {
-            case "idle":
+            case AlexaNotification.Idle:
                 this.idle();
                 break;
-            case "listening":
+            case AlexaNotification.Listening:
                 this.listening();
                 break;
-            case "busy":
+            case AlexaNotification.Busy:
                 this.busy();
                 break;
-            case "speak":
+            case AlexaNotification.Speaking:
                 this.speaking();
                 break;
         }

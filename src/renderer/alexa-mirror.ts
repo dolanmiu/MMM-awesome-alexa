@@ -5,6 +5,14 @@ interface IConfig {
     lite: boolean;
     isWakeUpSoundEnabled: boolean;
 }
+
+enum AlexaNotification {
+    Idle = "idle",
+    Listening = "listening",
+    Busy = "busy",
+    Speaking = "speak",
+}
+
 export class AlexaMirror {
     // private visualizer: Visualizer;
 
@@ -25,18 +33,18 @@ export class AlexaMirror {
         // this.visualizer.init();
     }
 
-    public receivedNotification<T>(type: NotificationType, payload: T): void {
+    public receivedNotification<T>(type: AlexaNotification, payload: T): void {
         switch (type) {
-            case "idle":
+            case AlexaNotification.Idle:
                 this.idle();
                 break;
-            case "listening":
+            case AlexaNotification.Listening:
                 this.listening();
                 break;
-            case "busy":
+            case AlexaNotification.Busy:
                 this.busy();
                 break;
-            case "speak":
+            case AlexaNotification.Speaking:
                 this.speaking();
                 break;
         }

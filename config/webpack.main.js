@@ -3,16 +3,11 @@ var fs = require("fs");
 var path = require("path");
 
 module.exports = {
-    // devtool: "source-map",
-
-    entry: {
-        "bundle": "./src/renderer/index.ts",
-    },
-
+    entry: "./src/renderer/index.ts",
     output: {
         path: path.resolve(__dirname, "../dist"),
+        filename: "bundle.js",
         publicPath: "./",
-        filename: "[name].js",
         chunkFilename: "[id].chunk.js",
         libraryTarget: "var",
         library: "AlexaVoiceService",
@@ -35,6 +30,4 @@ module.exports = {
             loaders: ["json-loader"],
         }],
     },
-
-    // target: "node",
 };

@@ -27,7 +27,6 @@ module.exports = NodeHelper.create({
         });
     },
 
-    // Because this.config is not accessible from node_helper for some reason. Need to pass from the js file.
     socketNotificationReceived: function (notification, payload) {
         // Renderer sends "main" a notification to connect
         if (notification === "CONFIG") {

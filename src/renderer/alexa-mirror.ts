@@ -1,42 +1,62 @@
 // import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
 // import { Visualizer } from "./visualizer/visualizer";
 
+interface IConfig {
+    lite: boolean;
+    isWakeUpSoundEnabled: boolean;
+}
+
+enum AlexaNotification {
+    Idle = "idle",
+    Listening = "listening",
+    Busy = "busy",
+    Speaking = "speak",
+}
+
 export class AlexaMirror {
     // private visualizer: Visualizer;
 
-    constructor(private mainDiv: HTMLElement, canvas: HTMLCanvasElement, private lite: boolean, private mainSend: (event: NotificationType, payload: object) => void) {
-        // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
-
-        if (!this.lite) {
-            this.mainDiv.classList.add("wrapper-smooth");
-            document.body.classList.add("body-smooth");
+    constructor(
+        private mainDiv: HTMLElement,
+        canvas: HTMLCanvasElement,
+        private config: IConfig,
+        private mainSend: (event: NotificationType, payload: object) => void,
+        private alexaCircle: HTMLElement,
+    ) {
+        if (this.config.lite) {
+            alexaCircle.remove();
         }
+        // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
     }
 
     public start(): void {
         // this.visualizer.init();
     }
 
-    public receivedNotification<T>(type: NotificationType, payload: T): void {
+    public receivedNotification<T>(type: AlexaNotification, payload: T): void {
         switch (type) {
-            case "idle":
+            case AlexaNotification.Idle:
                 this.idle();
                 break;
-            case "listening":
+            case AlexaNotification.Listening:
                 this.listening();
                 break;
-            case "busy":
+            case AlexaNotification.Busy:
+                this.busy();
                 break;
-            case "speak":
+            case AlexaNotification.Speaking:
                 this.speaking();
                 break;
         }
     }
 
     public listening(): void {
-        if (!this.lite) {
+        if (this.config.isWakeUpSoundEnabled) {
+            new Audio("/med_ui_wakesound.wav").play();
+        }
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--listening");
             this.mainDiv.classList.add("wrapper-active");
-            document.body.classList.add("down-size");
         } else {
             const spinner = document.getElementById("loading-spinner");
             spinner.classList.remove("hidden");
@@ -44,9 +64,14 @@ export class AlexaMirror {
     }
 
     public idle(): void {
-        if (!this.lite) {
+        if (!this.config.lite) {
             this.mainDiv.classList.remove("wrapper-active");
-            document.body.classList.remove("down-size");
+        }
+    }
+
+    public busy(): void {
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--busy");
         }
     }
 
@@ -57,9 +82,11 @@ export class AlexaMirror {
             this.mainSend("finishedSpeaking", {});
         });
 
-        if (this.lite) {
+        if (this.config.lite) {
             const spinner = document.getElementById("loading-spinner");
             spinner.classList.add("hidden");
+        } else {
+            this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
         }
     }
 }

@@ -86,40 +86,51 @@ exports.RainbowVisualizer = rainbow_visualizer_1.RainbowVisualizer;
 // import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
 // import { Visualizer } from "./visualizer/visualizer";
 Object.defineProperty(exports, "__esModule", { value: true });
+var AlexaNotification;
+(function (AlexaNotification) {
+    AlexaNotification["Idle"] = "idle";
+    AlexaNotification["Listening"] = "listening";
+    AlexaNotification["Busy"] = "busy";
+    AlexaNotification["Speaking"] = "speak";
+})(AlexaNotification || (AlexaNotification = {}));
 class AlexaMirror {
     // private visualizer: Visualizer;
-    constructor(mainDiv, canvas, lite, mainSend) {
-        // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
+    constructor(mainDiv, canvas, config, mainSend, alexaCircle) {
         this.mainDiv = mainDiv;
-        this.lite = lite;
+        this.config = config;
         this.mainSend = mainSend;
-        if (!this.lite) {
-            this.mainDiv.classList.add("wrapper-smooth");
-            document.body.classList.add("body-smooth");
+        this.alexaCircle = alexaCircle;
+        if (this.config.lite) {
+            alexaCircle.remove();
         }
+        // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
     }
     start() {
         // this.visualizer.init();
     }
     receivedNotification(type, payload) {
         switch (type) {
-            case "idle":
+            case AlexaNotification.Idle:
                 this.idle();
                 break;
-            case "listening":
+            case AlexaNotification.Listening:
                 this.listening();
                 break;
-            case "busy":
+            case AlexaNotification.Busy:
+                this.busy();
                 break;
-            case "speak":
+            case AlexaNotification.Speaking:
                 this.speaking();
                 break;
         }
     }
     listening() {
-        if (!this.lite) {
+        if (this.config.isWakeUpSoundEnabled) {
+            new Audio("/med_ui_wakesound.wav").play();
+        }
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--listening");
             this.mainDiv.classList.add("wrapper-active");
-            document.body.classList.add("down-size");
         }
         else {
             const spinner = document.getElementById("loading-spinner");
@@ -127,9 +138,13 @@ class AlexaMirror {
         }
     }
     idle() {
-        if (!this.lite) {
+        if (!this.config.lite) {
             this.mainDiv.classList.remove("wrapper-active");
-            document.body.classList.remove("down-size");
+        }
+    }
+    busy() {
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--busy");
         }
     }
     speaking() {
@@ -138,9 +153,12 @@ class AlexaMirror {
         sound.addEventListener("ended", () => {
             this.mainSend("finishedSpeaking", {});
         });
-        if (this.lite) {
+        if (this.config.lite) {
             const spinner = document.getElementById("loading-spinner");
             spinner.classList.add("hidden");
+        }
+        else {
+            this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
         }
     }
 }

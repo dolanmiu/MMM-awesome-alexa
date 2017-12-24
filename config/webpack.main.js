@@ -1,6 +1,6 @@
-var webpack = require("webpack");
-var fs = require("fs");
-var path = require("path");
+const webpack = require("webpack");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = {
     entry: "./src/renderer/index.ts",

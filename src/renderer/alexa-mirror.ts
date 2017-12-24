@@ -44,8 +44,7 @@ export class AlexaMirror {
 
     public listening(): void {
         if (this.config.isWakeUpSoundEnabled) {
-            const sound = new Audio("/med_ui_wakesound.wav");
-            sound.play();
+            new Audio("/med_ui_wakesound.wav").play();
         }
         if (!this.config.lite) {
             this.alexaCircle.classList.add("alexa-circle--listening");

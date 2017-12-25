@@ -105,14 +105,14 @@ Module.register("MMM-awesome-alexa", {
         isWakeUpSoundEnabled: true
     },
 
-    start: function () {
+    start: function() {
         if (this.config.refreshToken === undefined) {
             texts.push("Refresh token must be set in the config before using awesome-alexa!");
         }
         this.sendSocketNotification("CONFIG", this.config);
     },
 
-    getDom: function () {
+    getDom: function() {
         const alexaWrapper = document.createElement("div");
         alexaWrapper.setAttribute("id", "wrapper");
         alexaWrapper.classList.add("wrapper");
@@ -137,18 +137,18 @@ Module.register("MMM-awesome-alexa", {
         return alexaWrapper;
     },
 
-    getStyles: function () {
+    getStyles: function() {
         return [
             this.file("styles/global.css"),
         ];
     },
 
-    socketNotificationReceived: function (notification, payload) {
+    socketNotificationReceived: function(notification, payload) {
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
         alexaMirror.receivedNotification(notification, payload);
     },
 
-    createLoadingSpinner: function () {
+    createLoadingSpinner: function() {
         var img = document.createElement("img");
         img.setAttribute('src', 'modules/MMM-awesome-alexa/styles/loading.gif');
         img.setAttribute('id', 'loading-spinner');

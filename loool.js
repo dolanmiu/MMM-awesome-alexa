@@ -113,11 +113,6 @@ Module.register("MMM-awesome-alexa", {
         alexaMirror.start();
         return alexaWrapper;
     },
-    getScripts: function () {
-        return [
-            this.file("dist/bundle.js"),
-        ];
-    },
     getStyles: function () {
         return [
             this.file("styles/global.css"),
@@ -134,11 +129,5 @@ Module.register("MMM-awesome-alexa", {
         img.classList.add('loading-spinner');
         img.classList.add('hidden');
         return img;
-    },
-    createCanvas: function () {
-        var canvas = document.createElement("canvas");
-        canvas.width = 400;
-        canvas.height = 300;
-        return canvas;
     }
 });

@@ -5,72 +5,6 @@ var AlexaNotification;
     AlexaNotification["Busy"] = "busy";
     AlexaNotification["Speaking"] = "speak";
 })(AlexaNotification || (AlexaNotification = {}));
-var AlexaMirror = /** @class */ (function () {
-    function AlexaMirror(mainDiv, canvas, config, mainSend, alexaCircle) {
-        this.mainDiv = mainDiv;
-        this.config = config;
-        this.mainSend = mainSend;
-        this.alexaCircle = alexaCircle;
-        if (this.config.lite) {
-            alexaCircle.remove();
-        }
-    }
-    AlexaMirror.prototype.receivedNotification = function (type, payload) {
-        switch (type) {
-            case AlexaNotification.Idle:
-                this.idle();
-                break;
-            case AlexaNotification.Listening:
-                this.listening();
-                break;
-            case AlexaNotification.Busy:
-                this.busy();
-                break;
-            case AlexaNotification.Speaking:
-                this.speaking();
-                break;
-        }
-    };
-    AlexaMirror.prototype.listening = function () {
-        if (this.config.isWakeUpSoundEnabled) {
-            new Audio("/med_ui_wakesound.wav").play();
-        }
-        if (!this.config.lite) {
-            this.alexaCircle.classList.add("alexa-circle--listening");
-            this.mainDiv.classList.add("wrapper-active");
-        }
-        else {
-            var spinner = document.getElementById("loading-spinner");
-            spinner.classList.remove("hidden");
-        }
-    };
-    AlexaMirror.prototype.idle = function () {
-        if (!this.config.lite) {
-            this.mainDiv.classList.remove("wrapper-active");
-        }
-    };
-    AlexaMirror.prototype.busy = function () {
-        if (!this.config.lite) {
-            this.alexaCircle.classList.add("alexa-circle--busy");
-        }
-    };
-    AlexaMirror.prototype.speaking = function () {
-        var _this = this;
-        var sound = new Audio("/output.mpeg");
-        sound.play();
-        sound.addEventListener("ended", function () {
-            _this.mainSend("finishedSpeaking", {});
-        });
-        if (this.config.lite) {
-            var spinner = document.getElementById("loading-spinner");
-            spinner.classList.add("hidden");
-        }
-        else {
-            this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
-        }
-    };
-    return AlexaMirror;
-}());
 var alexaMirror;
 var texts = [];
 Module.register("MMM-awesome-alexa", {
@@ -89,7 +23,6 @@ Module.register("MMM-awesome-alexa", {
         this.sendSocketNotification("CONFIG", this.config);
     },
     getDom: function () {
-        var _this = this;
         var alexaWrapper = document.createElement("div");
         alexaWrapper.setAttribute("id", "wrapper");
         alexaWrapper.classList.add("wrapper");
@@ -105,9 +38,8 @@ Module.register("MMM-awesome-alexa", {
                 alexaWrapper.appendChild(document.createTextNode(text));
             }
         }
-        alexaMirror = new AlexaMirror(alexaWrapper, undefined, this.config, function (event, payload) {
-            _this.sendSocketNotification(event, payload);
-        }, alexaCircle);
+        this.mainDiv = alexaWrapper;
+        this.alexaCircle = alexaCircle;
         return alexaWrapper;
     },
     getStyles: function () {
@@ -117,7 +49,58 @@ Module.register("MMM-awesome-alexa", {
     },
     socketNotificationReceived: function (notification, payload) {
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-        alexaMirror.receivedNotification(notification, payload);
+        switch (notification) {
+            case AlexaNotification.Idle:
+                this.idle();
+                break;
+            case AlexaNotification.Listening:
+                this.listening();
+                break;
+            case AlexaNotification.Busy:
+                this.busy();
+                break;
+            case AlexaNotification.Speaking:
+                this.speaking();
+                break;
+        }
+    },
+    idle: function () {
+        if (!this.config.lite) {
+            this.mainDiv.classList.remove("wrapper-active");
+        }
+    },
+    listening: function () {
+        if (this.config.isWakeUpSoundEnabled) {
+            new Audio("/med_ui_wakesound.wav").play();
+        }
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--listening");
+            this.mainDiv.classList.add("wrapper-active");
+        }
+        else {
+            var spinner = document.getElementById("loading-spinner");
+            spinner.classList.remove("hidden");
+        }
+    },
+    busy: function () {
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--busy");
+        }
+    },
+    speaking: function () {
+        var _this = this;
+        var sound = new Audio("/output.mpeg");
+        sound.play();
+        sound.addEventListener("ended", function () {
+            _this.sendSocketNotification("finishedSpeaking", {});
+        });
+        if (this.config.lite) {
+            var spinner = document.getElementById("loading-spinner");
+            spinner.classList.add("hidden");
+        }
+        else {
+            this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
+        }
     },
     createLoadingSpinner: function () {
         var img = document.createElement("img");

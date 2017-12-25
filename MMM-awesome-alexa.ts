@@ -20,77 +20,6 @@ enum AlexaNotification {
 
 declare type NotificationType = "idle" | "busy" | "listening" | "speak" | "finishedSpeaking";
 
-class AlexaMirror {
-    constructor(
-        private mainDiv: HTMLElement,
-        canvas: HTMLCanvasElement,
-        private config: IConfig,
-        private mainSend: (event: NotificationType, payload: object) => void,
-        private alexaCircle: HTMLElement,
-    ) {
-        if (this.config.lite) {
-            alexaCircle.remove();
-        }
-    }
-
-    public receivedNotification<T>(type: AlexaNotification, payload: T): void {
-        switch (type) {
-            case AlexaNotification.Idle:
-                this.idle();
-                break;
-            case AlexaNotification.Listening:
-                this.listening();
-                break;
-            case AlexaNotification.Busy:
-                this.busy();
-                break;
-            case AlexaNotification.Speaking:
-                this.speaking();
-                break;
-        }
-    }
-
-    public listening(): void {
-        if (this.config.isWakeUpSoundEnabled) {
-            new Audio("/med_ui_wakesound.wav").play();
-        }
-        if (!this.config.lite) {
-            this.alexaCircle.classList.add("alexa-circle--listening");
-            this.mainDiv.classList.add("wrapper-active");
-        } else {
-            const spinner = document.getElementById("loading-spinner");
-            spinner.classList.remove("hidden");
-        }
-    }
-
-    public idle(): void {
-        if (!this.config.lite) {
-            this.mainDiv.classList.remove("wrapper-active");
-        }
-    }
-
-    public busy(): void {
-        if (!this.config.lite) {
-            this.alexaCircle.classList.add("alexa-circle--busy");
-        }
-    }
-
-    public speaking(): void {
-        const sound = new Audio("/output.mpeg");
-        sound.play();
-        sound.addEventListener("ended", () => {
-            this.mainSend("finishedSpeaking", {});
-        });
-
-        if (this.config.lite) {
-            const spinner = document.getElementById("loading-spinner");
-            spinner.classList.add("hidden");
-        } else {
-            this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
-        }
-    }
-}
-
 let alexaMirror;
 let texts: Array<string> = [];
 
@@ -130,9 +59,8 @@ Module.register("MMM-awesome-alexa", {
             }
         }
 
-        alexaMirror = new AlexaMirror(alexaWrapper, undefined, this.config, (event, payload) => {
-            this.sendSocketNotification(event, payload);
-        }, alexaCircle);
+        this.mainDiv = alexaWrapper;
+        this.alexaCircle = alexaCircle;
 
         return alexaWrapper;
     },
@@ -143,9 +71,62 @@ Module.register("MMM-awesome-alexa", {
         ];
     },
 
-    socketNotificationReceived: function(notification, payload) {
+    socketNotificationReceived: function<T>(notification: AlexaNotification, payload: T): void {
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-        alexaMirror.receivedNotification(notification, payload);
+        switch (notification) {
+            case AlexaNotification.Idle:
+                this.idle();
+                break;
+            case AlexaNotification.Listening:
+                this.listening();
+                break;
+            case AlexaNotification.Busy:
+                this.busy();
+                break;
+            case AlexaNotification.Speaking:
+                this.speaking();
+                break;
+        }
+    },
+
+    idle: function(): void {
+        if (!this.config.lite) {
+            this.mainDiv.classList.remove("wrapper-active");
+        }
+    },
+
+    listening: function(): void {
+        if (this.config.isWakeUpSoundEnabled) {
+            new Audio("/med_ui_wakesound.wav").play();
+        }
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--listening");
+            this.mainDiv.classList.add("wrapper-active");
+        } else {
+            const spinner = document.getElementById("loading-spinner");
+            spinner.classList.remove("hidden");
+        }
+    },
+
+    busy: function(): void {
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--busy");
+        }
+    },
+
+    speaking: function(): void {
+        const sound = new Audio("/output.mpeg");
+        sound.play();
+        sound.addEventListener("ended", () => {
+            this.sendSocketNotification("finishedSpeaking", {});
+        });
+
+        if (this.config.lite) {
+            const spinner = document.getElementById("loading-spinner");
+            spinner.classList.add("hidden");
+        } else {
+            this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
+        }
     },
 
     createLoadingSpinner: function() {

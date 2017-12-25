@@ -33,9 +33,6 @@ class AlexaMirror {
         }
     }
 
-    public start(): void {
-    }
-
     public receivedNotification<T>(type: AlexaNotification, payload: T): void {
         switch (type) {
             case AlexaNotification.Idle:
@@ -137,7 +134,6 @@ Module.register("MMM-awesome-alexa", {
             this.sendSocketNotification(event, payload);
         }, alexaCircle);
 
-        alexaMirror.start();
         return alexaWrapper;
     },
 

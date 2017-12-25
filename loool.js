@@ -15,8 +15,6 @@ var AlexaMirror = /** @class */ (function () {
             alexaCircle.remove();
         }
     }
-    AlexaMirror.prototype.start = function () {
-    };
     AlexaMirror.prototype.receivedNotification = function (type, payload) {
         switch (type) {
             case AlexaNotification.Idle:
@@ -110,7 +108,6 @@ Module.register("MMM-awesome-alexa", {
         alexaMirror = new AlexaMirror(alexaWrapper, undefined, this.config, function (event, payload) {
             _this.sendSocketNotification(event, payload);
         }, alexaCircle);
-        alexaMirror.start();
         return alexaWrapper;
     },
     getStyles: function () {

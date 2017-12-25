@@ -105,14 +105,14 @@ Module.register("MMM-awesome-alexa", {
         isWakeUpSoundEnabled: true,
     },
 
-    start: function() {
+    start: function(): void {
         if (this.config.refreshToken === undefined) {
             texts.push("Refresh token must be set in the config before using awesome-alexa!");
         }
         this.sendSocketNotification("CONFIG", this.config);
     },
 
-    getDom: function() {
+    getDom: function(): HTMLElement {
         const alexaWrapper = document.createElement("div");
         alexaWrapper.setAttribute("id", "wrapper");
         alexaWrapper.classList.add("wrapper");

@@ -18,7 +18,6 @@ enum AlexaNotification {
     Speaking = "speak",
 }
 
-let alexaMirror;
 let texts: Array<string> = [];
 
 Module.register("MMM-awesome-alexa", {

@@ -5,7 +5,6 @@ var AlexaNotification;
     AlexaNotification["Busy"] = "busy";
     AlexaNotification["Speaking"] = "speak";
 })(AlexaNotification || (AlexaNotification = {}));
-var alexaMirror;
 var texts = [];
 Module.register("MMM-awesome-alexa", {
     // Default module config.

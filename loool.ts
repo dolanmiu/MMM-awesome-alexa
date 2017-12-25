@@ -92,7 +92,7 @@ class AlexaMirror {
 }
 
 let alexaMirror;
-let texts = [];
+let texts: Array<string> = [];
 
 Module.register("MMM-awesome-alexa", {
 

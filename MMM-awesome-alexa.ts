@@ -62,7 +62,7 @@ Module.register("MMM-awesome-alexa", {
         return alexaWrapper;
     },
 
-    getStyles: function() {
+    getStyles: function(): Array<string> {
         return [
             this.file("styles/global.css"),
         ];

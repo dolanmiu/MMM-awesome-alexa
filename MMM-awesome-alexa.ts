@@ -18,8 +18,6 @@ enum AlexaNotification {
     Speaking = "speak",
 }
 
-declare type NotificationType = "idle" | "busy" | "listening" | "speak" | "finishedSpeaking";
-
 let alexaMirror;
 let texts: Array<string> = [];
 

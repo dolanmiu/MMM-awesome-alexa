@@ -125,9 +125,6 @@ class AlexaMirror {
         }
     }
     listening() {
-        if (this.config.isWakeUpSoundEnabled) {
-            new Audio("/med_ui_wakesound.wav").play();
-        }
         if (!this.config.lite) {
             this.alexaCircle.classList.add("alexa-circle--listening");
             this.mainDiv.classList.add("wrapper-active");

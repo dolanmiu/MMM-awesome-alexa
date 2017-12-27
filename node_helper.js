@@ -20,11 +20,6 @@ module.exports = NodeHelper.create({
             const rstream = fs.createReadStream(outputPath);
             rstream.pipe(res);
         });
-
-        this.expressApp.get("/med_ui_wakesound.wav", function(req, res) {
-            fs.createReadStream(path.resolve(__dirname, "resources/med_ui_wakesound.wav"))
-            .pipe(res);
-        });
     },
 
     socketNotificationReceived: function (notification, payload) {

@@ -13,7 +13,7 @@ enum AlexaNotification {
   Speaking = "speak",
 }
 
-import {AlexaMirror} from "./renderer";
+import AlexaMirror from "./renderer/alexa-mirror";
 
 let alexaMirror: AlexaMirror;
 const texts: Array<string> = [];
@@ -59,12 +59,6 @@ Module.register("MMM-awesome-alexa", {
 
         alexaMirror.start();
         return alexaWrapper;
-    },
-
-    getScripts: function () {
-        return [
-            this.file("dist/bundle.js"),
-        ];
     },
 
     getStyles: function () {

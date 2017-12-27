@@ -12,7 +12,7 @@ enum AlexaNotification {
     Speaking = "speak",
 }
 
-export class AlexaMirror {
+export default class AlexaMirror {
     // private visualizer: Visualizer;
 
     constructor(

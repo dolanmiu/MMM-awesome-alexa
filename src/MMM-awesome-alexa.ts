@@ -63,11 +63,11 @@ Module.register("MMM-awesome-alexa", {
     },
 
     createLoadingSpinner(): HTMLElement {
-        var img = document.createElement("img");
-        img.setAttribute('src', 'modules/MMM-awesome-alexa/styles/loading.gif');
-        img.setAttribute('id', 'loading-spinner');
-        img.classList.add('loading-spinner');
-        img.classList.add('hidden');
+        const img = document.createElement("img");
+        img.setAttribute("src", "modules/MMM-awesome-alexa/styles/loading.gif");
+        img.setAttribute("id", "loading-spinner");
+        img.classList.add("loading-spinner");
+        img.classList.add("hidden");
         return img;
     },
 

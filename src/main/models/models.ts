@@ -14,7 +14,7 @@ export class AlexaModels extends Models {
         }
 
         this.add({
-            file: path.resolve(__dirname, "../resources/models", model.file),
+            file: path.resolve(__dirname, "resources/models", model.file),
             sensitivity: "0.5",
             hotwords: model.name,
         });

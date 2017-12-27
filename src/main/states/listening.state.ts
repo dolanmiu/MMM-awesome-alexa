@@ -15,7 +15,7 @@ export class ListeningState extends State {
 
     public onEnter(): void {
         this.components.rendererSend("listening", {});
-        const writeStream = fs.createWriteStream(path.resolve(__dirname, "../temp/to-amazon.wav"));
+        const writeStream = fs.createWriteStream(path.resolve(__dirname, "temp/to-amazon.wav"));
         writeStream.on("finish", () => {
             this.transition(this.allowedStateTransitions.get("busy"));
         });

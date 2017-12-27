@@ -27,8 +27,8 @@ const serverConfig = {
     externals: [nodeExternals()],
     entry: "./src/main/index.ts",
     output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "main.js",
+        path: __dirname,
+        filename: "node_helper.js",
         libraryTarget: "commonjs2",
         library: "yourLibName",
     },

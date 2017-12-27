@@ -5,7 +5,7 @@ import { RecTester } from "./rec-tester";
 import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
-export default class Main {
+class Main {
     private recTester: RecTester;
     private alexaStateMachine: AlexaStateMachine;
     private rendererCommunicator: RendererCommunicator;
@@ -83,4 +83,41 @@ export default class Main {
     }
 }
 
-module.exports = Main;
+const fs = require("fs");
+const path = require("path");
+
+let main;
+
+declare const NodeHelper: {
+    create(config: object): void,
+  };
+
+module.exports = NodeHelper.create({
+    start: function () {
+        this.expressApp.get("/output.mpeg", function (req, res) {
+            res.setHeader("Expires", new Date().toUTCString());
+            const outputPath = path.resolve(__dirname, 'temp/output.mpeg');
+
+            if (!fs.existsSync(outputPath)) {
+                const rstream = fs.createReadStream(path.resolve(__dirname, 'resources/alexa/sorry-im-not-sure.mpeg'));
+                rstream.pipe(res);
+                return;
+            }
+
+            const rstream = fs.createReadStream(outputPath);
+            rstream.pipe(res);
+        });
+    },
+
+    socketNotificationReceived: function (notification, payload) {
+        // Renderer sends "main" a notification to connect
+        if (notification === "CONFIG") {
+            main = new Main(payload, (event, payload) => {
+                this.sendSocketNotification(event, payload);
+            }, this.socketNotificationReceived);
+            return;
+        }
+
+        main.receivedNotification(notification, payload);
+    },
+});

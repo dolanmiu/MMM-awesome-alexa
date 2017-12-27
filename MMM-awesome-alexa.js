@@ -83,13 +83,13 @@ Module.register("MMM-awesome-alexa", {
         deviceId: "magic_mirror_alexa",
         lite: false,
     },
-    start: function () {
+    start() {
         if (this.config.refreshToken === undefined) {
             texts.push("Refresh token must be set in the config before using awesome-alexa!");
         }
         this.sendSocketNotification("CONFIG", this.config);
     },
-    getDom: function () {
+    getDom() {
         const alexaWrapper = document.createElement("div");
         alexaWrapper.setAttribute("id", "wrapper");
         alexaWrapper.classList.add("wrapper");
@@ -108,12 +108,12 @@ Module.register("MMM-awesome-alexa", {
         this.mainDiv = alexaWrapper;
         return alexaWrapper;
     },
-    getStyles: function () {
+    getStyles() {
         return [
             this.file("styles/global.css"),
         ];
     },
-    createLoadingSpinner: function () {
+    createLoadingSpinner() {
         var img = document.createElement("img");
         img.setAttribute('src', 'modules/MMM-awesome-alexa/styles/loading.gif');
         img.setAttribute('id', 'loading-spinner');
@@ -121,16 +121,17 @@ Module.register("MMM-awesome-alexa", {
         img.classList.add('hidden');
         return img;
     },
-    createCanvas: function () {
+    createCanvas() {
         const canvas = document.createElement("canvas");
         canvas.width = 400;
         canvas.height = 300;
         return canvas;
     },
-    socketNotificationReceived: function (notification, payload) {
+    socketNotificationReceived(notification, payload) {
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
         switch (notification) {
             case AlexaNotification.Idle:
+                console.log("this!!", this);
                 this.idle();
                 break;
             case AlexaNotification.Listening:

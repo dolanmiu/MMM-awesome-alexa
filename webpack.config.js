@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-    entry: "./src/MMM-awesome-alexa.ts",
+    entry: "./src/renderer/MMM-awesome-alexa.ts",
     output: {
         path: path.resolve(__dirname, "."),
         filename: "MMM-awesome-alexa.js",

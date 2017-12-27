@@ -82,7 +82,6 @@ Module.register("MMM-awesome-alexa", {
         Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
         switch (notification) {
             case AlexaNotification.Idle:
-                console.log("this!!", this);
                 this.idle();
                 break;
             case AlexaNotification.Listening:

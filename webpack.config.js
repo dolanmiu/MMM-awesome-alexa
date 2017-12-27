@@ -1,5 +1,6 @@
 const nodeExternals = require("webpack-node-externals");
 const webpack = require("webpack");
+const path = require("path");
 
 const clientConfig = {
     entry: "./src/renderer/MMM-awesome-alexa.ts",
@@ -26,7 +27,7 @@ const serverConfig = {
     externals: [nodeExternals()],
     entry: "./src/main/index.ts",
     output: {
-        path: __dirname + "/dist",
+        path: path.resolve(__dirname, "dist"),
         filename: "main.js",
         libraryTarget: "commonjs2",
         library: "yourLibName",

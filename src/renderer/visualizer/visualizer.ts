@@ -1,6 +1,5 @@
 // Interesting parameters to tweak!
 const SMOOTHING = 0.8;
-const FFT_SIZE = 2048;
 
 export abstract class Visualizer {
     private analyser: AnalyserNode;
@@ -9,7 +8,7 @@ export abstract class Visualizer {
     private drawContext: CanvasRenderingContext2D;
     private drawFunc: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D) => void;
 
-    constructor(private canvas: HTMLCanvasElement, audioContext: AudioContext) {
+    constructor(private canvas: HTMLCanvasElement, audioContext: AudioContext, private fftSize: number = 2048) {
         this.drawContext = canvas.getContext("2d");
         this.analyser = audioContext.createAnalyser();
         this.drawFunc = () => { return; };
@@ -17,7 +16,7 @@ export abstract class Visualizer {
         this.analyser.minDecibels = -140;
         this.analyser.maxDecibels = 0;
         this.analyser.smoothingTimeConstant = SMOOTHING;
-        this.analyser.fftSize = FFT_SIZE;
+        this.analyser.fftSize = fftSize;
         this.freqs = new Uint8Array(this.analyser.frequencyBinCount);
         this.times = new Uint8Array(this.analyser.frequencyBinCount);
     }

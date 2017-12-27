@@ -65,11 +65,8 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
 var AlexaNotification;
 (function (AlexaNotification) {
     AlexaNotification["Idle"] = "idle";
@@ -77,8 +74,6 @@ var AlexaNotification;
     AlexaNotification["Busy"] = "busy";
     AlexaNotification["Speaking"] = "speak";
 })(AlexaNotification || (AlexaNotification = {}));
-const alexa_mirror_1 = __webpack_require__(1);
-let alexaMirror;
 const texts = [];
 Module.register("MMM-awesome-alexa", {
     // Default module config.
@@ -109,20 +104,14 @@ Module.register("MMM-awesome-alexa", {
                 alexaWrapper.appendChild(document.createTextNode(text));
             }
         }
-        alexaMirror = new alexa_mirror_1.default(alexaWrapper, undefined, this.config, (event, payload) => {
-            this.sendSocketNotification(event, payload);
-        }, alexaCircle);
-        alexaMirror.start();
+        this.alexaCircle = alexaCircle;
+        this.mainDiv = alexaWrapper;
         return alexaWrapper;
     },
     getStyles: function () {
         return [
             this.file("styles/global.css"),
         ];
-    },
-    socketNotificationReceived: function (notification, payload) {
-        Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-        alexaMirror.receivedNotification(notification, payload);
     },
     createLoadingSpinner: function () {
         var img = document.createElement("img");
@@ -137,43 +126,10 @@ Module.register("MMM-awesome-alexa", {
         canvas.width = 400;
         canvas.height = 300;
         return canvas;
-    }
-});
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
-// import { Visualizer } from "./visualizer/visualizer";
-Object.defineProperty(exports, "__esModule", { value: true });
-var AlexaNotification;
-(function (AlexaNotification) {
-    AlexaNotification["Idle"] = "idle";
-    AlexaNotification["Listening"] = "listening";
-    AlexaNotification["Busy"] = "busy";
-    AlexaNotification["Speaking"] = "speak";
-})(AlexaNotification || (AlexaNotification = {}));
-class AlexaMirror {
-    // private visualizer: Visualizer;
-    constructor(mainDiv, canvas, config, mainSend, alexaCircle) {
-        this.mainDiv = mainDiv;
-        this.config = config;
-        this.mainSend = mainSend;
-        this.alexaCircle = alexaCircle;
-        if (this.config.lite) {
-            alexaCircle.remove();
-        }
-        // this.visualizer = new RainbowVisualizer(canvas, this.avsWrapper.AudioContext);
-    }
-    start() {
-        // this.visualizer.init();
-    }
-    receivedNotification(type, payload) {
-        switch (type) {
+    },
+    socketNotificationReceived: function (notification, payload) {
+        Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
+        switch (notification) {
             case AlexaNotification.Idle:
                 this.idle();
                 break;
@@ -187,7 +143,7 @@ class AlexaMirror {
                 this.speaking();
                 break;
         }
-    }
+    },
     listening() {
         if (!this.config.lite) {
             this.alexaCircle.classList.add("alexa-circle--listening");
@@ -197,22 +153,22 @@ class AlexaMirror {
             const spinner = document.getElementById("loading-spinner");
             spinner.classList.remove("hidden");
         }
-    }
+    },
     idle() {
         if (!this.config.lite) {
             this.mainDiv.classList.remove("wrapper-active");
         }
-    }
+    },
     busy() {
         if (!this.config.lite) {
             this.alexaCircle.classList.add("alexa-circle--busy");
         }
-    }
+    },
     speaking() {
         const sound = new Audio("/output.mpeg");
         sound.play();
         sound.addEventListener("ended", () => {
-            this.mainSend("finishedSpeaking", {});
+            this.sendSocketNotification("finishedSpeaking", {});
         });
         if (this.config.lite) {
             const spinner = document.getElementById("loading-spinner");
@@ -221,9 +177,8 @@ class AlexaMirror {
         else {
             this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
         }
-    }
-}
-exports.default = AlexaMirror;
+    },
+});
 
 
 /***/ })

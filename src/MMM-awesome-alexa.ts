@@ -13,9 +13,6 @@ enum AlexaNotification {
   Speaking = "speak",
 }
 
-import AlexaMirror from "./renderer/alexa-mirror";
-
-let alexaMirror: AlexaMirror;
 const texts: Array<string> = [];
 
 Module.register("MMM-awesome-alexa", {
@@ -53,11 +50,9 @@ Module.register("MMM-awesome-alexa", {
             }
         }
 
-        alexaMirror = new AlexaMirror(alexaWrapper, undefined, this.config, (event, payload) => {
-            this.sendSocketNotification(event, payload);
-        }, alexaCircle);
+        this.alexaCircle = alexaCircle;
+        this.mainDiv = alexaWrapper;
 
-        alexaMirror.start();
         return alexaWrapper;
     },
 
@@ -65,11 +60,6 @@ Module.register("MMM-awesome-alexa", {
         return [
             this.file("styles/global.css"),
         ];
-    },
-
-    socketNotificationReceived: function<T>(notification: AlexaNotification, payload: T): void {
-        Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-        alexaMirror.receivedNotification(notification, payload);
     },
 
     createLoadingSpinner: function () {
@@ -86,5 +76,60 @@ Module.register("MMM-awesome-alexa", {
         canvas.width = 400;
         canvas.height = 300;
         return canvas;
-    }
+    },
+
+    socketNotificationReceived: function<T>(notification: AlexaNotification, payload: T): void {
+        Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
+        switch (notification) {
+            case AlexaNotification.Idle:
+                this.idle();
+                break;
+            case AlexaNotification.Listening:
+                this.listening();
+                break;
+            case AlexaNotification.Busy:
+                this.busy();
+                break;
+            case AlexaNotification.Speaking:
+                this.speaking();
+                break;
+        }
+    },
+
+    listening(): void {
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--listening");
+            this.mainDiv.classList.add("wrapper-active");
+        } else {
+            const spinner = document.getElementById("loading-spinner");
+            spinner.classList.remove("hidden");
+        }
+    },
+
+    idle(): void {
+        if (!this.config.lite) {
+            this.mainDiv.classList.remove("wrapper-active");
+        }
+    },
+
+    busy(): void {
+        if (!this.config.lite) {
+            this.alexaCircle.classList.add("alexa-circle--busy");
+        }
+    },
+
+    speaking(): void {
+        const sound = new Audio("/output.mpeg");
+        sound.play();
+        sound.addEventListener("ended", () => {
+            this.sendSocketNotification("finishedSpeaking", {});
+        });
+
+        if (this.config.lite) {
+            const spinner = document.getElementById("loading-spinner");
+            spinner.classList.add("hidden");
+        } else {
+            this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
+        }
+    },
 });

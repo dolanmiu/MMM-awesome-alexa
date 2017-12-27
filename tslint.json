@@ -29,7 +29,7 @@
       "property-declaration"
     ],
     "max-line-length": [
-      false
+      true, 100
     ],
     "no-console": [
       false

@@ -128,7 +128,7 @@ Module.register("MMM-awesome-alexa", {
         return canvas;
     },
     socketNotificationReceived(notification, payload) {
-        Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
+        Log.log(this.name + " received a notification: " + notification + " - Payload: " + payload);
         switch (notification) {
             case AlexaNotification.Idle:
                 this.idle();

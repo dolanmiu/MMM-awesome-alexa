@@ -79,7 +79,7 @@ Module.register("MMM-awesome-alexa", {
     },
 
     socketNotificationReceived<T>(notification: AlexaNotification, payload: T): void {
-        Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
+        Log.log(this.name + " received a notification: " + notification + " - Payload: " + payload);
         switch (notification) {
             case AlexaNotification.Idle:
                 this.idle();

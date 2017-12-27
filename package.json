@@ -4,14 +4,13 @@
   "description": "Easy Alexa module for Magic Mirror",
   "main": "MMM-awesome-alexa.js",
   "scripts": {
-    "build": "npm run webpack && tsc -p .",
-    "dev": "npm run build -- -w",
+    "build": "webpack --progress --profile --bail --display-error-details",
+    "dev": "npm run build -- --watch",
     "test": "npm run lint",
     "electron-rebuild": "electron-rebuild --pre-gyp-fix",
     "lint": "tslint --project .",
     "node-pre-gyp": "node-pre-gyp clean configure build",
-    "test-rec": "bash test-rec.sh",
-    "webpack": "webpack --progress --profile --bail --display-error-details"
+    "test-rec": "bash test-rec.sh"
   },
   "author": "Dolan Miu",
   "license": "MIT",

@@ -7,10 +7,12 @@ export abstract class Visualizer {
     private times: Uint8Array;
     private drawContext: CanvasRenderingContext2D;
     private drawFunc: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void;
+    private audioContext: AudioContext;
 
-    constructor(private canvas: HTMLCanvasElement, private audioContext: AudioContext, fftSize: number = 2048) {
+    constructor(private canvas: HTMLCanvasElement, fftSize: number = 2048) {
         this.drawContext = canvas.getContext("2d");
-        this.analyser = audioContext.createAnalyser();
+        this.audioContext = new AudioContext();
+        this.analyser = this.audioContext.createAnalyser();
         this.drawFunc = () => { return; };
 
         this.analyser.minDecibels = -140;

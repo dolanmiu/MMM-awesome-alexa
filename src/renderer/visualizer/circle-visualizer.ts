@@ -2,8 +2,8 @@ import { Visualizer } from "./visualizer";
 
 export class CircleVisualizer extends Visualizer {
 
-    constructor(canvas: HTMLCanvasElement, audioContext: AudioContext) {
-        super(canvas, audioContext, 32);
+    constructor(canvas: HTMLCanvasElement) {
+        super(canvas, 32);
     }
 
     public init(): void {

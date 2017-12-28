@@ -73,8 +73,8 @@ Module.register("MMM-awesome-alexa", {
 
     createCanvas(): HTMLElement {
         const canvas = document.createElement("canvas");
-        canvas.width = 400;
-        canvas.height = 300;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         return canvas;
     },
 

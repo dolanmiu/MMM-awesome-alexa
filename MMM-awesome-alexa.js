@@ -65,8 +65,12 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const circle_visualizer_1 = __webpack_require__(1);
 var AlexaNotification;
 (function (AlexaNotification) {
     AlexaNotification["Idle"] = "idle";
@@ -83,11 +87,16 @@ Module.register("MMM-awesome-alexa", {
         deviceId: "magic_mirror_alexa",
         lite: false,
     },
+    visualizer: undefined,
+    canvas: undefined,
     start() {
         if (this.config.refreshToken === undefined) {
             texts.push("Refresh token must be set in the config before using awesome-alexa!");
         }
         this.sendSocketNotification("CONFIG", this.config);
+        this.canvas = this.createCanvas();
+        this.visualizer = new circle_visualizer_1.CircleVisualizer(this.canvas);
+        this.visualizer.init();
     },
     getDom() {
         const alexaWrapper = document.createElement("div");
@@ -98,6 +107,7 @@ Module.register("MMM-awesome-alexa", {
         alexaCircle.classList.add("alexa-circle");
         alexaWrapper.appendChild(spinner);
         alexaWrapper.appendChild(alexaCircle);
+        alexaWrapper.appendChild(this.canvas);
         if (texts.length > 0) {
             alexaWrapper.classList.add("wrapper-error");
             for (const text of texts) {
@@ -123,8 +133,8 @@ Module.register("MMM-awesome-alexa", {
     },
     createCanvas() {
         const canvas = document.createElement("canvas");
-        canvas.width = 400;
-        canvas.height = 300;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         return canvas;
     },
     socketNotificationReceived(notification, payload) {
@@ -166,6 +176,7 @@ Module.register("MMM-awesome-alexa", {
     },
     speaking() {
         const sound = new Audio("/output.mpeg");
+        this.visualizer.connect(sound);
         sound.play();
         sound.addEventListener("ended", () => {
             this.sendSocketNotification("finishedSpeaking", {});
@@ -179,6 +190,77 @@ Module.register("MMM-awesome-alexa", {
         }
     },
 });
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const visualizer_1 = __webpack_require__(2);
+class CircleVisualizer extends visualizer_1.Visualizer {
+    constructor(canvas) {
+        super(canvas, 32);
+    }
+    init() {
+        super.init();
+        this.drawFunction = (freqs, times, drawContext, canvas) => {
+            const frequency = freqs[0];
+            const scaledFrequency = frequency / 10;
+            drawContext.beginPath();
+            drawContext.arc(canvas.width / 2, canvas.height / 2, scaledFrequency, 0, 2 * Math.PI);
+            drawContext.fillStyle = "white";
+            drawContext.fill();
+        };
+    }
+}
+exports.CircleVisualizer = CircleVisualizer;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+// Interesting parameters to tweak!
+const SMOOTHING = 0.8;
+class Visualizer {
+    constructor(canvas, fftSize = 2048) {
+        this.canvas = canvas;
+        this.drawContext = canvas.getContext("2d");
+        this.audioContext = new AudioContext();
+        this.analyser = this.audioContext.createAnalyser();
+        this.drawFunc = () => { return; };
+        this.analyser.minDecibels = -140;
+        this.analyser.maxDecibels = 0;
+        this.analyser.smoothingTimeConstant = SMOOTHING;
+        this.freqs = new Uint8Array(this.analyser.frequencyBinCount);
+        this.times = new Uint8Array(this.analyser.frequencyBinCount);
+    }
+    connect(sound) {
+        const source = this.audioContext.createMediaElementSource(sound);
+        source.connect(this.audioContext.destination);
+        source.connect(this.analyser);
+    }
+    draw() {
+        this.drawContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.analyser.getByteFrequencyData(this.freqs);
+        this.analyser.getByteTimeDomainData(this.times);
+        this.drawFunc(this.freqs, this.times, this.drawContext, this.canvas);
+        requestAnimationFrame(this.draw.bind(this));
+    }
+    set drawFunction(func) {
+        this.drawFunc = func;
+    }
+    init() {
+        this.draw();
+    }
+}
+exports.Visualizer = Visualizer;
 
 
 /***/ })

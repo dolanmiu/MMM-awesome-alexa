@@ -18,7 +18,6 @@ export abstract class Visualizer {
         this.analyser.minDecibels = -140;
         this.analyser.maxDecibels = 0;
         this.analyser.smoothingTimeConstant = SMOOTHING;
-        this.analyser.fftSize = fftSize;
         this.freqs = new Uint8Array(this.analyser.frequencyBinCount);
         this.times = new Uint8Array(this.analyser.frequencyBinCount);
     }

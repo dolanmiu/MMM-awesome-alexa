@@ -17,6 +17,9 @@ const clientConfig = {
         loaders: [
             {
                 test: /\.ts$/,
+                include: [
+                    path.resolve(__dirname, "src/renderer"),
+                ],
                 loaders: ["awesome-typescript-loader"],
             }
         ],
@@ -44,6 +47,9 @@ const serverConfig = {
         loaders: [
             {
                 test: /\.ts$/,
+                include: [
+                    path.resolve(__dirname, "src/main"),
+                ],
                 loaders: ["awesome-typescript-loader"],
             }
         ],

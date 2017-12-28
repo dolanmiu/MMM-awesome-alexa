@@ -6,9 +6,9 @@ export abstract class Visualizer {
     private freqs: Uint8Array;
     private times: Uint8Array;
     private drawContext: CanvasRenderingContext2D;
-    private drawFunc: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D) => void;
+    private drawFunc: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void;
 
-    constructor(private canvas: HTMLCanvasElement, audioContext: AudioContext, fftSize: number = 2048) {
+    constructor(private canvas: HTMLCanvasElement, private audioContext: AudioContext, fftSize: number = 2048) {
         this.drawContext = canvas.getContext("2d");
         this.analyser = audioContext.createAnalyser();
         this.drawFunc = () => { return; };
@@ -21,7 +21,9 @@ export abstract class Visualizer {
         this.times = new Uint8Array(this.analyser.frequencyBinCount);
     }
 
-    public play(source: AudioBufferSourceNode): void {
+    public connect(sound: HTMLAudioElement): void {
+        const source = this.audioContext.createMediaElementSource(sound);
+        source.connect(this.audioContext.destination);
         source.connect(this.analyser);
     }
 
@@ -31,12 +33,12 @@ export abstract class Visualizer {
         this.analyser.getByteFrequencyData(this.freqs);
         this.analyser.getByteTimeDomainData(this.times);
 
-        this.drawFunc(this.freqs, this.times, this.drawContext);
+        this.drawFunc(this.freqs, this.times, this.drawContext, this.canvas);
 
         requestAnimationFrame(this.draw.bind(this));
     }
 
-    public set drawFunction(func: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D) => void) {
+    public set drawFunction(func: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void) {
         this.drawFunc = func;
     }
 

@@ -1,3 +1,6 @@
+// import { CircleVisualizer } from "./visualizer/circle-visualizer";
+import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
+
 declare const Module: {
   register(moduleName: string, moduleProperties: object): void,
 };
@@ -25,11 +28,17 @@ Module.register("MMM-awesome-alexa", {
         lite: false,
     },
 
+    visualizer: undefined,
+    canvas: undefined,
+
     start(): void {
         if (this.config.refreshToken === undefined) {
             texts.push("Refresh token must be set in the config before using awesome-alexa!");
         }
         this.sendSocketNotification("CONFIG", this.config);
+        this.canvas = this.createCanvas();
+        this.visualizer = new RainbowVisualizer(this.canvas);
+        this.visualizer.init();
     },
 
     getDom(): HTMLElement {
@@ -41,6 +50,7 @@ Module.register("MMM-awesome-alexa", {
         alexaCircle.classList.add("alexa-circle");
         alexaWrapper.appendChild(spinner);
         alexaWrapper.appendChild(alexaCircle);
+        alexaWrapper.appendChild(this.canvas);
 
         if (texts.length > 0) {
             alexaWrapper.classList.add("wrapper-error");
@@ -120,6 +130,7 @@ Module.register("MMM-awesome-alexa", {
 
     speaking(): void {
         const sound = new Audio("/output.mpeg");
+        this.visualizer.connect(sound);
         sound.play();
         sound.addEventListener("ended", () => {
             this.sendSocketNotification("finishedSpeaking", {});

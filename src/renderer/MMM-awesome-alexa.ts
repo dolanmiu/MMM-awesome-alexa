@@ -1,5 +1,4 @@
-// import { CircleVisualizer } from "./visualizer/circle-visualizer";
-import { RainbowVisualizer } from "./visualizer/rainbow-visualizer";
+import { CircleVisualizer } from "./visualizer/circle-visualizer";
 
 declare const Module: {
   register(moduleName: string, moduleProperties: object): void,
@@ -37,7 +36,7 @@ Module.register("MMM-awesome-alexa", {
         }
         this.sendSocketNotification("CONFIG", this.config);
         this.canvas = this.createCanvas();
-        this.visualizer = new RainbowVisualizer(this.canvas);
+        this.visualizer = new CircleVisualizer(this.canvas);
         this.visualizer.init();
     },
 

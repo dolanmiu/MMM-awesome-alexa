@@ -8,7 +8,7 @@ export abstract class Visualizer {
     private drawContext: CanvasRenderingContext2D;
     private drawFunc: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D) => void;
 
-    constructor(private canvas: HTMLCanvasElement, audioContext: AudioContext, private fftSize: number = 2048) {
+    constructor(private canvas: HTMLCanvasElement, audioContext: AudioContext, fftSize: number = 2048) {
         this.drawContext = canvas.getContext("2d");
         this.analyser = audioContext.createAnalyser();
         this.drawFunc = () => { return; };

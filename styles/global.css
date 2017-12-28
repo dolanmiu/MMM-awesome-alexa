@@ -51,3 +51,7 @@
     background: #ffffff;
     transform: scale(0.5);
 }
+
+canvas {
+    position: fixed;
+}

@@ -15,6 +15,10 @@ const MODELS: { [key: string]: IModelConfig } = {
         file: "computer.umdl",
         name: "computer",
     },
+    "Snowboy": {
+        file: "snowboy.umdl",
+        name: "snowboy",
+    },
 };
 
 export { MODELS };

@@ -144,8 +144,8 @@ const path = __webpack_require__(0);
 const alexa_voice_service_1 = __webpack_require__(8);
 const config_service_1 = __webpack_require__(11);
 const models_1 = __webpack_require__(12);
-const renderer_communicator_1 = __webpack_require__(17);
-const alexa_state_machine_1 = __webpack_require__(18);
+const renderer_communicator_1 = __webpack_require__(15);
+const alexa_state_machine_1 = __webpack_require__(16);
 const checkConfig = (uncheckedConfig) => {
     if (!uncheckedConfig.clientId) {
         throw new Error("clientId must be defined");
@@ -444,9 +444,7 @@ exports.MODELS = MODELS;
 
 
 /***/ }),
-/* 15 */,
-/* 16 */,
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -468,15 +466,15 @@ exports.RendererCommunicator = RendererCommunicator;
 
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const busy_state_1 = __webpack_require__(19);
-const idle_state_1 = __webpack_require__(20);
-const listening_state_1 = __webpack_require__(22);
+const busy_state_1 = __webpack_require__(17);
+const idle_state_1 = __webpack_require__(18);
+const listening_state_1 = __webpack_require__(20);
 class AlexaStateMachine {
     constructor(components) {
         this.idleState = new idle_state_1.IdleState(components);
@@ -493,15 +491,12 @@ class AlexaStateMachine {
         this.currentState = this.idleState;
         this.currentState.onEnter();
     }
-    get CurrentState() {
-        return this.currentState;
-    }
 }
 exports.AlexaStateMachine = AlexaStateMachine;
 
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -538,14 +533,14 @@ exports.BusyState = BusyState;
 
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const record = __webpack_require__(6);
-const detector_1 = __webpack_require__(21);
+const detector_1 = __webpack_require__(19);
 const base_state_1 = __webpack_require__(3);
 class IdleState extends base_state_1.State {
     constructor(components) {
@@ -580,7 +575,7 @@ exports.IdleState = IdleState;
 
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -626,7 +621,7 @@ exports.HotwordDetector = HotwordDetector;
 
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

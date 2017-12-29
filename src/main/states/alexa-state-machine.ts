@@ -42,8 +42,4 @@ export class AlexaStateMachine {
     this.currentState = this.idleState;
     this.currentState.onEnter();
   }
-
-  public get CurrentState(): State {
-    return this.currentState;
-  }
 }

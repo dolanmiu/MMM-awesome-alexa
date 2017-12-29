@@ -523,8 +523,13 @@ class AlexaStateMachine {
         this.idleState = new idle_state_1.IdleState(components);
         this.listeningState = new listening_state_1.ListeningState(components);
         this.busyState = new busy_state_1.BusyState(components);
-        this.idleState.AllowedStateTransitions = new Map([["listening", this.listeningState]]);
-        this.listeningState.AllowedStateTransitions = new Map([["busy", this.busyState], ["idle", this.idleState]]);
+        this.idleState.AllowedStateTransitions = new Map([
+            ["listening", this.listeningState],
+        ]);
+        this.listeningState.AllowedStateTransitions = new Map([
+            ["busy", this.busyState],
+            ["idle", this.idleState],
+        ]);
         this.busyState.AllowedStateTransitions = new Map([["idle", this.idleState]]);
         this.currentState = this.idleState;
         this.currentState.onEnter();

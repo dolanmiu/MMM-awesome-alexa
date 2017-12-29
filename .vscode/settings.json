@@ -2,4 +2,5 @@
   "prettier.trailingComma": "all",
   "prettier.printWidth": 100,
   "editor.formatOnSave": true,
+  "prettier.tabWidth": 4
 }

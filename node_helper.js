@@ -210,7 +210,7 @@ class Main {
 let main;
 module.exports = NodeHelper.create({
     start() {
-        this.expressApp.get("/output.mpeg", function (req, res) {
+        this.expressApp.get("/output.mpeg", (req, res) => {
             res.setHeader("Expires", new Date().toUTCString());
             const outputPath = path.resolve(__dirname, "temp/output.mpeg");
             if (!fs.existsSync(outputPath)) {

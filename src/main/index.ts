@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -100,7 +101,7 @@ declare const NodeHelper: {
 
 module.exports = NodeHelper.create({
     start(): void {
-        this.expressApp.get("/output.mpeg", function (req, res) {
+        this.expressApp.get("/output.mpeg", (req: Request, res: Response): void => {
             res.setHeader("Expires", new Date().toUTCString());
             const outputPath = path.resolve(__dirname, "temp/output.mpeg");
 

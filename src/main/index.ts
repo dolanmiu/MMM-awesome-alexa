@@ -1,3 +1,7 @@
+import { Request, Response } from "express";
+import * as fs from "fs";
+import * as path from "path";
+
 import { AudioService, TokenService } from "./alexa-voice-service";
 import { ConfigService } from "./config-service";
 import { AlexaModels } from "./models";
@@ -5,12 +9,15 @@ import { RecTester } from "./rec-tester";
 import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
-export default class Main {
+class Main {
     private recTester: RecTester;
     private alexaStateMachine: AlexaStateMachine;
     private rendererCommunicator: RendererCommunicator;
 
-    constructor(uncheckedConfig: UncheckedConfig, rendererSend: (event: string, payload: object) => void) {
+    constructor(
+        uncheckedConfig: UncheckedConfig,
+        rendererSend: (event: string, payload: object) => void,
+    ) {
         const config = this.checkConfig(uncheckedConfig);
         const configService = new ConfigService(config);
         this.rendererCommunicator = new RendererCommunicator();
@@ -36,7 +43,10 @@ export default class Main {
         this.rendererCommunicator.sendNotification(type);
     }
 
-    private createStateMachine(configService: ConfigService, rendererSend: (event: NotificationType, payload: object) => void): AlexaStateMachine {
+    private createStateMachine(
+        configService: ConfigService,
+        rendererSend: (event: NotificationType, payload: object) => void,
+    ): AlexaStateMachine {
         const models = new AlexaModels(configService.Config.wakeWord);
         const audioService = new AudioService();
 
@@ -83,4 +93,38 @@ export default class Main {
     }
 }
 
-module.exports = Main;
+let main: Main;
+
+declare const NodeHelper: {
+    create(config: object): void,
+  };
+
+module.exports = NodeHelper.create({
+    start(): void {
+        this.expressApp.get("/output.mpeg", (req: Request, res: Response): void => {
+            res.setHeader("Expires", new Date().toUTCString());
+            const outputPath = path.resolve(__dirname, "temp/output.mpeg");
+
+            if (!fs.existsSync(outputPath)) {
+                fs.createReadStream(
+                    path.resolve(__dirname, "resources/alexa/sorry-im-not-sure.mpeg"),
+                ).pipe(res);
+                return;
+            }
+
+            fs.createReadStream(outputPath).pipe(res);
+        });
+    },
+
+    socketNotificationReceived<T>(notification: NotificationType, payload: T): void {
+        // Renderer sends "main" a notification to connect
+        if (notification === "CONFIG") {
+            main = new Main(payload, (event, callbackPayload) => {
+                this.sendSocketNotification(event, callbackPayload);
+            });
+            return;
+        }
+
+        main.receivedNotification(notification, payload);
+    },
+});

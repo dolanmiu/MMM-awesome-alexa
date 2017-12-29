@@ -4,7 +4,6 @@
         "target": "es6",
         "noImplicitAny": true,
         "sourceMap": true,
-        "outDir": "./dist",
         "declaration": false,
         "rootDir": "./src",
         "noUnusedLocals": true

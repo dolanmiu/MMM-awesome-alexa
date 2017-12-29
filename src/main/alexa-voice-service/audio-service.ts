@@ -7,7 +7,7 @@ const url = "https://access-alexa-na.amazon.com/v1/avs/speechrecognizer/recogniz
 
 export class AudioService {
     public sendAudio(token: string, file: fs.ReadStream): Promise<void> {
-        const stream = fs.createWriteStream(path.resolve(__dirname, "../../../temp/output.mpeg"));
+        const stream = fs.createWriteStream(path.resolve(__dirname, "temp/output.mpeg"));
 
         return new Promise<void>((resolve, reject) => {
 
@@ -53,7 +53,7 @@ export class AudioService {
 
             stream.on("finish", () => {
                 if (stream.bytesWritten === 0) {
-                    fs.unlink(path.resolve(__dirname, "../../../temp/output.mpeg"), () => {
+                    fs.unlink(path.resolve(__dirname, "temp/output.mpeg"), () => {
                         resolve();
                     });
                     return;

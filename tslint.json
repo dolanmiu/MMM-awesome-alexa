@@ -16,6 +16,7 @@
     "no-console": [false],
     "array-type": ["array"],
     "no-submodule-imports": false,
-    "no-implicit-dependencies": false
+    "no-implicit-dependencies": false,
+    "arrow-parens": [true, "ban-single-arg-parens"]
   }
 }

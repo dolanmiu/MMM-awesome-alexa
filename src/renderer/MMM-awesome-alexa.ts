@@ -27,9 +27,6 @@ Module.register("MMM-awesome-alexa", {
         lite: false,
     },
 
-    visualizer: undefined,
-    canvas: undefined,
-
     start(): void {
         if (this.config.refreshToken === undefined) {
             texts.push("Refresh token must be set in the config before using awesome-alexa!");

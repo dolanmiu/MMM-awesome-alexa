@@ -87,15 +87,13 @@ Module.register("MMM-awesome-alexa", {
         deviceId: "magic_mirror_alexa",
         lite: false,
     },
-    visualizer: undefined,
-    canvas: undefined,
     start() {
         if (this.config.refreshToken === undefined) {
             texts.push("Refresh token must be set in the config before using awesome-alexa!");
         }
         this.sendSocketNotification("CONFIG", this.config);
         this.canvas = this.createCanvas();
-        this.visualizer = new circle_visualizer_1.CircleVisualizer(this.canvas);
+        this.visualizer = new circle_visualizer_1.default(this.canvas);
         this.visualizer.init();
     },
     getDom() {
@@ -216,7 +214,7 @@ class CircleVisualizer extends visualizer_1.Visualizer {
         };
     }
 }
-exports.CircleVisualizer = CircleVisualizer;
+exports.default = CircleVisualizer;
 
 
 /***/ }),

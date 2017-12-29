@@ -161,7 +161,7 @@ class Main {
             deviceId: config.deviceId,
             redirectUrl: "",
         });
-        tokenService.Observable.subscribe((token) => {
+        tokenService.Observable.subscribe(token => {
             configService.Config.accessToken = token.access_token;
         });
         // this.recTester.test();
@@ -214,7 +214,9 @@ module.exports = NodeHelper.create({
             res.setHeader("Expires", new Date().toUTCString());
             const outputPath = path.resolve(__dirname, "temp/output.mpeg");
             if (!fs.existsSync(outputPath)) {
-                fs.createReadStream(path.resolve(__dirname, "resources/alexa/sorry-im-not-sure.mpeg")).pipe(res);
+                fs
+                    .createReadStream(path.resolve(__dirname, "resources/alexa/sorry-im-not-sure.mpeg"))
+                    .pipe(res);
                 return;
             }
             fs.createReadStream(outputPath).pipe(res);

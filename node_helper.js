@@ -144,7 +144,6 @@ const path = __webpack_require__(0);
 const alexa_voice_service_1 = __webpack_require__(8);
 const config_service_1 = __webpack_require__(11);
 const models_1 = __webpack_require__(12);
-const rec_tester_1 = __webpack_require__(15);
 const renderer_communicator_1 = __webpack_require__(17);
 const alexa_state_machine_1 = __webpack_require__(18);
 const checkConfig = (uncheckedConfig) => {
@@ -194,7 +193,6 @@ module.exports = NodeHelper.create({
             this.alexaStateMachine = this.createStateMachine(configService, (event, callbackPayload) => {
                 this.sendSocketNotification(event, callbackPayload);
             });
-            this.recTester = new rec_tester_1.RecTester();
             const tokenService = new alexa_voice_service_1.TokenService({
                 refreshToken: config.refreshToken,
                 clientId: config.clientId,
@@ -452,32 +450,8 @@ exports.MODELS = MODELS;
 
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const child_process_1 = __webpack_require__(16);
-class RecTester {
-    test() {
-        console.log("testing rec");
-        const cmd = child_process_1.spawn("bash", ["test-rec.sh"]);
-        cmd.on("close", (code) => {
-            console.log(`child process exited with code ${code}`);
-        });
-    }
-}
-exports.RecTester = RecTester;
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("child_process");
-
-/***/ }),
+/* 15 */,
+/* 16 */,
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 

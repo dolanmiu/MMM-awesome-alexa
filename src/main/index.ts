@@ -5,7 +5,6 @@ import * as path from "path";
 import { AudioService, TokenService } from "./alexa-voice-service";
 import { ConfigService } from "./config-service";
 import { AlexaModels } from "./models";
-import { RecTester } from "./rec-tester";
 import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
@@ -72,7 +71,6 @@ module.exports = NodeHelper.create({
           this.sendSocketNotification(event, callbackPayload);
         },
       );
-      this.recTester = new RecTester();
 
       const tokenService = new TokenService({
         refreshToken: config.refreshToken,

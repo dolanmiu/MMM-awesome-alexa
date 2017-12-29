@@ -9,7 +9,7 @@ export class HotwordDetector extends Detector {
 
     constructor(models: Models) {
         super({
-            resource: path.resolve(__dirname, "../../resources/common.res"),
+            resource: path.resolve(__dirname, "resources/common.res"),
             models: models,
             audioGain: 2.0,
         });

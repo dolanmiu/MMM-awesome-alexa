@@ -40,7 +40,11 @@ const checkConfig = (uncheckedConfig: UncheckedConfig): Config => {
 };
 
 declare const NodeHelper: {
-  create(config: object): void;
+  create(config: {
+    start(): void;
+    socketNotificationReceived<T>(notification: NotificationType, payload: T): void;
+    [key: string]: {};
+  }): void;
 };
 
 module.exports = NodeHelper.create({

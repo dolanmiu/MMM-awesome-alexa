@@ -1,0 +1,26 @@
+{
+    "version": "0.1",
+    "language": "en",
+    "words": [
+        "alexa",
+        "iavs",
+        "umdl",
+        "hotword",
+        "hotwords",
+        "snowboy",
+        "lpcm",
+        "freqs",
+        "amzn"
+    ],
+    "flagWords": [
+        "hte"
+    ],
+    "ignorePaths": [
+        "**/node_modules/**",
+        "**/vscode-extension/**",
+        "**/.git/**",
+        ".vscode",
+        "typings",
+        "resources"
+    ]
+}

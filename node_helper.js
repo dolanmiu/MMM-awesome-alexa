@@ -309,19 +309,23 @@ const request = __webpack_require__(4);
 const Rx_1 = __webpack_require__(2);
 class TokenService {
     constructor(options) {
-        this.observable = new Rx_1.Observable((observer) => {
+        this.observable = new Rx_1.Observable(observer => {
             if (options.redirectUrl === undefined) {
                 throw new Error("redirectUrl required");
             }
-            this.obtainToken(options).then((token) => {
+            this.obtainToken(options)
+                .then(token => {
                 observer.next(token);
-            }).catch((err) => {
+            })
+                .catch(err => {
                 throw new Error(err);
             });
             setInterval(() => {
-                this.obtainToken(options).then((token) => {
+                this.obtainToken(options)
+                    .then(token => {
                     observer.next(token);
-                }).catch((err) => {
+                })
+                    .catch(err => {
                     throw new Error(err);
                 });
             }, 3000 * 1000);
@@ -343,7 +347,8 @@ class TokenService {
                     reject(err);
                     return;
                 }
-                if (response.statusCode !== undefined && (response.statusCode < 200 || response.statusCode >= 300)) {
+                if (response.statusCode !== undefined &&
+                    (response.statusCode < 200 || response.statusCode >= 300)) {
                     reject(body);
                     return;
                 }

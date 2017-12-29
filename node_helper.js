@@ -518,13 +518,16 @@ class BusyState extends base_state_1.State {
         this.components.rendererSend("busy", {});
         const readStream = fs.createReadStream(path.resolve(__dirname, "temp/to-amazon.wav"));
         const accessToken = this.components.configService.Config.accessToken;
-        this.components.audioService.sendAudio(accessToken, readStream).then((result) => {
+        this.components.audioService
+            .sendAudio(accessToken, readStream)
+            .then(result => {
             this.components.rendererSend("speak", {});
-        }).catch((err) => {
+        })
+            .catch(err => {
             console.error(err);
             this.transition(this.allowedStateTransitions.get("idle"));
         });
-        this.rendererSubscription = this.components.rendererCommunicator.Observable.subscribe((type) => {
+        this.rendererSubscription = this.components.rendererCommunicator.Observable.subscribe(type => {
             if (type === "finishedSpeaking") {
                 this.transition(this.allowedStateTransitions.get("idle"));
             }
@@ -557,7 +560,7 @@ class IdleState extends base_state_1.State {
         this.components.mic = this.createMic();
         // tslint:disable-next-line:no-any
         this.components.mic.pipe(this.components.detector);
-        this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
+        this.detectorSubscription = this.components.detector.Observable.subscribe(value => {
             switch (value) {
                 case 1 /* Hotword */:
                     this.transition(this.allowedStateTransitions.get("listening"));
@@ -647,7 +650,7 @@ class ListeningState extends base_state_1.State {
             this.transition(this.allowedStateTransitions.get("busy"));
         });
         this.components.mic.pipe(writeStream);
-        this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
+        this.detectorSubscription = this.components.detector.Observable.subscribe(value => {
             switch (value) {
                 case 0 /* Silence */:
                     record.stop();

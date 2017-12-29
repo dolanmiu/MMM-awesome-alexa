@@ -86,7 +86,7 @@ class Main {
 const fs = require("fs");
 const path = require("path");
 
-let main;
+let main: Main;
 
 declare const NodeHelper: {
     create(config: object): void,

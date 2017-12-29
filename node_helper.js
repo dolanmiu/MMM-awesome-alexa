@@ -223,8 +223,8 @@ module.exports = NodeHelper.create({
     socketNotificationReceived(notification, payload) {
         // Renderer sends "main" a notification to connect
         if (notification === "CONFIG") {
-            main = new Main(payload, (event, payload) => {
-                this.sendSocketNotification(event, payload);
+            main = new Main(payload, (event, callbackPayload) => {
+                this.sendSocketNotification(event, callbackPayload);
             });
             return;
         }

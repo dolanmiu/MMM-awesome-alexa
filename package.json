@@ -29,6 +29,7 @@
     "snowboy": "^1.2.0"
   },
   "devDependencies": {
+    "@types/express": "^4.11.0",
     "awesome-typescript-loader": "^3.4.1",
     "electron-rebuild": "^1.5.7",
     "tslint": "^5.1.0",

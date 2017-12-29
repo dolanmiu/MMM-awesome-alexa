@@ -90,6 +90,11 @@ $ npm run electron-rebuild # You MAY need to run this if MagicMirror complains a
 
 2. Then, add the config from the website above and put it into the `modules` section of your `config/config.js` file.
 
+3. To configure the wake word, change the `wakeWord` property in the `config`:
+   Alexa: `wakeWord: "Alexa"`
+   Smart Mirror: `wakeWord: "Smart Mirror"`
+   Snowboy: `wakeWord: "Snowboy"`
+
 ## Usage
 Boot up `Magic Mirror` and say "Alexa, what time is it?", or "Alexa, tell me a joke" 😊.
 
@@ -109,6 +114,7 @@ So you have got it this far and very happy with your working Alexa-enabled Magic
 ## Supported Wake Words
 - Alexa
 - Smart Mirror
+- Snowboy
 
 ### Coming Soon
 - Computer

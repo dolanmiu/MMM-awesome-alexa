@@ -208,16 +208,13 @@ module.exports = NodeHelper.create({
         this.rendererCommunicator.sendNotification(notification);
     },
     createStateMachine(configService, rendererSend) {
-        const models = new models_1.AlexaModels(configService.Config.wakeWord);
-        const audioService = new alexa_voice_service_1.AudioService();
-        const alexaStateMachine = new alexa_state_machine_1.AlexaStateMachine({
-            audioService: audioService,
+        return new alexa_state_machine_1.AlexaStateMachine({
+            audioService: new alexa_voice_service_1.AudioService(),
             configService: configService,
             rendererSend: rendererSend,
             rendererCommunicator: this.rendererCommunicator,
-            models: models,
+            models: new models_1.AlexaModels(configService.Config.wakeWord),
         });
-        return alexaStateMachine;
     },
 });
 

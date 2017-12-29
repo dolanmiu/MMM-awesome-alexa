@@ -93,17 +93,12 @@ module.exports = NodeHelper.create({
     configService: ConfigService,
     rendererSend: (event: NotificationType, payload: object) => void,
   ): AlexaStateMachine {
-    const models = new AlexaModels(configService.Config.wakeWord);
-    const audioService = new AudioService();
-
-    const alexaStateMachine = new AlexaStateMachine({
-      audioService: audioService,
+    return new AlexaStateMachine({
+      audioService: new AudioService(),
       configService: configService,
       rendererSend: rendererSend,
       rendererCommunicator: this.rendererCommunicator,
-      models: models,
+      models: new AlexaModels(configService.Config.wakeWord),
     });
-
-    return alexaStateMachine;
   },
 });

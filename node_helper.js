@@ -190,8 +190,14 @@ module.exports = NodeHelper.create({
             const config = checkConfig(payload);
             const configService = new config_service_1.ConfigService(config);
             this.rendererCommunicator = new renderer_communicator_1.RendererCommunicator();
-            this.alexaStateMachine = this.createStateMachine(configService, (event, callbackPayload) => {
-                this.sendSocketNotification(event, callbackPayload);
+            this.alexaStateMachine = new alexa_state_machine_1.AlexaStateMachine({
+                audioService: new alexa_voice_service_1.AudioService(),
+                configService: configService,
+                rendererSend: (event, callbackPayload) => {
+                    this.sendSocketNotification(event, callbackPayload);
+                },
+                rendererCommunicator: this.rendererCommunicator,
+                models: new models_1.AlexaModels(configService.Config.wakeWord),
             });
             const tokenService = new alexa_voice_service_1.TokenService({
                 refreshToken: config.refreshToken,
@@ -206,15 +212,6 @@ module.exports = NodeHelper.create({
             return;
         }
         this.rendererCommunicator.sendNotification(notification);
-    },
-    createStateMachine(configService, rendererSend) {
-        return new alexa_state_machine_1.AlexaStateMachine({
-            audioService: new alexa_voice_service_1.AudioService(),
-            configService: configService,
-            rendererSend: rendererSend,
-            rendererCommunicator: this.rendererCommunicator,
-            models: new models_1.AlexaModels(configService.Config.wakeWord),
-        });
     },
 });
 

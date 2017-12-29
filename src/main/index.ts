@@ -65,12 +65,15 @@ module.exports = NodeHelper.create({
       const config = checkConfig(payload);
       const configService = new ConfigService(config);
       this.rendererCommunicator = new RendererCommunicator();
-      this.alexaStateMachine = this.createStateMachine(
-        configService,
-        (event: NotificationType, callbackPayload: object) => {
+      this.alexaStateMachine = new AlexaStateMachine({
+        audioService: new AudioService(),
+        configService: configService,
+        rendererSend: (event: NotificationType, callbackPayload: object) => {
           this.sendSocketNotification(event, callbackPayload);
         },
-      );
+        rendererCommunicator: this.rendererCommunicator,
+        models: new AlexaModels(configService.Config.wakeWord),
+      });
 
       const tokenService = new TokenService({
         refreshToken: config.refreshToken,
@@ -87,18 +90,5 @@ module.exports = NodeHelper.create({
     }
 
     this.rendererCommunicator.sendNotification(notification);
-  },
-
-  createStateMachine(
-    configService: ConfigService,
-    rendererSend: (event: NotificationType, payload: object) => void,
-  ): AlexaStateMachine {
-    return new AlexaStateMachine({
-      audioService: new AudioService(),
-      configService: configService,
-      rendererSend: rendererSend,
-      rendererCommunicator: this.rendererCommunicator,
-      models: new AlexaModels(configService.Config.wakeWord),
-    });
   },
 });

@@ -1,6 +1,6 @@
 import { Visualizer } from "./visualizer";
 
-export class CircleVisualizer extends Visualizer {
+export default class CircleVisualizer extends Visualizer {
 
     constructor(canvas: HTMLCanvasElement) {
         super(canvas, 32);

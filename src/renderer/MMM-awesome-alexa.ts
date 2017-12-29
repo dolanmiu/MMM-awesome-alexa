@@ -1,4 +1,4 @@
-import { CircleVisualizer } from "./visualizer/circle-visualizer";
+import CircleVisualizer from "./visualizer/circle-visualizer";
 
 declare const Module: {
     register(moduleName: string, moduleProperties: object): void,

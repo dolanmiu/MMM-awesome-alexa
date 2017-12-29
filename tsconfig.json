@@ -8,9 +8,5 @@
         "rootDir": "./src",
         "noUnusedLocals": true
         // "strictNullChecks": true
-    },
-    "exclude": [
-        "./node_modules",
-        "./src/renderer"
-    ]
+    }
 }

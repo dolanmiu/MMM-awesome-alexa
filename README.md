@@ -104,8 +104,6 @@ So you have got it this far and very happy with your working Alexa-enabled Magic
 - Very easy set up
 - Easy config tool
 - All-in-one solution.
-
-### Coming Soon
 - Visualisation
 
 ## Supported Wake Words

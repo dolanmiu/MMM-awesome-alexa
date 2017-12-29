@@ -16,6 +16,6 @@
     "no-console": [false],
     "array-type": ["array"],
     "no-submodule-imports": false,
-    "no-implicit-dependencies": [true, "dev"]
+    "no-implicit-dependencies": false
   }
 }

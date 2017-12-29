@@ -197,7 +197,7 @@ module.exports = NodeHelper.create({
                     this.sendSocketNotification(event, callbackPayload);
                 },
                 rendererCommunicator: this.rendererCommunicator,
-                models: new models_1.AlexaModels(configService.Config.wakeWord),
+                models: new models_1.AlexaModels(config.wakeWord),
             });
             const tokenService = new alexa_voice_service_1.TokenService({
                 refreshToken: config.refreshToken,

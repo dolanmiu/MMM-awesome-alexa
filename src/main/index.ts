@@ -72,7 +72,7 @@ module.exports = NodeHelper.create({
           this.sendSocketNotification(event, callbackPayload);
         },
         rendererCommunicator: this.rendererCommunicator,
-        models: new AlexaModels(configService.Config.wakeWord),
+        models: new AlexaModels(config.wakeWord),
       });
 
       const tokenService = new TokenService({

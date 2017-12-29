@@ -139,6 +139,8 @@ module.exports = require("node-record-lpcm16");
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+const fs = __webpack_require__(1);
+const path = __webpack_require__(0);
 const alexa_voice_service_1 = __webpack_require__(8);
 const config_service_1 = __webpack_require__(11);
 const models_1 = __webpack_require__(12);
@@ -205,11 +207,9 @@ class Main {
         };
     }
 }
-const fs = __webpack_require__(1);
-const path = __webpack_require__(0);
 let main;
 module.exports = NodeHelper.create({
-    start: function () {
+    start() {
         this.expressApp.get("/output.mpeg", function (req, res) {
             res.setHeader("Expires", new Date().toUTCString());
             const outputPath = path.resolve(__dirname, "temp/output.mpeg");
@@ -220,7 +220,7 @@ module.exports = NodeHelper.create({
             fs.createReadStream(outputPath).pipe(res);
         });
     },
-    socketNotificationReceived: function (notification, payload) {
+    socketNotificationReceived(notification, payload) {
         // Renderer sends "main" a notification to connect
         if (notification === "CONFIG") {
             main = new Main(payload, (event, payload) => {

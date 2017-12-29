@@ -1,3 +1,6 @@
+import * as fs from "fs";
+import * as path from "path";
+
 import { AudioService, TokenService } from "./alexa-voice-service";
 import { ConfigService } from "./config-service";
 import { AlexaModels } from "./models";
@@ -83,9 +86,6 @@ class Main {
     }
 }
 
-const fs = require("fs");
-const path = require("path");
-
 let main: Main;
 
 declare const NodeHelper: {
@@ -93,7 +93,7 @@ declare const NodeHelper: {
   };
 
 module.exports = NodeHelper.create({
-    start: function () {
+    start() {
         this.expressApp.get("/output.mpeg", function (req, res) {
             res.setHeader("Expires", new Date().toUTCString());
             const outputPath = path.resolve(__dirname, "temp/output.mpeg");
@@ -109,7 +109,7 @@ module.exports = NodeHelper.create({
         });
     },
 
-    socketNotificationReceived: function (notification, payload) {
+    socketNotificationReceived(notification, payload) {
         // Renderer sends "main" a notification to connect
         if (notification === "CONFIG") {
             main = new Main(payload, (event, payload) => {

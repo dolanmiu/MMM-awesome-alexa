@@ -225,7 +225,7 @@ module.exports = NodeHelper.create({
         if (notification === "CONFIG") {
             main = new Main(payload, (event, payload) => {
                 this.sendSocketNotification(event, payload);
-            }, this.socketNotificationReceived);
+            });
             return;
         }
         main.receivedNotification(notification, payload);

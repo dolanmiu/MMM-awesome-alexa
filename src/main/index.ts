@@ -13,7 +13,10 @@ class Main {
     private alexaStateMachine: AlexaStateMachine;
     private rendererCommunicator: RendererCommunicator;
 
-    constructor(uncheckedConfig: UncheckedConfig, rendererSend: (event: string, payload: object) => void) {
+    constructor(
+        uncheckedConfig: UncheckedConfig,
+        rendererSend: (event: string, payload: object) => void,
+    ) {
         const config = this.checkConfig(uncheckedConfig);
         const configService = new ConfigService(config);
         this.rendererCommunicator = new RendererCommunicator();
@@ -39,7 +42,10 @@ class Main {
         this.rendererCommunicator.sendNotification(type);
     }
 
-    private createStateMachine(configService: ConfigService, rendererSend: (event: NotificationType, payload: object) => void): AlexaStateMachine {
+    private createStateMachine(
+        configService: ConfigService,
+        rendererSend: (event: NotificationType, payload: object) => void,
+    ): AlexaStateMachine {
         const models = new AlexaModels(configService.Config.wakeWord);
         const audioService = new AudioService();
 
@@ -93,7 +99,7 @@ declare const NodeHelper: {
   };
 
 module.exports = NodeHelper.create({
-    start() {
+    start(): void {
         this.expressApp.get("/output.mpeg", function (req, res) {
             res.setHeader("Expires", new Date().toUTCString());
             const outputPath = path.resolve(__dirname, "temp/output.mpeg");
@@ -109,12 +115,12 @@ module.exports = NodeHelper.create({
         });
     },
 
-    socketNotificationReceived(notification, payload) {
+    socketNotificationReceived<T>(notification: NotificationType, payload: T): void {
         // Renderer sends "main" a notification to connect
         if (notification === "CONFIG") {
             main = new Main(payload, (event, payload) => {
                 this.sendSocketNotification(event, payload);
-            }, this.socketNotificationReceived);
+            });
             return;
         }
 

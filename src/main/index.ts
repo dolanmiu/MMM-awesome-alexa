@@ -10,23 +10,23 @@ import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
 const checkConfig = (uncheckedConfig: UncheckedConfig): Config => {
-  if (uncheckedConfig.clientId === undefined) {
+  if (!uncheckedConfig.clientId) {
     throw new Error("clientId must be defined");
   }
 
-  if (uncheckedConfig.clientSecret === undefined) {
+  if (!uncheckedConfig.clientSecret) {
     throw new Error("clientSecret must be defined");
   }
 
-  if (uncheckedConfig.deviceId === undefined) {
+  if (!uncheckedConfig.deviceId) {
     throw new Error("deviceId must be defined");
   }
 
-  if (uncheckedConfig.refreshToken === undefined) {
+  if (!uncheckedConfig.refreshToken) {
     throw new Error("refreshToken must be defined");
   }
 
-  if (uncheckedConfig.wakeWord === undefined) {
+  if (!uncheckedConfig.wakeWord) {
     throw new Error("wakeWord must be defined");
   }
 

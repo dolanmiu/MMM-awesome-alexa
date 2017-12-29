@@ -41,5 +41,3 @@ temp/*
 !temp/.gitkeep
 
 *.map
-
-dist

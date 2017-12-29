@@ -2,7 +2,7 @@
 [![Dependency Status][gemnasium-image]][gemnasium-url]
 [![dependencies Status][daviddm-image]][daviddm-url]
 [![Build Status][travis-image]][travis-url]
-[![Greenkeeper badge](https://badges.greenkeeper.io/dolanmiu/MMM-awesome-alexa.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge][greenkeeper-image]][greenkeeper-url]
 
 <p align="center">
    <img src="https://user-images.githubusercontent.com/2917613/28090232-861702b0-6683-11e7-8379-1347e01c9411.png" height="300">
@@ -136,7 +136,7 @@ If you are getting an error related to `snowboy`, run this command inside the `M
 $ npm run electron-rebuild
 ```
 
-If that still doesn't work, use node `6.10.x`, there was this [issue about node `7.0.0`](https://github.com/Kitt-AI/snowboy/issues/117), and [node `8.0.0`](https://github.com/Kitt-AI/snowboy/issues/212), and re-run the above command.
+If that still doesn't work, use node `6.10.x`, and then re-run the above command. There was this [issue about node `7.0.0`](https://github.com/Kitt-AI/snowboy/issues/117), and [node `8.0.0`](https://github.com/Kitt-AI/snowboy/issues/212).
 
 ### Still doesn't work
 Follow `snowboy`'s official guide on how to recompile their package:
@@ -144,7 +144,7 @@ https://github.com/Kitt-AI/snowboy#compile-a-node-addon
 
 ---
 
-Made with 💖 by Dolan
+Made with 💖 by Dolan. Huge thanks to @henrikra for his contributions to this project!
 
 [gitter-image]: https://badges.gitter.im/dolanmiu/awesome-alexa.svg
 [gitter-url]: https://gitter.im/awesome-alexa/Lobby
@@ -157,3 +157,6 @@ Made with 💖 by Dolan
 
 [daviddm-image]: https://david-dm.org/dolanmiu/MMM-awesome-alexa/status.svg
 [daviddm-url]: https://david-dm.org/dolanmiu/MMM-awesome-alexa
+
+[greenkeeper-image]: https://badges.greenkeeper.io/dolanmiu/MMM-awesome-alexa.svg
+[greenkeeper-url]: https://greenkeeper.io/

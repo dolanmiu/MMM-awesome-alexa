@@ -1,18 +1,18 @@
 import { CircleVisualizer } from "./visualizer/circle-visualizer";
 
 declare const Module: {
-  register(moduleName: string, moduleProperties: object): void,
+    register(moduleName: string, moduleProperties: object): void,
 };
 
 declare const Log: {
-  log(text: string): void,
+    log(text: string): void,
 };
 
 enum AlexaNotification {
-  Idle = "idle",
-  Listening = "listening",
-  Busy = "busy",
-  Speaking = "speak",
+    Idle = "idle",
+    Listening = "listening",
+    Busy = "busy",
+    Speaking = "speak",
 }
 
 const texts: Array<string> = [];

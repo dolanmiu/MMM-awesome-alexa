@@ -203,7 +203,7 @@ class Main {
             clientSecret: uncheckedConfig.clientSecret,
             deviceId: uncheckedConfig.deviceId,
             refreshToken: uncheckedConfig.refreshToken,
-            lite: uncheckedConfig.lite ? uncheckedConfig.lite : false,
+            lite: uncheckedConfig.lite || false,
         };
     }
 }

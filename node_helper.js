@@ -147,67 +147,31 @@ const models_1 = __webpack_require__(12);
 const rec_tester_1 = __webpack_require__(15);
 const renderer_communicator_1 = __webpack_require__(17);
 const alexa_state_machine_1 = __webpack_require__(18);
-class Main {
-    constructor(uncheckedConfig, rendererSend) {
-        const config = this.checkConfig(uncheckedConfig);
-        const configService = new config_service_1.ConfigService(config);
-        this.rendererCommunicator = new renderer_communicator_1.RendererCommunicator();
-        this.alexaStateMachine = this.createStateMachine(configService, rendererSend);
-        this.recTester = new rec_tester_1.RecTester();
-        const tokenService = new alexa_voice_service_1.TokenService({
-            refreshToken: config.refreshToken,
-            clientId: config.clientId,
-            clientSecret: config.clientSecret,
-            deviceId: config.deviceId,
-            redirectUrl: "",
-        });
-        tokenService.Observable.subscribe(token => {
-            configService.Config.accessToken = token.access_token;
-        });
-        // this.recTester.test();
+const checkConfig = (uncheckedConfig) => {
+    if (uncheckedConfig.clientId === undefined) {
+        throw new Error("clientId must be defined");
     }
-    receivedNotification(type, payload) {
-        this.rendererCommunicator.sendNotification(type);
+    if (uncheckedConfig.clientSecret === undefined) {
+        throw new Error("clientSecret must be defined");
     }
-    createStateMachine(configService, rendererSend) {
-        const models = new models_1.AlexaModels(configService.Config.wakeWord);
-        const audioService = new alexa_voice_service_1.AudioService();
-        const alexaStateMachine = new alexa_state_machine_1.AlexaStateMachine({
-            audioService: audioService,
-            configService: configService,
-            rendererSend: rendererSend,
-            rendererCommunicator: this.rendererCommunicator,
-            models: models,
-        });
-        return alexaStateMachine;
+    if (uncheckedConfig.deviceId === undefined) {
+        throw new Error("deviceId must be defined");
     }
-    checkConfig(uncheckedConfig) {
-        if (uncheckedConfig.clientId === undefined) {
-            throw new Error("clientId must be defined");
-        }
-        if (uncheckedConfig.clientSecret === undefined) {
-            throw new Error("clientSecret must be defined");
-        }
-        if (uncheckedConfig.deviceId === undefined) {
-            throw new Error("deviceId must be defined");
-        }
-        if (uncheckedConfig.refreshToken === undefined) {
-            throw new Error("refreshToken must be defined");
-        }
-        if (uncheckedConfig.wakeWord === undefined) {
-            throw new Error("wakeWord must be defined");
-        }
-        return {
-            wakeWord: uncheckedConfig.wakeWord,
-            clientId: uncheckedConfig.clientId,
-            clientSecret: uncheckedConfig.clientSecret,
-            deviceId: uncheckedConfig.deviceId,
-            refreshToken: uncheckedConfig.refreshToken,
-            lite: uncheckedConfig.lite || false,
-        };
+    if (uncheckedConfig.refreshToken === undefined) {
+        throw new Error("refreshToken must be defined");
     }
-}
-let main;
+    if (uncheckedConfig.wakeWord === undefined) {
+        throw new Error("wakeWord must be defined");
+    }
+    return {
+        wakeWord: uncheckedConfig.wakeWord,
+        clientId: uncheckedConfig.clientId,
+        clientSecret: uncheckedConfig.clientSecret,
+        deviceId: uncheckedConfig.deviceId,
+        refreshToken: uncheckedConfig.refreshToken,
+        lite: uncheckedConfig.lite || false,
+    };
+};
 module.exports = NodeHelper.create({
     start() {
         this.expressApp.get("/output.mpeg", (req, res) => {
@@ -223,14 +187,39 @@ module.exports = NodeHelper.create({
         });
     },
     socketNotificationReceived(notification, payload) {
-        // Renderer sends "main" a notification to connect
         if (notification === "CONFIG") {
-            main = new Main(payload, (event, callbackPayload) => {
+            const config = checkConfig(payload);
+            const configService = new config_service_1.ConfigService(config);
+            this.rendererCommunicator = new renderer_communicator_1.RendererCommunicator();
+            this.alexaStateMachine = this.createStateMachine(configService, (event, callbackPayload) => {
                 this.sendSocketNotification(event, callbackPayload);
+            });
+            this.recTester = new rec_tester_1.RecTester();
+            const tokenService = new alexa_voice_service_1.TokenService({
+                refreshToken: config.refreshToken,
+                clientId: config.clientId,
+                clientSecret: config.clientSecret,
+                deviceId: config.deviceId,
+                redirectUrl: "",
+            });
+            tokenService.Observable.subscribe(token => {
+                configService.Config.accessToken = token.access_token;
             });
             return;
         }
-        main.receivedNotification(notification, payload);
+        this.rendererCommunicator.sendNotification(notification);
+    },
+    createStateMachine(configService, rendererSend) {
+        const models = new models_1.AlexaModels(configService.Config.wakeWord);
+        const audioService = new alexa_voice_service_1.AudioService();
+        const alexaStateMachine = new alexa_state_machine_1.AlexaStateMachine({
+            audioService: audioService,
+            configService: configService,
+            rendererSend: rendererSend,
+            rendererCommunicator: this.rendererCommunicator,
+            models: models,
+        });
+        return alexaStateMachine;
     },
 });
 

@@ -492,7 +492,9 @@ class AlexaStateMachine {
             ["busy", this.busyState],
             ["idle", this.idleState],
         ]);
-        this.busyState.AllowedStateTransitions = new Map([["idle", this.idleState]]);
+        this.busyState.AllowedStateTransitions = new Map([
+            ["idle", this.idleState],
+        ]);
         this.currentState = this.idleState;
         this.currentState.onEnter();
     }

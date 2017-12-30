@@ -8,6 +8,7 @@ export abstract class Visualizer {
     private drawContext: CanvasRenderingContext2D;
     private drawFunc: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void;
     private audioContext: AudioContext;
+    private loop: number;
 
     constructor(private canvas: HTMLCanvasElement, fftSize: number = 2048) {
         this.drawContext = canvas.getContext("2d");
@@ -36,14 +37,18 @@ export abstract class Visualizer {
 
         this.drawFunc(this.freqs, this.times, this.drawContext, this.canvas);
 
-        requestAnimationFrame(this.draw.bind(this));
+        this.loop = requestAnimationFrame(this.draw.bind(this));
     }
 
     public set drawFunction(func: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void) {
         this.drawFunc = func;
     }
 
-    public init(): void {
+    public start(): void {
         this.draw();
+    }
+
+    public stop(): void {
+        cancelAnimationFrame(this.loop);
     }
 }

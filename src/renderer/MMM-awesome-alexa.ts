@@ -34,7 +34,6 @@ Module.register("MMM-awesome-alexa", {
         this.sendSocketNotification("CONFIG", this.config);
         this.canvas = this.createCanvas();
         this.visualizer = new CircleVisualizer(this.canvas);
-        this.visualizer.init();
     },
 
     getDom(): HTMLElement {
@@ -127,9 +126,11 @@ Module.register("MMM-awesome-alexa", {
     speaking(): void {
         const sound = new Audio("/output.mpeg");
         this.visualizer.connect(sound);
+        this.visualizer.start();
         sound.play();
         sound.addEventListener("ended", () => {
             this.sendSocketNotification("finishedSpeaking", {});
+            this.visualizer.stop();
         });
 
         if (this.config.lite) {

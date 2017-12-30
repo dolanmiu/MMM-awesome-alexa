@@ -86,6 +86,7 @@ Module.register("MMM-awesome-alexa", {
         clientSecret: "87d49f998b3a6507b8e6a08760cda274e1d44a22a2bebade9433b1e7445d66a5",
         deviceId: "magic_mirror_alexa",
         lite: false,
+        visualization: false,
     },
     start() {
         if (this.config.refreshToken === undefined) {
@@ -173,12 +174,16 @@ Module.register("MMM-awesome-alexa", {
     },
     speaking() {
         const sound = new Audio("/output.mpeg");
-        this.visualizer.connect(sound);
-        this.visualizer.start();
+        if (this.config.visualization) {
+            this.visualizer.connect(sound);
+            this.visualizer.start();
+        }
         sound.play();
         sound.addEventListener("ended", () => {
             this.sendSocketNotification("finishedSpeaking", {});
-            this.visualizer.stop();
+            if (this.config.visualization) {
+                this.visualizer.stop();
+            }
         });
         if (this.config.lite) {
             const spinner = document.getElementById("loading-spinner");

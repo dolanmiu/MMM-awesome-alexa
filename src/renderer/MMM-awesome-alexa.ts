@@ -126,12 +126,16 @@ Module.register("MMM-awesome-alexa", {
 
     speaking(): void {
         const sound = new Audio("/output.mpeg");
-        this.visualizer.connect(sound);
-        this.visualizer.start();
+        if (this.config.visualization) {
+            this.visualizer.connect(sound);
+            this.visualizer.start();
+        }
         sound.play();
         sound.addEventListener("ended", () => {
             this.sendSocketNotification("finishedSpeaking", {});
-            this.visualizer.stop();
+            if (this.config.visualization) {
+                this.visualizer.stop();
+            }
         });
 
         if (this.config.lite) {

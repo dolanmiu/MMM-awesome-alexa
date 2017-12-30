@@ -83,7 +83,8 @@ $ npm run electron-rebuild # You MAY need to run this if MagicMirror complains a
        "clientSecret": "YOUR_CLIENT_SECRET",
        "deviceId": "YOUR_DEVICE_ID",
        "refreshToken": "YOUR_REFRESH_TOKEN",
-       "lite": false
+       "lite": false,
+       "visualization": false
      }
    }
    ```
@@ -94,6 +95,8 @@ $ npm run electron-rebuild # You MAY need to run this if MagicMirror complains a
    Alexa: `wakeWord: "Alexa"`
    Smart Mirror: `wakeWord: "Smart Mirror"`
    Snowboy: `wakeWord: "Snowboy"`
+
+4. To turn on visualization, set `visualization` to `true`.
 
 ## Usage
 Boot up `Magic Mirror` and say "Alexa, what time is it?", or "Alexa, tell me a joke" 😊.

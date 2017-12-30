@@ -57,8 +57,8 @@ module.exports = NodeHelper.create({
             if (!fs.existsSync(outputPath)) {
                 fs
                     .createReadStream(
-                        path.resolve(__dirname, "resources/alexa/sorry-im-not-sure.mpeg"),
-                    )
+                    path.resolve(__dirname, "resources/alexa/sorry-im-not-sure.mpeg"),
+                )
                     .pipe(res);
                 return;
             }

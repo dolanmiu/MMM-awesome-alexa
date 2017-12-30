@@ -21,7 +21,7 @@ export class ListeningState extends State {
         });
         this.components.mic.pipe(writeStream);
 
-        this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
+        this.detectorSubscription = this.components.detector.Observable.subscribe(value => {
             switch (value) {
                 case DETECTOR.Silence:
                     record.stop();

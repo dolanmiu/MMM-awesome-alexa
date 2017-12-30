@@ -17,18 +17,23 @@ export class BusyState extends State {
         const readStream = fs.createReadStream(path.resolve(__dirname, "temp/to-amazon.wav"));
         const accessToken = this.components.configService.Config.accessToken;
 
-        this.components.audioService.sendAudio(accessToken, readStream).then((result) => {
-            this.components.rendererSend("speak", {});
-        }).catch((err) => {
-            console.error(err);
-            this.transition(this.allowedStateTransitions.get("idle"));
-        });
-
-        this.rendererSubscription = this.components.rendererCommunicator.Observable.subscribe((type) => {
-            if (type === "finishedSpeaking") {
+        this.components.audioService
+            .sendAudio(accessToken, readStream)
+            .then(result => {
+                this.components.rendererSend("speak", {});
+            })
+            .catch(err => {
+                console.error(err);
                 this.transition(this.allowedStateTransitions.get("idle"));
-            }
-        });
+            });
+
+        this.rendererSubscription = this.components.rendererCommunicator.Observable.subscribe(
+            type => {
+                if (type === "finishedSpeaking") {
+                    this.transition(this.allowedStateTransitions.get("idle"));
+                }
+            },
+        );
     }
 
     public onExit(): void {

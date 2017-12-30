@@ -18,7 +18,7 @@ export class IdleState extends State {
         this.components.mic = this.createMic();
         // tslint:disable-next-line:no-any
         this.components.mic.pipe(this.components.detector as any);
-        this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
+        this.detectorSubscription = this.components.detector.Observable.subscribe(value => {
             switch (value) {
                 case DETECTOR.Hotword:
                     this.transition(this.allowedStateTransitions.get("listening"));

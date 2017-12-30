@@ -144,91 +144,74 @@ const path = __webpack_require__(0);
 const alexa_voice_service_1 = __webpack_require__(8);
 const config_service_1 = __webpack_require__(11);
 const models_1 = __webpack_require__(12);
-const rec_tester_1 = __webpack_require__(15);
-const renderer_communicator_1 = __webpack_require__(17);
-const alexa_state_machine_1 = __webpack_require__(18);
-class Main {
-    constructor(uncheckedConfig, rendererSend) {
-        const config = this.checkConfig(uncheckedConfig);
-        const configService = new config_service_1.ConfigService(config);
-        this.rendererCommunicator = new renderer_communicator_1.RendererCommunicator();
-        this.alexaStateMachine = this.createStateMachine(configService, rendererSend);
-        this.recTester = new rec_tester_1.RecTester();
-        const tokenService = new alexa_voice_service_1.TokenService({
-            refreshToken: config.refreshToken,
-            clientId: config.clientId,
-            clientSecret: config.clientSecret,
-            deviceId: config.deviceId,
-            redirectUrl: "",
-        });
-        tokenService.Observable.subscribe((token) => {
-            configService.Config.accessToken = token.access_token;
-        });
-        // this.recTester.test();
+const renderer_communicator_1 = __webpack_require__(15);
+const alexa_state_machine_1 = __webpack_require__(16);
+const checkConfig = (uncheckedConfig) => {
+    if (!uncheckedConfig.clientId) {
+        throw new Error("clientId must be defined");
     }
-    receivedNotification(type, payload) {
-        this.rendererCommunicator.sendNotification(type);
+    if (!uncheckedConfig.clientSecret) {
+        throw new Error("clientSecret must be defined");
     }
-    createStateMachine(configService, rendererSend) {
-        const models = new models_1.AlexaModels(configService.Config.wakeWord);
-        const audioService = new alexa_voice_service_1.AudioService();
-        const alexaStateMachine = new alexa_state_machine_1.AlexaStateMachine({
-            audioService: audioService,
-            configService: configService,
-            rendererSend: rendererSend,
-            rendererCommunicator: this.rendererCommunicator,
-            models: models,
-        });
-        return alexaStateMachine;
+    if (!uncheckedConfig.deviceId) {
+        throw new Error("deviceId must be defined");
     }
-    checkConfig(uncheckedConfig) {
-        if (uncheckedConfig.clientId === undefined) {
-            throw new Error("clientId must be defined");
-        }
-        if (uncheckedConfig.clientSecret === undefined) {
-            throw new Error("clientSecret must be defined");
-        }
-        if (uncheckedConfig.deviceId === undefined) {
-            throw new Error("deviceId must be defined");
-        }
-        if (uncheckedConfig.refreshToken === undefined) {
-            throw new Error("refreshToken must be defined");
-        }
-        if (uncheckedConfig.wakeWord === undefined) {
-            throw new Error("wakeWord must be defined");
-        }
-        return {
-            wakeWord: uncheckedConfig.wakeWord,
-            clientId: uncheckedConfig.clientId,
-            clientSecret: uncheckedConfig.clientSecret,
-            deviceId: uncheckedConfig.deviceId,
-            refreshToken: uncheckedConfig.refreshToken,
-            lite: uncheckedConfig.lite ? uncheckedConfig.lite : false,
-        };
+    if (!uncheckedConfig.refreshToken) {
+        throw new Error("refreshToken must be defined");
     }
-}
-let main;
+    if (!uncheckedConfig.wakeWord) {
+        throw new Error("wakeWord must be defined");
+    }
+    return {
+        wakeWord: uncheckedConfig.wakeWord,
+        clientId: uncheckedConfig.clientId,
+        clientSecret: uncheckedConfig.clientSecret,
+        deviceId: uncheckedConfig.deviceId,
+        refreshToken: uncheckedConfig.refreshToken,
+        lite: uncheckedConfig.lite || false,
+    };
+};
 module.exports = NodeHelper.create({
     start() {
         this.expressApp.get("/output.mpeg", (req, res) => {
             res.setHeader("Expires", new Date().toUTCString());
             const outputPath = path.resolve(__dirname, "temp/output.mpeg");
             if (!fs.existsSync(outputPath)) {
-                fs.createReadStream(path.resolve(__dirname, "resources/alexa/sorry-im-not-sure.mpeg")).pipe(res);
+                fs
+                    .createReadStream(path.resolve(__dirname, "resources/alexa/sorry-im-not-sure.mpeg"))
+                    .pipe(res);
                 return;
             }
             fs.createReadStream(outputPath).pipe(res);
         });
     },
     socketNotificationReceived(notification, payload) {
-        // Renderer sends "main" a notification to connect
         if (notification === "CONFIG") {
-            main = new Main(payload, (event, callbackPayload) => {
-                this.sendSocketNotification(event, callbackPayload);
+            const config = checkConfig(payload);
+            const configService = new config_service_1.ConfigService(config);
+            this.rendererCommunicator = new renderer_communicator_1.RendererCommunicator();
+            this.alexaStateMachine = new alexa_state_machine_1.AlexaStateMachine({
+                audioService: new alexa_voice_service_1.AudioService(),
+                configService: configService,
+                rendererSend: (event, callbackPayload) => {
+                    this.sendSocketNotification(event, callbackPayload);
+                },
+                rendererCommunicator: this.rendererCommunicator,
+                models: new models_1.AlexaModels(config.wakeWord),
+            });
+            const tokenService = new alexa_voice_service_1.TokenService({
+                refreshToken: config.refreshToken,
+                clientId: config.clientId,
+                clientSecret: config.clientSecret,
+                deviceId: config.deviceId,
+                redirectUrl: "",
+            });
+            tokenService.Observable.subscribe(token => {
+                configService.Config.accessToken = token.access_token;
             });
             return;
         }
-        main.receivedNotification(notification, payload);
+        this.rendererCommunicator.sendNotification(notification);
     },
 });
 
@@ -326,19 +309,23 @@ const request = __webpack_require__(4);
 const Rx_1 = __webpack_require__(2);
 class TokenService {
     constructor(options) {
-        this.observable = new Rx_1.Observable((observer) => {
+        this.observable = new Rx_1.Observable(observer => {
             if (options.redirectUrl === undefined) {
                 throw new Error("redirectUrl required");
             }
-            this.obtainToken(options).then((token) => {
+            this.obtainToken(options)
+                .then(token => {
                 observer.next(token);
-            }).catch((err) => {
+            })
+                .catch(err => {
                 throw new Error(err);
             });
             setInterval(() => {
-                this.obtainToken(options).then((token) => {
+                this.obtainToken(options)
+                    .then(token => {
                     observer.next(token);
-                }).catch((err) => {
+                })
+                    .catch(err => {
                     throw new Error(err);
                 });
             }, 3000 * 1000);
@@ -360,7 +347,8 @@ class TokenService {
                     reject(err);
                     return;
                 }
-                if (response.statusCode !== undefined && (response.statusCode < 200 || response.statusCode >= 300)) {
+                if (response.statusCode !== undefined &&
+                    (response.statusCode < 200 || response.statusCode >= 300)) {
                     reject(body);
                     return;
                 }
@@ -467,32 +455,6 @@ exports.MODELS = MODELS;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const child_process_1 = __webpack_require__(16);
-class RecTester {
-    test() {
-        console.log("testing rec");
-        const cmd = child_process_1.spawn("bash", ["test-rec.sh"]);
-        cmd.on("close", (code) => {
-            console.log(`child process exited with code ${code}`);
-        });
-    }
-}
-exports.RecTester = RecTester;
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("child_process");
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
 const Rx_1 = __webpack_require__(2);
 class RendererCommunicator {
     constructor() {
@@ -509,15 +471,15 @@ exports.RendererCommunicator = RendererCommunicator;
 
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const busy_state_1 = __webpack_require__(19);
-const idle_state_1 = __webpack_require__(20);
-const listening_state_1 = __webpack_require__(22);
+const busy_state_1 = __webpack_require__(17);
+const idle_state_1 = __webpack_require__(18);
+const listening_state_1 = __webpack_require__(20);
 class AlexaStateMachine {
     constructor(components) {
         this.idleState = new idle_state_1.IdleState(components);
@@ -530,19 +492,18 @@ class AlexaStateMachine {
             ["busy", this.busyState],
             ["idle", this.idleState],
         ]);
-        this.busyState.AllowedStateTransitions = new Map([["idle", this.idleState]]);
+        this.busyState.AllowedStateTransitions = new Map([
+            ["idle", this.idleState],
+        ]);
         this.currentState = this.idleState;
         this.currentState.onEnter();
-    }
-    get CurrentState() {
-        return this.currentState;
     }
 }
 exports.AlexaStateMachine = AlexaStateMachine;
 
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -559,13 +520,16 @@ class BusyState extends base_state_1.State {
         this.components.rendererSend("busy", {});
         const readStream = fs.createReadStream(path.resolve(__dirname, "temp/to-amazon.wav"));
         const accessToken = this.components.configService.Config.accessToken;
-        this.components.audioService.sendAudio(accessToken, readStream).then((result) => {
+        this.components.audioService
+            .sendAudio(accessToken, readStream)
+            .then(result => {
             this.components.rendererSend("speak", {});
-        }).catch((err) => {
+        })
+            .catch(err => {
             console.error(err);
             this.transition(this.allowedStateTransitions.get("idle"));
         });
-        this.rendererSubscription = this.components.rendererCommunicator.Observable.subscribe((type) => {
+        this.rendererSubscription = this.components.rendererCommunicator.Observable.subscribe(type => {
             if (type === "finishedSpeaking") {
                 this.transition(this.allowedStateTransitions.get("idle"));
             }
@@ -579,14 +543,14 @@ exports.BusyState = BusyState;
 
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const record = __webpack_require__(6);
-const detector_1 = __webpack_require__(21);
+const detector_1 = __webpack_require__(19);
 const base_state_1 = __webpack_require__(3);
 class IdleState extends base_state_1.State {
     constructor(components) {
@@ -598,7 +562,7 @@ class IdleState extends base_state_1.State {
         this.components.mic = this.createMic();
         // tslint:disable-next-line:no-any
         this.components.mic.pipe(this.components.detector);
-        this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
+        this.detectorSubscription = this.components.detector.Observable.subscribe(value => {
             switch (value) {
                 case 1 /* Hotword */:
                     this.transition(this.allowedStateTransitions.get("listening"));
@@ -621,7 +585,7 @@ exports.IdleState = IdleState;
 
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -667,7 +631,7 @@ exports.HotwordDetector = HotwordDetector;
 
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -688,7 +652,7 @@ class ListeningState extends base_state_1.State {
             this.transition(this.allowedStateTransitions.get("busy"));
         });
         this.components.mic.pipe(writeStream);
-        this.detectorSubscription = this.components.detector.Observable.subscribe((value) => {
+        this.detectorSubscription = this.components.detector.Observable.subscribe(value => {
             switch (value) {
                 case 0 /* Silence */:
                     record.stop();

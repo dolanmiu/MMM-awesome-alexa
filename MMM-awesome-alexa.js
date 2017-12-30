@@ -216,10 +216,10 @@ class CircleVisualizer extends visualizer_1.Visualizer {
         };
     }
     stop() {
-        // Allow for
+        // Allow for animation to finish
         timers_1.setTimeout(() => {
             super.stop();
-        }, 700);
+        }, 500);
     }
 }
 exports.default = CircleVisualizer;
@@ -702,7 +702,7 @@ process.umask = function() { return 0; };
 
 Object.defineProperty(exports, "__esModule", { value: true });
 // Interesting parameters to tweak!
-const SMOOTHING = 0.3;
+const SMOOTHING = 0.6;
 class Visualizer {
     constructor(canvas, fftSize = 2048) {
         this.canvas = canvas;

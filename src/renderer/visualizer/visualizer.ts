@@ -1,5 +1,5 @@
 // Interesting parameters to tweak!
-const SMOOTHING = 0.8;
+const SMOOTHING = 0.6;
 
 export abstract class Visualizer {
     private analyser: AnalyserNode;

@@ -21,6 +21,6 @@ export default class CircleVisualizer extends Visualizer {
         // Allow for animation to finish
         setTimeout(() => {
             super.stop();
-        }, 500);
+        }, 1000);
     }
 }

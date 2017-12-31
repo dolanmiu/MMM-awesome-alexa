@@ -1,8 +1,6 @@
-import { setTimeout } from "timers";
 import { Visualizer } from "./visualizer";
 
 export default class CircleVisualizer extends Visualizer {
-
     constructor(canvas: HTMLCanvasElement) {
         super(canvas, 32);
     }

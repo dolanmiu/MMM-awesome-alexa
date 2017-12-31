@@ -1,11 +1,11 @@
 import CircleVisualizer from "./visualizer/circle-visualizer";
 
 declare const Module: {
-    register(moduleName: string, moduleProperties: object): void,
+    register(moduleName: string, moduleProperties: object): void;
 };
 
 declare const Log: {
-    log(text: string): void,
+    log(text: string): void;
 };
 
 enum AlexaNotification {
@@ -18,7 +18,6 @@ enum AlexaNotification {
 const texts: Array<string> = [];
 
 Module.register("MMM-awesome-alexa", {
-
     // Default module config.
     defaults: {
         clientId: "amzn1.application-oa2-client.81574bebfb25437595d7376f44b54f8e",
@@ -63,9 +62,7 @@ Module.register("MMM-awesome-alexa", {
     },
 
     getStyles(): Array<string> {
-        return [
-            this.file("styles/global.css"),
-        ];
+        return [this.file("styles/global.css")];
     },
 
     createLoadingSpinner(): HTMLElement {

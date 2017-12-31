@@ -242,7 +242,9 @@ class Visualizer {
         this.drawContext = canvas.getContext("2d");
         this.audioContext = new AudioContext();
         this.analyser = this.audioContext.createAnalyser();
-        this.drawFunc = () => { return; };
+        this.drawFunc = () => {
+            return;
+        };
         this.analyser.minDecibels = -140;
         this.analyser.maxDecibels = 0;
         this.analyser.smoothingTimeConstant = SMOOTHING;
@@ -268,6 +270,7 @@ class Visualizer {
         this.draw();
     }
     stop() {
+        this.drawContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
         cancelAnimationFrame(this.loop);
     }
 }

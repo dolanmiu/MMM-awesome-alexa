@@ -221,7 +221,7 @@ class CircleVisualizer extends visualizer_1.Visualizer {
         // Allow for animation to finish
         setTimeout(() => {
             super.stop();
-        }, 500);
+        }, 1000);
     }
 }
 exports.default = CircleVisualizer;

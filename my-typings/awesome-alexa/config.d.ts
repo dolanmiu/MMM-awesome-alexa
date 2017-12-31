@@ -5,7 +5,7 @@ interface Config {
     deviceId: string;
     refreshToken: string;
     lite: boolean;
-    visualization: boolean;
+    isSpeechVisualizationEnabled: boolean;
 }
 
 interface UncheckedConfig {
@@ -15,5 +15,5 @@ interface UncheckedConfig {
     deviceId?: string;
     refreshToken?: string;
     lite?: boolean;
-    visualization?: boolean;
+    isSpeechVisualizationEnabled?: boolean;
 }

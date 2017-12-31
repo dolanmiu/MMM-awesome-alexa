@@ -25,7 +25,7 @@ Module.register("MMM-awesome-alexa", {
         clientSecret: "87d49f998b3a6507b8e6a08760cda274e1d44a22a2bebade9433b1e7445d66a5",
         deviceId: "magic_mirror_alexa",
         lite: false,
-        visualization: false,
+        isSpeechVisualizationEnabled: false,
     },
 
     start(): void {
@@ -126,14 +126,14 @@ Module.register("MMM-awesome-alexa", {
 
     speaking(): void {
         const sound = new Audio("/output.mpeg");
-        if (this.config.visualization) {
+        if (this.config.isSpeechVisualizationEnabled) {
             this.visualizer.connect(sound);
             this.visualizer.start();
         }
         sound.play();
         sound.addEventListener("ended", () => {
             this.sendSocketNotification("finishedSpeaking", {});
-            if (this.config.visualization) {
+            if (this.config.isSpeechVisualizationEnabled) {
                 this.visualizer.stop();
             }
         });

@@ -36,7 +36,7 @@ const checkConfig = (uncheckedConfig: UncheckedConfig): Config => {
         deviceId: uncheckedConfig.deviceId,
         refreshToken: uncheckedConfig.refreshToken,
         lite: uncheckedConfig.lite || false,
-        visualization: uncheckedConfig.visualization || false,
+        isSpeechVisualizationEnabled: uncheckedConfig.isSpeechVisualizationEnabled || false,
     };
 };
 

@@ -33,7 +33,9 @@ Module.register("MMM-awesome-alexa", {
         }
         this.sendSocketNotification("CONFIG", this.config);
         this.canvas = this.createCanvas();
-        this.visualizer = new CircleVisualizer(this.canvas);
+        if (this.config.isSpeechVisualizationEnabled) {
+            this.visualizer = new CircleVisualizer(this.canvas);
+        }
     },
 
     getDom(): HTMLElement {

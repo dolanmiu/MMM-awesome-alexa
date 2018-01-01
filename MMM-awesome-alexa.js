@@ -94,7 +94,9 @@ Module.register("MMM-awesome-alexa", {
         }
         this.sendSocketNotification("CONFIG", this.config);
         this.canvas = this.createCanvas();
-        this.visualizer = new circle_visualizer_1.default(this.canvas);
+        if (this.config.isSpeechVisualizationEnabled) {
+            this.visualizer = new circle_visualizer_1.default(this.canvas);
+        }
     },
     getDom() {
         const alexaWrapper = document.createElement("div");

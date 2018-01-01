@@ -1,19 +1,27 @@
 // Interesting parameters to tweak!
-const SMOOTHING = 0.8;
+const SMOOTHING = 0.6;
 
 export abstract class Visualizer {
     private analyser: AnalyserNode;
     private freqs: Uint8Array;
     private times: Uint8Array;
     private drawContext: CanvasRenderingContext2D;
-    private drawFunc: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void;
+    private drawFunc: (
+        freqs: Uint8Array,
+        times: Uint8Array,
+        drawContext: CanvasRenderingContext2D,
+        canvas: HTMLCanvasElement,
+    ) => void;
     private audioContext: AudioContext;
+    private loop: number;
 
     constructor(private canvas: HTMLCanvasElement, fftSize: number = 2048) {
         this.drawContext = canvas.getContext("2d");
         this.audioContext = new AudioContext();
         this.analyser = this.audioContext.createAnalyser();
-        this.drawFunc = () => { return; };
+        this.drawFunc = () => {
+            return;
+        };
 
         this.analyser.minDecibels = -140;
         this.analyser.maxDecibels = 0;
@@ -36,14 +44,26 @@ export abstract class Visualizer {
 
         this.drawFunc(this.freqs, this.times, this.drawContext, this.canvas);
 
-        requestAnimationFrame(this.draw.bind(this));
+        this.loop = requestAnimationFrame(this.draw.bind(this));
     }
 
-    public set drawFunction(func: (freqs: Uint8Array, times: Uint8Array, drawContext: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void) {
+    public set drawFunction(
+        func: (
+            freqs: Uint8Array,
+            times: Uint8Array,
+            drawContext: CanvasRenderingContext2D,
+            canvas: HTMLCanvasElement,
+        ) => void,
+    ) {
         this.drawFunc = func;
     }
 
-    public init(): void {
+    public start(): void {
         this.draw();
+    }
+
+    public stop(): void {
+        this.drawContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        cancelAnimationFrame(this.loop);
     }
 }

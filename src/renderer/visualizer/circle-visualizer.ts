@@ -1,13 +1,12 @@
 import { Visualizer } from "./visualizer";
 
 export default class CircleVisualizer extends Visualizer {
-
     constructor(canvas: HTMLCanvasElement) {
         super(canvas, 32);
     }
 
-    public init(): void {
-        super.init();
+    public start(): void {
+        super.start();
         this.drawFunction = (freqs, times, drawContext, canvas) => {
             const frequency = freqs[0];
             const scaledFrequency = frequency / 10;
@@ -16,5 +15,12 @@ export default class CircleVisualizer extends Visualizer {
             drawContext.fillStyle = "white";
             drawContext.fill();
         };
+    }
+
+    public stop(): void {
+        // Allow for animation to finish
+        setTimeout(() => {
+            super.stop();
+        }, 1000);
     }
 }

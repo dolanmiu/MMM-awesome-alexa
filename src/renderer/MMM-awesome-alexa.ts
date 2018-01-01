@@ -1,11 +1,11 @@
 import CircleVisualizer from "./visualizer/circle-visualizer";
 
 declare const Module: {
-    register(moduleName: string, moduleProperties: object): void,
+    register(moduleName: string, moduleProperties: object): void;
 };
 
 declare const Log: {
-    log(text: string): void,
+    log(text: string): void;
 };
 
 enum AlexaNotification {
@@ -18,13 +18,13 @@ enum AlexaNotification {
 const texts: Array<string> = [];
 
 Module.register("MMM-awesome-alexa", {
-
     // Default module config.
     defaults: {
         clientId: "amzn1.application-oa2-client.81574bebfb25437595d7376f44b54f8e",
         clientSecret: "87d49f998b3a6507b8e6a08760cda274e1d44a22a2bebade9433b1e7445d66a5",
         deviceId: "magic_mirror_alexa",
         lite: false,
+        isSpeechVisualizationEnabled: false,
     },
 
     start(): void {
@@ -34,7 +34,6 @@ Module.register("MMM-awesome-alexa", {
         this.sendSocketNotification("CONFIG", this.config);
         this.canvas = this.createCanvas();
         this.visualizer = new CircleVisualizer(this.canvas);
-        this.visualizer.init();
     },
 
     getDom(): HTMLElement {
@@ -63,9 +62,7 @@ Module.register("MMM-awesome-alexa", {
     },
 
     getStyles(): Array<string> {
-        return [
-            this.file("styles/global.css"),
-        ];
+        return [this.file("styles/global.css")];
     },
 
     createLoadingSpinner(): HTMLElement {
@@ -126,10 +123,16 @@ Module.register("MMM-awesome-alexa", {
 
     speaking(): void {
         const sound = new Audio("/output.mpeg");
-        this.visualizer.connect(sound);
+        if (this.config.isSpeechVisualizationEnabled) {
+            this.visualizer.connect(sound);
+            this.visualizer.start();
+        }
         sound.play();
         sound.addEventListener("ended", () => {
             this.sendSocketNotification("finishedSpeaking", {});
+            if (this.config.isSpeechVisualizationEnabled) {
+                this.visualizer.stop();
+            }
         });
 
         if (this.config.lite) {

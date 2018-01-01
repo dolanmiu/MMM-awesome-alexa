@@ -2,8 +2,8 @@ import { Visualizer } from "./visualizer";
 
 export class RainbowVisualizer extends Visualizer {
 
-    public init(): void {
-        super.init();
+    public start(): void {
+        super.start();
         this.drawFunction = (freqs, times, drawContext, canvas) => {
             // Draw the frequency domain chart.
             for (let i = 0; i < freqs.length; i++) {

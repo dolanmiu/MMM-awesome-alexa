@@ -169,6 +169,7 @@ const checkConfig = (uncheckedConfig) => {
         deviceId: uncheckedConfig.deviceId,
         refreshToken: uncheckedConfig.refreshToken,
         lite: uncheckedConfig.lite || false,
+        isSpeechVisualizationEnabled: uncheckedConfig.isSpeechVisualizationEnabled || false,
     };
 };
 module.exports = NodeHelper.create({
@@ -443,6 +444,10 @@ const MODELS = {
     "Computer": {
         file: "computer.umdl",
         name: "computer",
+    },
+    "Snowboy": {
+        file: "snowboy.umdl",
+        name: "snowboy",
     },
 };
 exports.MODELS = MODELS;

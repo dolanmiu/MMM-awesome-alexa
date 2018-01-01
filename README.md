@@ -16,7 +16,9 @@
 ## Installation
 
 ### Install Dependencies
+
 #### Sox
+
 You need to install `SoX`:
 
 For OS X (need [homebrew](https://brew.sh/)):
@@ -36,7 +38,9 @@ For Windows:
 [Download from SourceForge](https://sourceforge.net/projects/sox/files/latest/download)
 
 #### Raspberry Pi Specific Dependencies
+
 If you are using `Raspberry Pi` install the following:
+
 ```bash
 $ sudo apt-get install swig3.0 python-pyaudio python3-pyaudio sox
 $ pip install pyaudio
@@ -47,9 +51,11 @@ Then install the atlas matrix computing library:
 ```bash
 $ sudo apt-get install libatlas-base-dev
 ```
-   
+
 ### Install Module
+
 Execute the following commands to install the module:
+
 ```bash
 $ cd ~/MagicMirror/modules # navigate to module folder
 $ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
@@ -59,32 +65,34 @@ $ npm run electron-rebuild # You MAY need to run this if MagicMirror complains a
 ```
 
 ### Configuring the Module
+
 1. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
-   
+
    Sometimes, this does not work, because it would be missing a `Refresh Token`, please follow this guide to manually do it with these Three ways:
 
    * https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token
 
    * https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token-2
-   
+
    * > In the `help/bash-scripts` directory are two files: `auth_code.sh` and `auth_code2.sh`
-     > Run `auth_code.sh` first then the `auth_code2.sh`. 
+     > Run `auth_code.sh` first then the `auth_code2.sh`.
      > **MAKE SURE YOU ENTER YOUR DATA IN THE FILES BEFORE RUNNING!**
 
    The `config` should look like:
 
    ```json
    {
-     "module": "MMM-awesome-alexa",
-     "position": "bottom_bar",
-     "config": {
-       "wakeWord": "Alexa",
-       "clientId": "YOUR_CLIENT_ID",
-       "clientSecret": "YOUR_CLIENT_SECRET",
-       "deviceId": "YOUR_DEVICE_ID",
-       "refreshToken": "YOUR_REFRESH_TOKEN",
-       "lite": false
-     }
+       "module": "MMM-awesome-alexa",
+       "position": "bottom_bar",
+       "config": {
+           "wakeWord": "Alexa",
+           "clientId": "YOUR_CLIENT_ID",
+           "clientSecret": "YOUR_CLIENT_SECRET",
+           "deviceId": "YOUR_DEVICE_ID",
+           "refreshToken": "YOUR_REFRESH_TOKEN",
+           "lite": false,
+           "isSpeechVisualizationEnabled": false
+       }
    }
    ```
 
@@ -95,37 +103,46 @@ $ npm run electron-rebuild # You MAY need to run this if MagicMirror complains a
    Smart Mirror: `wakeWord: "Smart Mirror"`
    Snowboy: `wakeWord: "Snowboy"`
 
+4. To turn on visualization, set `isSpeechVisualizationEnabled` to `true`.
+
 ## Usage
+
 Boot up `Magic Mirror` and say "Alexa, what time is it?", or "Alexa, tell me a joke" 😊.
 
 **Note:** If you are using Raspberry Pi, you most likely will experience a `snowboy` issue. Please go to the [Troubleshoot](#troubleshoot) section down below
 
 ## What to do next?
+
 So you have got it this far and very happy with your working Alexa-enabled MagicMirror. You can then change your time/location; by default, the Alexa is based in Seattle: https://github.com/alexa/alexa-avs-sample-app/issues/222
 
 # Features
-- Wake Word support
-- Custom Wake Word
-- Very easy set up
-- Easy config tool
-- All-in-one solution.
-- Visualisation
+
+* Wake Word support
+* Custom Wake Word
+* Very easy set up
+* Easy config tool
+* All-in-one solution.
+* Visualization
 
 ## Supported Wake Words
-- Alexa
-- Smart Mirror
-- Snowboy
+
+* Alexa
+* Smart Mirror
+* Snowboy
 
 ### Coming Soon
-- Computer
-- Jarvis
+
+* Computer
+* Jarvis
 
 # Contribution Guide
+
 Want to contribute? Read the guide here: https://github.com/dolanmiu/MMM-awesome-alexa/wiki/Contribution-Guide
 
-
 # Troubleshoot
+
 First check if your mic works by typing in:
+
 ```bash
 rec t.wav
 ```
@@ -133,9 +150,11 @@ rec t.wav
 If the above command doesn't work, please fix that before continuing. [Here is a link to help you (Raspberry pi)](https://www.raspberrypi.org/forums/viewtopic.php?t=13088&p=332703)
 
 ## PM2 problems
+
 For some reason, running MagicMirror on `PM2` with this module doesn't seem to work on Raspberry Pi. The mic does not pick up. If anyone has a solution or cause for this, it would be greatly appreciated. I would recommend to start the MagicMirror the traditional way of `npm start`.
 
 ## Snowboy problems
+
 If you are getting an error related to `snowboy`, run this command inside the `MMM-awesome-alexa` folder:
 
 ```bash
@@ -145,6 +164,7 @@ $ npm run electron-rebuild
 If that still doesn't work, use node `6.10.x`, and then re-run the above command. There was this [issue about node `7.0.0`](https://github.com/Kitt-AI/snowboy/issues/117), and [node `8.0.0`](https://github.com/Kitt-AI/snowboy/issues/212).
 
 ### Still doesn't work
+
 Follow `snowboy`'s official guide on how to recompile their package:
 https://github.com/Kitt-AI/snowboy#compile-a-node-addon
 
@@ -154,15 +174,11 @@ Made with 💖 by Dolan. Huge thanks to @henrikra for his contributions to this 
 
 [gitter-image]: https://badges.gitter.im/dolanmiu/awesome-alexa.svg
 [gitter-url]: https://gitter.im/awesome-alexa/Lobby
-
 [gemnasium-image]: https://gemnasium.com/badges/github.com/dolanmiu/MMM-awesome-alexa.svg
 [gemnasium-url]: https://gemnasium.com/github.com/dolanmiu/MMM-awesome-alexa
-
 [travis-image]: https://travis-ci.org/dolanmiu/MMM-awesome-alexa.svg?branch=master
 [travis-url]: https://travis-ci.org/dolanmiu/MMM-awesome-alexa
-
 [daviddm-image]: https://david-dm.org/dolanmiu/MMM-awesome-alexa/status.svg
 [daviddm-url]: https://david-dm.org/dolanmiu/MMM-awesome-alexa
-
 [greenkeeper-image]: https://badges.greenkeeper.io/dolanmiu/MMM-awesome-alexa.svg
 [greenkeeper-url]: https://greenkeeper.io/

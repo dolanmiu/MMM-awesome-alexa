@@ -86,6 +86,7 @@ Module.register("MMM-awesome-alexa", {
         clientSecret: "87d49f998b3a6507b8e6a08760cda274e1d44a22a2bebade9433b1e7445d66a5",
         deviceId: "magic_mirror_alexa",
         lite: false,
+        isSpeechVisualizationEnabled: false,
     },
     start() {
         if (this.config.refreshToken === undefined) {
@@ -94,7 +95,6 @@ Module.register("MMM-awesome-alexa", {
         this.sendSocketNotification("CONFIG", this.config);
         this.canvas = this.createCanvas();
         this.visualizer = new circle_visualizer_1.default(this.canvas);
-        this.visualizer.init();
     },
     getDom() {
         const alexaWrapper = document.createElement("div");
@@ -117,9 +117,7 @@ Module.register("MMM-awesome-alexa", {
         return alexaWrapper;
     },
     getStyles() {
-        return [
-            this.file("styles/global.css"),
-        ];
+        return [this.file("styles/global.css")];
     },
     createLoadingSpinner() {
         const img = document.createElement("img");
@@ -174,10 +172,16 @@ Module.register("MMM-awesome-alexa", {
     },
     speaking() {
         const sound = new Audio("/output.mpeg");
-        this.visualizer.connect(sound);
+        if (this.config.isSpeechVisualizationEnabled) {
+            this.visualizer.connect(sound);
+            this.visualizer.start();
+        }
         sound.play();
         sound.addEventListener("ended", () => {
             this.sendSocketNotification("finishedSpeaking", {});
+            if (this.config.isSpeechVisualizationEnabled) {
+                this.visualizer.stop();
+            }
         });
         if (this.config.lite) {
             const spinner = document.getElementById("loading-spinner");
@@ -202,8 +206,8 @@ class CircleVisualizer extends visualizer_1.Visualizer {
     constructor(canvas) {
         super(canvas, 32);
     }
-    init() {
-        super.init();
+    start() {
+        super.start();
         this.drawFunction = (freqs, times, drawContext, canvas) => {
             const frequency = freqs[0];
             const scaledFrequency = frequency / 10;
@@ -212,6 +216,12 @@ class CircleVisualizer extends visualizer_1.Visualizer {
             drawContext.fillStyle = "white";
             drawContext.fill();
         };
+    }
+    stop() {
+        // Allow for animation to finish
+        setTimeout(() => {
+            super.stop();
+        }, 1000);
     }
 }
 exports.default = CircleVisualizer;
@@ -225,14 +235,16 @@ exports.default = CircleVisualizer;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 // Interesting parameters to tweak!
-const SMOOTHING = 0.8;
+const SMOOTHING = 0.6;
 class Visualizer {
     constructor(canvas, fftSize = 2048) {
         this.canvas = canvas;
         this.drawContext = canvas.getContext("2d");
         this.audioContext = new AudioContext();
         this.analyser = this.audioContext.createAnalyser();
-        this.drawFunc = () => { return; };
+        this.drawFunc = () => {
+            return;
+        };
         this.analyser.minDecibels = -140;
         this.analyser.maxDecibels = 0;
         this.analyser.smoothingTimeConstant = SMOOTHING;
@@ -249,13 +261,17 @@ class Visualizer {
         this.analyser.getByteFrequencyData(this.freqs);
         this.analyser.getByteTimeDomainData(this.times);
         this.drawFunc(this.freqs, this.times, this.drawContext, this.canvas);
-        requestAnimationFrame(this.draw.bind(this));
+        this.loop = requestAnimationFrame(this.draw.bind(this));
     }
     set drawFunction(func) {
         this.drawFunc = func;
     }
-    init() {
+    start() {
         this.draw();
+    }
+    stop() {
+        this.drawContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        cancelAnimationFrame(this.loop);
     }
 }
 exports.Visualizer = Visualizer;

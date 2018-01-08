@@ -60,7 +60,7 @@ Execute the following commands to install the module:
 $ cd ~/MagicMirror/modules # navigate to module folder
 $ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
 $ cd MMM-awesome-alexa # go into the module directory
-$ npm install
+$ npm install --only=prod
 $ npm run electron-rebuild # You MAY need to run this if MagicMirror complains about Snowboy
 ```
 

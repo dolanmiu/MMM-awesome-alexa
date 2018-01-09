@@ -20,6 +20,7 @@
     "url": "git+https://github.com/dolanmiu/MMM-awesome-alexa.git"
   },
   "dependencies": {
+    "electron-rebuild": "^1.5.7",
     "nan": "^2.6.2",
     "node-record-lpcm16": "^0.3.0",
     "request": "^2.79.0",
@@ -33,7 +34,6 @@
     "@types/snowboy": "^1.2.0",
     "awesome-typescript-loader": "^3.4.1",
     "cspell": "^2.0.4",
-    "electron-rebuild": "^1.5.7",
     "tslint": "^5.1.0",
     "typescript": "2.5.2",
     "webpack": "^3.10.0",

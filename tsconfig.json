@@ -6,7 +6,10 @@
         "sourceMap": true,
         "declaration": false,
         "rootDir": "./src",
-        "noUnusedLocals": true
-        // "strictNullChecks": true
+        "noUnusedLocals": true,
+        "typeRoots": [
+            "@types",
+            "./@types"
+        ]
     }
 }

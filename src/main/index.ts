@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as fs from "fs";
+import * as NodeHelper from "node_helper";
 import * as path from "path";
 
 import { AudioService, TokenService } from "./alexa-voice-service";
@@ -38,14 +39,6 @@ const checkConfig = (uncheckedConfig: UncheckedConfig): Config => {
         lite: uncheckedConfig.lite || false,
         isSpeechVisualizationEnabled: uncheckedConfig.isSpeechVisualizationEnabled || false,
     };
-};
-
-declare const NodeHelper: {
-    create(config: {
-        start(): void;
-        socketNotificationReceived<T>(notification: NotificationType, payload: T): void;
-        [key: string]: {};
-    }): void;
 };
 
 module.exports = NodeHelper.create({

@@ -140,12 +140,13 @@ module.exports = require("node-record-lpcm16");
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __webpack_require__(1);
+const NodeHelper = __webpack_require__(8);
 const path = __webpack_require__(0);
-const alexa_voice_service_1 = __webpack_require__(8);
-const config_service_1 = __webpack_require__(11);
-const models_1 = __webpack_require__(12);
-const renderer_communicator_1 = __webpack_require__(15);
-const alexa_state_machine_1 = __webpack_require__(16);
+const alexa_voice_service_1 = __webpack_require__(9);
+const config_service_1 = __webpack_require__(12);
+const models_1 = __webpack_require__(13);
+const renderer_communicator_1 = __webpack_require__(16);
+const alexa_state_machine_1 = __webpack_require__(17);
 const checkConfig = (uncheckedConfig) => {
     if (!uncheckedConfig.clientId) {
         throw new Error("clientId must be defined");
@@ -219,19 +220,25 @@ module.exports = NodeHelper.create({
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("node_helper");
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var audio_service_1 = __webpack_require__(9);
+var audio_service_1 = __webpack_require__(10);
 exports.AudioService = audio_service_1.AudioService;
-var token_service_1 = __webpack_require__(10);
+var token_service_1 = __webpack_require__(11);
 exports.TokenService = token_service_1.TokenService;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -300,7 +307,7 @@ exports.AudioService = AudioService;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -365,7 +372,7 @@ exports.TokenService = TokenService;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -383,18 +390,18 @@ exports.ConfigService = ConfigService;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var models_1 = __webpack_require__(13);
+var models_1 = __webpack_require__(14);
 exports.AlexaModels = models_1.AlexaModels;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -402,7 +409,7 @@ exports.AlexaModels = models_1.AlexaModels;
 Object.defineProperty(exports, "__esModule", { value: true });
 const path = __webpack_require__(0);
 const snowboy_1 = __webpack_require__(5);
-const model_dictionary_1 = __webpack_require__(14);
+const model_dictionary_1 = __webpack_require__(15);
 class AlexaModels extends snowboy_1.Models {
     constructor(wakeWord) {
         super();
@@ -422,7 +429,7 @@ exports.AlexaModels = AlexaModels;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -454,7 +461,7 @@ exports.MODELS = MODELS;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -476,15 +483,15 @@ exports.RendererCommunicator = RendererCommunicator;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const busy_state_1 = __webpack_require__(17);
-const idle_state_1 = __webpack_require__(18);
-const listening_state_1 = __webpack_require__(20);
+const busy_state_1 = __webpack_require__(18);
+const idle_state_1 = __webpack_require__(19);
+const listening_state_1 = __webpack_require__(21);
 class AlexaStateMachine {
     constructor(components) {
         this.idleState = new idle_state_1.IdleState(components);
@@ -508,7 +515,7 @@ exports.AlexaStateMachine = AlexaStateMachine;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -548,14 +555,14 @@ exports.BusyState = BusyState;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const record = __webpack_require__(6);
-const detector_1 = __webpack_require__(19);
+const detector_1 = __webpack_require__(20);
 const base_state_1 = __webpack_require__(3);
 class IdleState extends base_state_1.State {
     constructor(components) {
@@ -590,7 +597,7 @@ exports.IdleState = IdleState;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -636,7 +643,7 @@ exports.HotwordDetector = HotwordDetector;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

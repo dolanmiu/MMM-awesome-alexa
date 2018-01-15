@@ -4,9 +4,6 @@
         "target": "es6",
         "noImplicitAny": true,
         "sourceMap": true,
-        "declaration": false,
-        "rootDir": "./src",
         "noUnusedLocals": true
-        // "strictNullChecks": true
     }
 }

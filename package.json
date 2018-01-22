@@ -1,42 +1,44 @@
 {
-  "name": "mmm-awesome-alexa",
-  "version": "1.0.0",
-  "description": "Easy Alexa module for Magic Mirror",
-  "main": "MMM-awesome-alexa.js",
-  "scripts": {
-    "build": "webpack --progress --profile --bail --display-error-details",
-    "dev": "npm run build -- --watch",
-    "test": "npm run lint",
-    "electron-rebuild": "electron-rebuild --pre-gyp-fix",
-    "lint": "tslint --project .",
-    "node-pre-gyp": "node-pre-gyp clean configure build",
-    "test-rec": "bash test-rec.sh",
-    "spell": "cspell \"src/**/*.ts\""
-  },
-  "author": "Dolan Miu",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dolanmiu/MMM-awesome-alexa.git"
-  },
-  "dependencies": {
-    "electron-rebuild": "^1.5.7",
-    "nan": "^2.6.2",
-    "node-record-lpcm16": "^0.3.0",
-    "request": "^2.79.0",
-    "rxjs": "^5.4.0",
-    "snowboy": "^1.2.0"
-  },
-  "devDependencies": {
-    "@types/express": "^4.11.0",
-    "@types/node": "^9.3.0",
-    "@types/request": "2.0.12",
-    "@types/snowboy": "^1.2.0",
-    "awesome-typescript-loader": "^3.4.1",
-    "cspell": "^2.0.4",
-    "tslint": "^5.1.0",
-    "typescript": "2.5.2",
-    "webpack": "^3.10.0",
-    "webpack-node-externals": "^1.6.0"
-  }
+    "name": "mmm-awesome-alexa",
+    "version": "1.0.0",
+    "description": "Easy Alexa module for Magic Mirror",
+    "main": "MMM-awesome-alexa.js",
+    "scripts": {
+        "build": "webpack --progress --profile --bail --display-error-details",
+        "dev": "npm run build -- --watch",
+        "test": "npm run lint",
+        "electron-rebuild": "electron-rebuild --pre-gyp-fix",
+        "lint": "tslint --project .",
+        "node-pre-gyp": "node-pre-gyp clean configure build",
+        "test-rec": "bash test-rec.sh",
+        "spell": "cspell \"src/**/*.ts\"",
+        "style": "prettier -l --trailing-comma all --print-width 100 \"src/**/*.ts\""
+    },
+    "author": "Dolan Miu",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dolanmiu/MMM-awesome-alexa.git"
+    },
+    "dependencies": {
+        "electron-rebuild": "^1.5.7",
+        "nan": "^2.6.2",
+        "node-record-lpcm16": "^0.3.0",
+        "request": "^2.79.0",
+        "rxjs": "^5.4.0",
+        "snowboy": "^1.2.0"
+    },
+    "devDependencies": {
+        "@types/express": "^4.11.0",
+        "@types/node": "^9.3.0",
+        "@types/request": "2.0.12",
+        "@types/snowboy": "^1.2.0",
+        "awesome-typescript-loader": "^3.4.1",
+        "cspell": "^2.0.4",
+        "prettier": "^1.10.2",
+        "tslint": "^5.1.0",
+        "typescript": "2.5.2",
+        "webpack": "^3.10.0",
+        "webpack-node-externals": "^1.6.0"
+    }
 }

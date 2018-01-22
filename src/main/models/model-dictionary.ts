@@ -1,9 +1,9 @@
 const MODELS: { [key: string]: IModelConfig } = {
-    "Alexa": {
+    Alexa: {
         file: "alexa.umdl",
         name: "alexa",
     },
-    "Jarvis": {
+    Jarvis: {
         file: "jarvis.umdl",
         name: "jarvis",
     },
@@ -11,11 +11,11 @@ const MODELS: { [key: string]: IModelConfig } = {
         file: "smart-mirror.umdl",
         name: "smart mirror",
     },
-    "Computer": {
+    Computer: {
         file: "computer.umdl",
         name: "computer",
     },
-    "Snowboy": {
+    Snowboy: {
         file: "snowboy.umdl",
         name: "snowboy",
     },

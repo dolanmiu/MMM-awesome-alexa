@@ -1,7 +1,6 @@
 import { Visualizer } from "./visualizer";
 
 export class RainbowVisualizer extends Visualizer {
-
     public start(): void {
         super.start();
         this.drawFunction = (freqs, times, drawContext, canvas) => {

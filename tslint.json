@@ -1,22 +1,23 @@
 {
-  "extends": "tslint:latest",
-  "exclude": ["typings"],
-  "rules": {
-    "curly": true,
-    "one-variable-per-declaration": [true],
-    "no-any": true,
-    "no-consecutive-blank-lines": [true],
-    "no-require-imports": true,
-    "member-access": [true],
-    "indent": [true, "spaces"],
-    "object-literal-sort-keys": false,
-    "object-literal-shorthand": false,
-    "typedef": [true, "call-signature", "parameter", "property-declaration"],
-    "max-line-length": [false],
-    "no-console": [false],
-    "array-type": ["array"],
-    "no-submodule-imports": false,
-    "no-implicit-dependencies": false,
-    "arrow-parens": [true, "ban-single-arg-parens"]
-  }
+    "extends": "tslint:latest",
+    "exclude": ["typings"],
+    "rules": {
+        "curly": true,
+        "one-variable-per-declaration": [true],
+        "no-any": true,
+        "no-consecutive-blank-lines": [true],
+        "no-require-imports": true,
+        "member-access": [true],
+        "indent": [true, "spaces"],
+        "object-literal-sort-keys": false,
+        "object-literal-shorthand": false,
+        "typedef": [true, "call-signature", "parameter", "property-declaration"],
+        "max-line-length": [false],
+        "no-console": [false],
+        "array-type": ["array"],
+        "no-submodule-imports": false,
+        "no-implicit-dependencies": false,
+        "arrow-parens": [true, "ban-single-arg-parens"],
+        "object-literal-key-quotes": false
+    }
 }

@@ -9,6 +9,7 @@ script:
 - npm run lint
 - npm run spell
 - npm run build
+- npm run style
 # Not working
 # deploy:
 #   provider: script

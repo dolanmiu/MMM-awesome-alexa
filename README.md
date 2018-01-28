@@ -170,7 +170,7 @@ https://github.com/Kitt-AI/snowboy#compile-a-node-addon
 
 ---
 
-Made with 💖 by Dolan. Huge thanks to @henrikra for his contributions to this project!
+Made with 💖 by Dolan. Huge thanks to [henrikra](https://github.com/henrikra/) for his contributions to this project!
 
 [gitter-image]: https://badges.gitter.im/dolanmiu/awesome-alexa.svg
 [gitter-url]: https://gitter.im/awesome-alexa/Lobby

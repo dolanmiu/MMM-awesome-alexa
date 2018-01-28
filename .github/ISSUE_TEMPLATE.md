@@ -1,3 +1,3 @@
 If you know how to fix the issue, make a pull request instead.
 
-* [ ] I have included a log with the `pm2 log MagicMirror` command
+* [ ] Before submitting your issue add logs from your MagicMirror by running command `pm2 log MagicMirror`

@@ -38,7 +38,7 @@
         "prettier": "^1.10.2",
         "tslint": "^5.1.0",
         "typescript": "2.5.2",
-        "webpack": "^3.10.0",
+        "webpack": "^4.0.0",
         "webpack-node-externals": "^1.6.0"
     }
 }

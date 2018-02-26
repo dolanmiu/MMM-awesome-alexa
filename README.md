@@ -23,8 +23,6 @@
 
 Boot up `Magic Mirror` and say "Alexa, what time is it?", or "Alexa, tell me a joke" 😊.
 
-**Note:** If you are using Raspberry Pi, you most likely will experience a `snowboy` issue. Please go to the [Troubleshoot](#troubleshoot) section down below
-
 ## What to do next?
 
 So you have got it this far and very happy with your working Alexa-enabled MagicMirror. You can then change your time/location; by default, the Alexa is based in Seattle: https://github.com/alexa/alexa-avs-sample-app/issues/222
@@ -62,21 +60,6 @@ rec t.wav
 ```
 
 If the above command doesn't work, please fix that before continuing. [Here is a link to help you (Raspberry pi)](https://www.raspberrypi.org/forums/viewtopic.php?t=13088&p=332703)
-
-## Snowboy problems
-
-If you are getting an error related to `snowboy`, run this command inside the `MMM-awesome-alexa` folder:
-
-```bash
-$ npm run electron-rebuild
-```
-
-If that still doesn't work, use node `6.10.x`, and then re-run the above command. There was this [issue about node `7.0.0`](https://github.com/Kitt-AI/snowboy/issues/117), and [node `8.0.0`](https://github.com/Kitt-AI/snowboy/issues/212).
-
-### Still doesn't work
-
-Follow `snowboy`'s official guide on how to recompile their package:
-https://github.com/Kitt-AI/snowboy#compile-a-node-addon
 
 ---
 

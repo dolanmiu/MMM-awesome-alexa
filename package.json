@@ -11,8 +11,8 @@
         "lint": "tslint --project .",
         "node-pre-gyp": "node-pre-gyp clean configure build",
         "test-rec": "bash test-rec.sh",
-        "spell": "cspell \"src/**/*.ts\"",
-        "style": "prettier -l \"src/**/*.ts\""
+        "spell": "cspell src/**/*.ts",
+        "style": "prettier -l src/**/*.ts"
     },
     "author": "Dolan Miu",
     "license": "MIT",

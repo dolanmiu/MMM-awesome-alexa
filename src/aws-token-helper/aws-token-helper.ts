@@ -23,12 +23,11 @@ function prompt(question: string): Promise<string> {
 prompt("Client ID?").then(clientId => {
     prompt("Product Id?").then(productId => {
         prompt("Redirect URI (allowed return URL)?").then(redirectURI => {
-            const deviceSerialNumber = 123; // can be anything
             const scopeData = {
                 "alexa:all": {
                     productID: productId,
                     productInstanceAttributes: {
-                        deviceSerialNumber: deviceSerialNumber,
+                        deviceSerialNumber: 123, // can be anything
                     },
                 },
             };

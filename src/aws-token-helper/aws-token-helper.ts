@@ -32,8 +32,6 @@ prompt("Client ID?").then(clientId => {
                     },
                 },
             };
-            console.log("https://localhost:9745/authresponse");
-            console.log("tuli", redirectURI);
             const getParams = generateQuery({
                 client_id: clientId,
                 scope: "alexa:all",

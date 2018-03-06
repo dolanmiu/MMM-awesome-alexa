@@ -3,7 +3,7 @@ import open = require("open");
 
 const generateQuery = (params: { [key: string]: string }) =>
     Object.keys(params)
-        .map((key: string) => key + "=" + encodeURIComponent(params[key]))
+        .map((key: string) => key + "=" + params[key])
         .join("&");
 
 function prompt(question: string): Promise<string> {

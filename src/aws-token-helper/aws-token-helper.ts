@@ -1,24 +1,11 @@
 // tslint:disable-next-line:no-require-imports
 import open = require("open");
+import { prompt } from "./common";
 
 const generateQuery = (params: { [key: string]: string }) =>
     Object.keys(params)
         .map((key: string) => key + "=" + params[key])
         .join("&");
-
-function prompt(question: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const stdin = process.stdin;
-        const stdout = process.stdout;
-
-        stdin.resume();
-        stdout.write(question + " ");
-
-        stdin.once("data", data => {
-            resolve(data.toString().trim());
-        });
-    });
-}
 
 console.log("Welcome to the Amazon auth helper!");
 console.log("I will need three things from you:");

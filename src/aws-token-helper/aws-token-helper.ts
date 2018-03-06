@@ -6,39 +6,42 @@ const generateQuery = (params: { [key: string]: string }) =>
         .map((key: string) => key + "=" + encodeURIComponent(params[key]))
         .join("&");
 
-function prompt(question: string, callback: (input: string) => void): void {
-    const stdin = process.stdin;
-    const stdout = process.stdout;
+function prompt(question: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const stdin = process.stdin;
+        const stdout = process.stdout;
 
-    stdin.resume();
-    stdout.write(question);
+        stdin.resume();
+        stdout.write(question + " ");
 
-    stdin.once("data", data => {
-        callback(data.toString().trim());
+        stdin.once("data", data => {
+            resolve(data.toString().trim());
+        });
     });
 }
 
-prompt("Client ID? ", (clientId: string) => {
-    const productId = "MagicMirror";
-    const deviceSerialNumber = 123; // can be anything
-    const scopeData = {
-        "alexa:all": {
-            productID: productId,
-            productInstanceAttributes: {
-                deviceSerialNumber: deviceSerialNumber,
+prompt("Client ID?").then(clientId => {
+    prompt("Product Id?").then(productId => {
+        const deviceSerialNumber = 123; // can be anything
+        const scopeData = {
+            "alexa:all": {
+                productID: productId,
+                productInstanceAttributes: {
+                    deviceSerialNumber: deviceSerialNumber,
+                },
             },
-        },
-    };
-    const getParams = generateQuery({
-        client_id: clientId,
-        scope: "alexa:all",
-        scope_data: JSON.stringify(scopeData),
-        response_type: "code",
-        redirect_uri: "https://localhost:9745/authresponse",
+        };
+        const getParams = generateQuery({
+            client_id: clientId,
+            scope: "alexa:all",
+            scope_data: JSON.stringify(scopeData),
+            response_type: "code",
+            redirect_uri: "https://localhost:9745/authresponse",
+        });
+
+        const authUrl = `https://www.amazon.com/ap/oa?${getParams}`;
+
+        open(authUrl);
+        process.exit();
     });
-
-    const authUrl = `https://www.amazon.com/ap/oa?${getParams}`;
-
-    open(authUrl);
-    process.exit();
 });

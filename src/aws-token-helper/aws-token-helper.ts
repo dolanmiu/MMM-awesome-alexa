@@ -22,26 +22,30 @@ function prompt(question: string): Promise<string> {
 
 prompt("Client ID?").then(clientId => {
     prompt("Product Id?").then(productId => {
-        const deviceSerialNumber = 123; // can be anything
-        const scopeData = {
-            "alexa:all": {
-                productID: productId,
-                productInstanceAttributes: {
-                    deviceSerialNumber: deviceSerialNumber,
+        prompt("Redirect URI (allowed return URL)?").then(redirectURI => {
+            const deviceSerialNumber = 123; // can be anything
+            const scopeData = {
+                "alexa:all": {
+                    productID: productId,
+                    productInstanceAttributes: {
+                        deviceSerialNumber: deviceSerialNumber,
+                    },
                 },
-            },
-        };
-        const getParams = generateQuery({
-            client_id: clientId,
-            scope: "alexa:all",
-            scope_data: JSON.stringify(scopeData),
-            response_type: "code",
-            redirect_uri: "https://localhost:9745/authresponse",
+            };
+            console.log("https://localhost:9745/authresponse");
+            console.log("tuli", redirectURI);
+            const getParams = generateQuery({
+                client_id: clientId,
+                scope: "alexa:all",
+                scope_data: JSON.stringify(scopeData),
+                response_type: "code",
+                redirect_uri: redirectURI,
+            });
+
+            const authUrl = `https://www.amazon.com/ap/oa?${getParams}`;
+
+            open(authUrl);
+            process.exit();
         });
-
-        const authUrl = `https://www.amazon.com/ap/oa?${getParams}`;
-
-        open(authUrl);
-        process.exit();
     });
 });

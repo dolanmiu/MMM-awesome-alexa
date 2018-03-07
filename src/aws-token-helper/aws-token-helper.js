@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 // tslint:disable-next-line:no-require-imports
-var open = require("open");
+var opn = require("opn");
 var common_1 = require("./common");
 var generateQuery = function (params) {
     return Object.keys(params)
@@ -34,7 +34,7 @@ common_1.prompt("[Press any key to continue]").then(function () {
                         redirect_uri: redirectURI
                     });
                     var authUrl = "https://www.amazon.com/ap/oa?" + getParams;
-                    open(authUrl);
+                    opn(authUrl);
                     process.exit();
                 });
             });

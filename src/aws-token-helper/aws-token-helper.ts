@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-require-imports
-import open = require("open");
+import opn = require("opn");
 import { prompt } from "./common";
 
 const generateQuery = (params: { [key: string]: string }) =>
@@ -38,7 +38,7 @@ prompt("[Press any key to continue]").then(() => {
 
                     const authUrl = `https://www.amazon.com/ap/oa?${getParams}`;
 
-                    open(authUrl);
+                    opn(authUrl);
                     process.exit();
                 });
             });

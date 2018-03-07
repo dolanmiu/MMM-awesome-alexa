@@ -12,7 +12,9 @@
         "node-pre-gyp": "node-pre-gyp clean configure build",
         "test-rec": "bash test-rec.sh",
         "spell": "cspell src/**/*.ts",
-        "style": "prettier -l src/**/*.ts"
+        "style": "prettier -l src/**/*.ts",
+        "aws-token-helper": "node src/aws-token-helper/aws-token-helper.js",
+        "aws-refreshToken-helper": "node src/aws-token-helper/aws-refreshToken-helper.js"
     },
     "author": "Dolan Miu",
     "license": "MIT",

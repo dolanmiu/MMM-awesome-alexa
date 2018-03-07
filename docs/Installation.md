@@ -58,9 +58,9 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
 
 ### Configuration
 
-1. Run `aws-token-helper.js` with `node src/aws-token-helper/aws-token-helper.js`
+1. Run `aws-token-helper.js` with `npm run aws-token-helper`
 2. Follow the on screen instructions and give the script info it needs.
-3. After you got the authorization token run the refresh token helper with `node src/aws-token-helper/aws-refreshToken-helper.js`
+3. After you got the authorization token run the refresh token helper with `npm run aws-refreshToken-helper`
 4. Follow on screen instructions
 5. Get `refresh_token` from the succesful response
 6. Fill Awesome-Alexa module config with your information to your `config/config.js` file.

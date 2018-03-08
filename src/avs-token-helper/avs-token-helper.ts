@@ -38,8 +38,9 @@ prompt("[Press any key to continue]").then(() => {
 
                     const authUrl = `https://www.amazon.com/ap/oa?${getParams}`;
 
-                    opn(authUrl);
-                    process.exit();
+                    opn(authUrl).then(() => {
+                        process.exit();
+                    });
                 });
             });
         });

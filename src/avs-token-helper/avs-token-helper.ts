@@ -45,9 +45,14 @@ prompt("[Press any key to continue]").then(() => {
                     prompt(
                         "Great! Next I will now open a browser where you can authorize your Alexa product\n[Press any key to continue]",
                     ).then(() => {
-                        opn(authUrl).then(() => {
-                            process.exit();
-                        });
+                        opn(authUrl)
+                            .then(() => {
+                                process.exit();
+                            })
+                            .catch(err => {
+                                console.error("Something went wrong with opening your browser");
+                                console.error(err);
+                            });
                     });
                 }
             });

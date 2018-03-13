@@ -31,14 +31,19 @@ common_1.prompt("[Press any key to continue]").then(() => {
                 });
                 const authUrl = `https://www.amazon.com/ap/oa?${getParams}`;
                 if (process.platform === "win32") {
-                    common_1.prompt("Great! Next I will now show you a link. Copy and paste this into your browser to authorize your Alexa product\n[Press any key to continue]").then(() => {
+                    common_1.prompt("Great! Next I will show you a link. Copy and paste this into your browser to authorize your Alexa product\n[Press any key to continue]").then(() => {
                         console.log(authUrl);
                     });
                 }
                 else {
                     common_1.prompt("Great! Next I will now open a browser where you can authorize your Alexa product\n[Press any key to continue]").then(() => {
-                        opn(authUrl).then(() => {
+                        opn(authUrl)
+                            .then(() => {
                             process.exit();
+                        })
+                            .catch(err => {
+                            console.error("Something went wrong with opening your browser");
+                            console.error(err);
                         });
                     });
                 }

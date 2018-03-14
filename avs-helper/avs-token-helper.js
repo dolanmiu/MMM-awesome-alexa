@@ -37,7 +37,7 @@ common_1.prompt("[Press any key to continue]").then(() => {
                 }
                 else {
                     common_1.prompt("Great! Next I will now open a browser where you can authorize your Alexa product\n[Press any key to continue]").then(() => {
-                        opn(authUrl)
+                        opn(authUrl, { wait: false })
                             .then(() => {
                             process.exit();
                         })

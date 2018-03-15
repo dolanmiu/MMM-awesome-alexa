@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const opn = require("opn");
 const common_1 = require("./common");
 const generateQuery = (params) => Object.keys(params)
     .map((key) => key + "=" + params[key])
@@ -29,24 +28,9 @@ common_1.prompt("[Press any key to continue]").then(() => {
                     response_type: "code",
                     redirect_uri: redirectURI,
                 });
-                const authUrl = `https://www.amazon.com/ap/oa?${getParams}`;
-                if (process.platform === "win32") {
-                    common_1.prompt("Great! Next I will show you a link. Copy and paste this into your browser to authorize your Alexa product\n[Press any key to continue]").then(() => {
-                        console.log(authUrl);
-                    });
-                }
-                else {
-                    common_1.prompt("Great! Next I will now open a browser where you can authorize your Alexa product\n[Press any key to continue]").then(() => {
-                        opn(authUrl, { wait: false })
-                            .then(() => {
-                            process.exit();
-                        })
-                            .catch(err => {
-                            console.error("Something went wrong with opening your browser");
-                            console.error(err);
-                        });
-                    });
-                }
+                console.log("Great! Copy paste the link below to your browser to authorize your Alexa product");
+                console.log(`https://www.amazon.com/ap/oa?${getParams}`);
+                process.exit();
             });
         });
     });

@@ -1,5 +1,4 @@
 // tslint:disable-next-line:no-require-imports
-import opn = require("opn");
 import { prompt } from "./common";
 
 const generateQuery = (params: { [key: string]: string }) =>
@@ -33,28 +32,11 @@ prompt("[Press any key to continue]").then(() => {
                     redirect_uri: redirectURI,
                 });
 
-                const authUrl = `https://www.amazon.com/ap/oa?${getParams}`;
-
-                if (process.platform === "win32") {
-                    prompt(
-                        "Great! Next I will show you a link. Copy and paste this into your browser to authorize your Alexa product\n[Press any key to continue]",
-                    ).then(() => {
-                        console.log(authUrl);
-                    });
-                } else {
-                    prompt(
-                        "Great! Next I will now open a browser where you can authorize your Alexa product\n[Press any key to continue]",
-                    ).then(() => {
-                        opn(authUrl, { wait: false })
-                            .then(() => {
-                                process.exit();
-                            })
-                            .catch(err => {
-                                console.error("Something went wrong with opening your browser");
-                                console.error(err);
-                            });
-                    });
-                }
+                console.log(
+                    "Great! Copy paste the link below to your browser to authorize your Alexa product",
+                );
+                console.log(`https://www.amazon.com/ap/oa?${getParams}`);
+                process.exit();
             });
         });
     });

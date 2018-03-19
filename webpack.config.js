@@ -13,7 +13,7 @@ const clientConfig = {
     },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.ts$/,
                 include: [path.resolve(__dirname, "src/renderer")],
@@ -41,7 +41,7 @@ const serverConfig = {
     },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.ts$/,
                 include: [path.resolve(__dirname, "src/main")],

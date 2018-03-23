@@ -5,7 +5,7 @@
     "main": "MMM-awesome-alexa.js",
     "scripts": {
         "build": "webpack --progress --profile --bail --display-error-details",
-        "dev": "npm run build -- --watch",
+        "dev": "npm run build -- --watch --mode development",
         "test": "npm run lint",
         "electron-rebuild": "electron-rebuild --pre-gyp-fix",
         "lint": "tslint --project .",

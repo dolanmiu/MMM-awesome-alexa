@@ -2,6 +2,7 @@ const nodeExternals = require("webpack-node-externals");
 const path = require("path");
 
 const clientConfig = {
+    mode: "production",
     entry: "./src/renderer/MMM-awesome-alexa.ts",
     output: {
         path: __dirname,
@@ -24,6 +25,7 @@ const clientConfig = {
 };
 const serverConfig = {
     target: "node",
+    mode: "production",
     externals: [nodeExternals(), "node_helper"],
     entry: "./src/main/index.ts",
     output: {

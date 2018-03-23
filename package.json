@@ -12,7 +12,10 @@
         "node-pre-gyp": "node-pre-gyp clean configure build",
         "test-rec": "bash test-rec.sh",
         "spell": "cspell src/**/*.ts",
-        "style": "prettier -l src/**/*.ts"
+        "style": "prettier -l src/**/*.ts",
+        "avs-token-helper": "node avs-helper/avs-token-helper.js",
+        "avs-refreshToken-helper": "node avs-helper/avs-refreshToken-helper.js",
+        "build.avs-helper": "tsc --p tsconfig.avs-helper.json"
     },
     "author": "Dolan Miu",
     "license": "MIT",

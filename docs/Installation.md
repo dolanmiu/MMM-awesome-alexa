@@ -51,19 +51,19 @@ $ npm run electron-rebuild
 
 ## Configuring the Module
 
-1. Go to https://magic-mirror-avs.github.io/Alexa-Web-Helper/ and generate a config for this alexa module. I have tried to make this step as simple as possible.
+Next we need to authorize Awesome-Alexa with your Amazon account. We do this in two steps:
 
-    Sometimes, this does not work, because it would be missing a `Refresh Token`, please follow this guide to manually do it with these Three ways:
+1. Get authorization token which will be used in next step
+2. Here we use authorization token to get refresh token which will be passed to the Awesome-Alexa configuration
 
-    * https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token
+### Configuration
 
-    * https://github.com/dolanmiu/MMM-awesome-alexa/wiki/How-to-get-AVS-Token-2
-
-    * > In the `help/bash-scripts` directory are two files: `auth_code.sh` and `auth_code2.sh`
-      > Run `auth_code.sh` first then the `auth_code2.sh`.
-      > **MAKE SURE YOU ENTER YOUR DATA IN THE FILES BEFORE RUNNING!**
-
-    The `config` should look like:
+1. Run `avs-token-helper.js` with `npm run avs-token-helper`
+2. Follow the on screen instructions and give the script info it needs.
+3. After you got the authorization token run the refresh token helper with `npm run avs-refreshToken-helper`
+4. Follow on screen instructions
+5. Get `refresh_token` from the succesful response
+6. Fill Awesome-Alexa module config with your information to your `config/config.js` file.
 
     ```json
     {
@@ -81,11 +81,9 @@ $ npm run electron-rebuild
     }
     ```
 
-2. Then, add the config from the website above and put it into the `modules` section of your `config/config.js` file.
-
-3. To configure the wake word, change the `wakeWord` property in the `config`:
+7. To configure the wake word, change the `wakeWord` property in the `config`:
    Alexa: `wakeWord: "Alexa"`
    Smart Mirror: `wakeWord: "Smart Mirror"`
    Snowboy: `wakeWord: "Snowboy"`
 
-4. To turn on visualization, set `isSpeechVisualizationEnabled` to `true`.
+8. To turn on visualization, set `isSpeechVisualizationEnabled` to `true`.

@@ -13,6 +13,14 @@
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
 > At the moment, this only works for MacOS and Ubuntu. Raspberry Pi has experimental support, it works when I tried it, but please try yourself and let us know on Gitter!
 
+## Compatability
+
+| Operating System     | Works? | Notes                                                                                                                                                                                                                                                                                             |
+| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Linux / Raspberry Pi | ✔      | -                                                                                                                                                                                                                                                                                                 |
+| macOS                | ✔      | -                                                                                                                                                                                                                                                                                                 |
+| Windows              | ✘      | `snowboy` [is](https://github.com/Kitt-AI/snowboy/issues/325) [not](https://github.com/Kitt-AI/snowboy/issues/263) [supported](https://github.com/Kitt-AI/snowboy/issues/350). `MMM-awesome-alexa` relies heaviliy on this. If we all show enough interest, they may release a Windows `snowboy`! |
+
 ## Installing
 
 1. First you have to setup your speakers and microphone correctly: [Audio setup](docs/AudioSetup.md)

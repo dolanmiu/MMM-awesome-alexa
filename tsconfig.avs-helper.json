@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outDir": "./avs-helper",
+        "sourceMap": false,
+        "target": "es6",
+        "strictNullChecks": true,
+        "declaration": false
+    },
+    "include": ["src/avs-token-helper/**/*.ts"],
+    "exclude": ["./node_modules"]
+}

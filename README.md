@@ -13,6 +13,8 @@
 > A hands free Alexa module for the Magic Mirror, which is activated when you say 'Alexa'.
 > At the moment, this only works for MacOS and Ubuntu. Raspberry Pi has experimental support, it works when I tried it, but please try yourself and let us know on Gitter!
 
+![Demo GIF](https://media.giphy.com/media/9P6WN3Pi4mM1mqA8RK/giphy.gif)
+
 ## Compatability
 
 | Operating System     | Works? | Notes                                                                                                                                                                                                                                                                                             |

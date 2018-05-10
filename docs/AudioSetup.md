@@ -65,10 +65,10 @@ ctl.!default {
 
 Let's break this down:
 
-* in `pmc` the `p` stands for playback. So were configuring playback settings inside this block
+* in `pcm` stands for r `Pulse Code Modulation`.  Here we configure the playback settings inside this block
 * all you need to know that we are setting default card to 1 for playback
 * this number has to match your desired card that we looked up previous. For my case it is 1
-* in `ctl` the `c` stands for capture. So were configuring capture settings inside this block
+* in `ctl` stands for control and is setting the available controls for the device. Here we configure capture settings.
 * same here that change the card number to right one. In my case it was 1 like we checked previously
 * also note that if you want to configure some other device inside the card you can specify that too
 * we did not define device number in these block so then default 0 is used

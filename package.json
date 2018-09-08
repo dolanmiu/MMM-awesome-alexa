@@ -24,12 +24,12 @@
         "url": "git+https://github.com/dolanmiu/MMM-awesome-alexa.git"
     },
     "dependencies": {
-        "electron-rebuild": "^1.5.7",
-        "nan": "^2.6.2",
-        "node-record-lpcm16": "^0.3.0",
-        "request": "^2.79.0",
-        "rxjs": "^5.4.0",
-        "snowboy": "^1.2.0"
+        "electron-rebuild": "1.5.7",
+        "nan": "2.6.2",
+        "node-record-lpcm16": "0.3.0",
+        "request": "2.79.0",
+        "rxjs": "5.4.0",
+        "snowboy": "1.2.0"
     },
     "devDependencies": {
         "@types/express": "^4.11.0",

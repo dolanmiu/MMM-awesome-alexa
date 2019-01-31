@@ -41,3 +41,5 @@ temp/*
 !temp/.gitkeep
 
 *.map
+
+.DS_STORE

@@ -20,7 +20,7 @@ export class BusyState extends State {
         this.components.audioService
             .sendAudio(accessToken, readStream)
             .then(result => {
-                this.components.rendererSend("speak", {});
+                this.components.rendererSend("speak", result);
             })
             .catch(err => {
                 console.error(err);

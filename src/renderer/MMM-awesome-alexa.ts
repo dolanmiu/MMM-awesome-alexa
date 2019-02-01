@@ -15,7 +15,23 @@ enum AlexaNotification {
     Speaking = "speak",
 }
 
+enum ImageSize {
+    Small = "SMALL",
+    Medium = "MEDIUM",
+    Large = "LARGE",
+    XLarge = "X-LARGE"
+}
+
+enum RenderTemplateType {
+    TextOnly = "BodyTemplate1",
+    TextAndImage = "BodyTemplate2",
+    List = "ListTemplate",
+    Weather = "Weather"
+}
+
 const texts: Array<string> = [];
+
+const DisplayCardImgId: string = "display-card-image";
 
 Module.register("MMM-awesome-alexa", {
     // Default module config.
@@ -25,6 +41,7 @@ Module.register("MMM-awesome-alexa", {
         deviceId: "magic_mirror_alexa",
         lite: false,
         isSpeechVisualizationEnabled: false,
+        areDisplayCardsEnabled: true
     },
 
     start(): void {
@@ -48,6 +65,12 @@ Module.register("MMM-awesome-alexa", {
         alexaWrapper.appendChild(spinner);
         alexaWrapper.appendChild(alexaCircle);
         alexaWrapper.appendChild(this.canvas);
+
+        const cardImg = document.createElement("img");
+        cardImg.setAttribute("id", DisplayCardImgId);
+        cardImg.setAttribute("style", "position: absolute");
+        cardImg.setAttribute("width", "40%");
+        alexaWrapper.appendChild(cardImg);
 
         if (texts.length > 0) {
             alexaWrapper.classList.add("wrapper-error");
@@ -84,7 +107,7 @@ Module.register("MMM-awesome-alexa", {
     },
 
     socketNotificationReceived<T>(notification: AlexaNotification, payload: T): void {
-        Log.log(this.name + " received a notification: " + notification + " - Payload: " + payload);
+        Log.log(this.name + " received a notification: " + notification + " - Payload: " + JSON.stringify(payload));
         switch (notification) {
             case AlexaNotification.Idle:
                 this.idle();
@@ -97,6 +120,7 @@ Module.register("MMM-awesome-alexa", {
                 break;
             case AlexaNotification.Speaking:
                 this.speaking();
+                this.handleDirectives(payload);
                 break;
         }
     },
@@ -114,6 +138,12 @@ Module.register("MMM-awesome-alexa", {
     idle(): void {
         if (!this.config.lite) {
             this.mainDiv.classList.remove("wrapper-active");
+        }
+
+        // remove the card once the speaking ends
+        var currentCard = document.getElementById(DisplayCardImgId);
+        if (currentCard) {
+            currentCard.setAttribute("src", "");
         }
     },
 
@@ -144,4 +174,57 @@ Module.register("MMM-awesome-alexa", {
             this.alexaCircle.classList.remove("alexa-circle--busy", "alexa-circle--listening");
         }
     },
+
+    handleDirectives(payload: any): void {
+        console.log('handling directives')
+        if (payload && payload.messageBody && payload.messageBody.directives) {
+            var directives = payload.messageBody.directives;
+            for (var i: number = 0; i<directives.length; i++) {
+                var directive = directives[i];
+
+                switch (directive.namespace) {
+                    case 'TemplateRuntime':
+                        this.renderTemplateDirective(directive);
+                }
+            }
+        }
+    },
+
+    renderTemplateDirective(directive: any): void {
+        // docs on template types: https://developer.amazon.com/docs/alexa-voice-service/templateruntime.html        
+        if (directive.payload.type === RenderTemplateType.TextOnly) {
+            console.log(`No rendering logic is implemented for ${RenderTemplateType.TextOnly}`);
+        }
+        else if (directive.payload.type === RenderTemplateType.TextAndImage) {
+            var imageSources: Array<any> = directive.payload.image.sources;
+            var image = imageSources.find(x => x.size === ImageSize.Large);
+            if (!image) {
+                image = imageSources.find(x => x.size === ImageSize.Medium);
+            }
+
+            var currentCard = document.getElementById(DisplayCardImgId);
+            if (currentCard) {
+                currentCard.setAttribute("src", image.url);
+            }
+            else {
+                console.error('Could not find card container to update');
+            }
+        }
+        else if (directive.payload.type === RenderTemplateType.List) {
+            console.log(`No rendering logic is implemented for ${RenderTemplateType.List}`);
+        }
+        else if (directive.payload.type === RenderTemplateType.Weather) {
+            console.log(`No rendering logic is implemented for ${RenderTemplateType.Weather}`);
+        }
+        else {
+            console.log(`Unrecognized template: ${directive.template.type}`);
+        }
+    },
+
+    getDirectiveHandler(namespace: string) {
+        switch (namespace) {
+            case 'TemplateRuntime':
+                return this.renderTemplateDirective
+        }
+    }
 });

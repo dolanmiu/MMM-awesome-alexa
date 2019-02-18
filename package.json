@@ -24,7 +24,7 @@
         "url": "git+https://github.com/dolanmiu/MMM-awesome-alexa.git"
     },
     "dependencies": {
-        "electron-rebuild": "1.5.7",
+        "electron-rebuild": "1.8.2",
         "http-message-parser": "0.0.34",
         "nan": "2.6.2",
         "node-record-lpcm16": "0.3.0",

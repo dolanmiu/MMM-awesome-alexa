@@ -45,9 +45,6 @@ Module.register("MMM-awesome-alexa", {
     },
 
     start(): void {
-        if (this.config.refreshToken === undefined) {
-            texts.push("Refresh token must be set in the config before using awesome-alexa!");
-        }
         this.sendSocketNotification("CONFIG", this.config);
         this.canvas = this.createCanvas();
         if (this.config.isSpeechVisualizationEnabled) {

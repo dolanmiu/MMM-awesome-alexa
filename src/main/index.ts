@@ -10,19 +10,19 @@ import { RendererCommunicator } from "./renderer-communicator";
 import { AlexaStateMachine } from "./states/alexa-state-machine";
 
 const checkConfig = (uncheckedConfig: UncheckedConfig): Config => {
-    if (!uncheckedConfig.clientId) {
+    if (!uncheckedConfig.clientId && !process.env.MMM_AWESOME_ALEXA_CLIENT_ID) {
         throw new Error("clientId must be defined");
     }
 
-    if (!uncheckedConfig.clientSecret) {
+    if (!uncheckedConfig.clientSecret && !process.env.MMM_AWESOME_ALEXA_CLIENT_SECRET) {
         throw new Error("clientSecret must be defined");
     }
 
-    if (!uncheckedConfig.deviceId) {
+    if (!uncheckedConfig.deviceId && !process.env.MMM_AWESOME_ALEXA_DEVICE_ID) {
         throw new Error("deviceId must be defined");
     }
 
-    if (!uncheckedConfig.refreshToken) {
+    if (!uncheckedConfig.refreshToken && !process.env.MMM_AWESOME_ALEXA_REFRESH_TOKEN) {
         throw new Error("refreshToken must be defined");
     }
 
@@ -32,10 +32,10 @@ const checkConfig = (uncheckedConfig: UncheckedConfig): Config => {
 
     return {
         wakeWord: uncheckedConfig.wakeWord,
-        clientId: uncheckedConfig.clientId,
-        clientSecret: uncheckedConfig.clientSecret,
-        deviceId: uncheckedConfig.deviceId,
-        refreshToken: uncheckedConfig.refreshToken,
+        clientId: uncheckedConfig.clientId || process.env.MMM_AWESOME_ALEXA_CLIENT_ID,
+        clientSecret: uncheckedConfig.clientSecret || process.env.MMM_AWESOME_ALEXA_CLIENT_SECRET,
+        deviceId: uncheckedConfig.deviceId || process.env.MMM_AWESOME_ALEXA_DEVICE_ID,
+        refreshToken: uncheckedConfig.refreshToken || process.env.MMM_AWESOME_ALEXA_REFRESH_TOKEN,
         lite: uncheckedConfig.lite || false,
         isSpeechVisualizationEnabled: uncheckedConfig.isSpeechVisualizationEnabled || false,
     };

@@ -18,10 +18,6 @@ For Linux (and thus `Raspberry Pi`):
 $ sudo apt-get install sox libsox-fmt-all
 ```
 
-For Windows:
-
-[Download from SourceForge](https://sourceforge.net/projects/sox/files/latest/download)
-
 ### Raspberry Pi Specific Dependencies
 
 If you are using `Raspberry Pi` install the following:

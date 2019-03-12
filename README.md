@@ -15,6 +15,8 @@
 
 ![Demo GIF](https://media.giphy.com/media/9P6WN3Pi4mM1mqA8RK/giphy.gif)
 
+_Note: The text you see are subtitles only (as GIFs can't produce sound). This module does not include text_
+
 ## Compatability
 
 | Operating System     | Works? | Notes                                                                                                                                                                                                                                                                                             |

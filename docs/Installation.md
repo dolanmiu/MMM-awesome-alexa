@@ -1,5 +1,7 @@
 # Installation
 
+> `MMM-awesome-alexa` is installed with three steps. (1) Dependency installation, (2) module installation, and (3) module configuration
+
 ## Install Dependencies
 
 ### Sox

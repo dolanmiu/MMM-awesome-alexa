@@ -41,7 +41,6 @@ So you have got it this far and very happy with your working Alexa-enabled Magic
 
 * Wake Word support
 * Custom Wake Word
-* Very easy set up
 * Easy config tool
 * All-in-one solution.
 * Visualization
@@ -57,23 +56,9 @@ So you have got it this far and very happy with your working Alexa-enabled Magic
 * Computer
 * Jarvis
 
-# Contribution Guide
-
-Want to contribute? Read the guide here: https://github.com/dolanmiu/MMM-awesome-alexa/wiki/Contribution-Guide
-
-# Troubleshoot
-
-First check if your mic works by typing in:
-
-```bash
-rec t.wav
-```
-
-If the above command doesn't work, please fix that before continuing. [Here is a link to help you (Raspberry pi)](https://www.raspberrypi.org/forums/viewtopic.php?t=13088&p=332703)
-
 ---
 
-Made with 💖 by Dolan. Huge thanks to [henrikra](https://github.com/henrikra/) for his contributions to this project!
+Made with 💖 by Dolan.
 
 [gitter-image]: https://badges.gitter.im/dolanmiu/awesome-alexa.svg
 [gitter-url]: https://gitter.im/awesome-alexa/Lobby

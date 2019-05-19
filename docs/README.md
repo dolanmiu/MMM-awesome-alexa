@@ -1,8 +1,6 @@
 [![Chat on Gitter][gitter-image]][gitter-url]
-[![Dependency Status][gemnasium-image]][gemnasium-url]
 [![dependencies Status][daviddm-image]][daviddm-url]
 [![Build Status][travis-image]][travis-url]
-[![Greenkeeper badge][greenkeeper-image]][greenkeeper-url]
 
 <p align="center">
    <img src="https://user-images.githubusercontent.com/2917613/28090232-861702b0-6683-11e7-8379-1347e01c9411.png" height="300">
@@ -79,11 +77,7 @@ Made with 💖 by Dolan. Huge thanks to [henrikra](https://github.com/henrikra/)
 
 [gitter-image]: https://badges.gitter.im/dolanmiu/awesome-alexa.svg
 [gitter-url]: https://gitter.im/awesome-alexa/Lobby
-[gemnasium-image]: https://gemnasium.com/badges/github.com/dolanmiu/MMM-awesome-alexa.svg
-[gemnasium-url]: https://gemnasium.com/github.com/dolanmiu/MMM-awesome-alexa
 [travis-image]: https://travis-ci.org/dolanmiu/MMM-awesome-alexa.svg?branch=master
 [travis-url]: https://travis-ci.org/dolanmiu/MMM-awesome-alexa
 [daviddm-image]: https://david-dm.org/dolanmiu/MMM-awesome-alexa/status.svg
 [daviddm-url]: https://david-dm.org/dolanmiu/MMM-awesome-alexa
-[greenkeeper-image]: https://badges.greenkeeper.io/dolanmiu/MMM-awesome-alexa.svg
-[greenkeeper-url]: https://greenkeeper.io/

@@ -39,12 +39,25 @@ $ sudo apt-get install libatlas-base-dev
 
 Execute the following commands to install the module:
 
+Originally from: https://github.com/dolanmiu/MMM-awesome-alexa/issues/164#issuecomment-492951739
+
 ```bash
-$ cd ~/MagicMirror/modules # navigate to module folder
-$ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # clone this repository
+$ cd ~/MagicMirror/modules # Navigate to module folder
+$ git clone https://github.com/dolanmiu/MMM-awesome-alexa.git # Clone this repository
 $ cd MMM-awesome-alexa # go into the module directory
-$ npm install --only=prod
-$ npm run electron-rebuild
+$ npm install --only=prod # Install depdendencies
+$ cd node_modules
+$ rm -rf snowboy # Remove the installed snowboy
+$ git clone https://github.com/Kitt-AI/snowboy.git # Manually get snowboy from git
+$ cd snowboy
+$ rm -rf node_modules
+$ npm install nan --save
+$ npm install node-pre-gyp@0.12.0 --save
+$ npm install
+$ npm run prepublish
+$ npm install --save-dev electron-rebuild
+$ npm install nan
+$ ./node_modules/.bin/electron-rebuild # Build snowboy to your device specifications
 ```
 
 ## Configuring the Module

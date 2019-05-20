@@ -25,9 +25,9 @@ _Note: The text you see are subtitles only (as GIFs can't produce sound). This m
 
 ## Installing
 
-1. First you have to setup your speakers and microphone correctly: [Audio setup](docs/AudioSetup.md)
+1. First you have to setup your speakers and microphone correctly: [Audio setup](/audio-setup.md)
 
-2. After you have done audio setup you can install Awesome Alexa module to your MagicMirror: [Installation](docs/Installation.md)
+2. After you have done audio setup you can install Awesome Alexa module to your MagicMirror: [Installation](/installation.md)
 
 ## Usage
 

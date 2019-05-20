@@ -60,6 +60,16 @@ $ npm install nan
 $ ./node_modules/.bin/electron-rebuild # Build snowboy to your device specifications
 ```
 
+### Modifying MagicMirror / Electron
+
+Due to an [update](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes) in [Chrome 66](https://www.chromium.org/audio-video/autoplay), it means sound cannot be played unless there is a user action. More info can be found here: https://github.com/electron/electron/issues/13525
+
+To fix this, we must add a flag at the end of MagicMirror's `js/electron.js` file:
+
+```js
+app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
+```
+
 ## Configuring the Module
 
 Next we need to authorize Awesome-Alexa with your Amazon account. We do this in two steps:

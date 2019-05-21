@@ -92,7 +92,7 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
 3. Get `refresh_token` from the succesful response
 4. Fill `MMM-awesome-alexa` module config with your information to your `config/config.js` file.
 
-    ```json
+    ```js
     {
         module: "MMM-awesome-alexa",
         position: "bottom_bar",

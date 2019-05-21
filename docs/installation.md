@@ -98,7 +98,8 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
     ![CLI Token Helper](https://i.imgur.com/ol8IIcp.png)
 
 3. Get `refresh_token` from the succesful response
-4. Fill `MMM-awesome-alexa` module config with your information to your `config/config.js` file.
+4. You can continue with the tool, or fill it out manually below
+5. Fill `MMM-awesome-alexa` module config with your information to your `config/config.js` file.
 
     ```js
     {
@@ -116,9 +117,13 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
     }
     ```
 
-5. To configure the wake word, change the `wakeWord` property in the `config`:
-   Alexa: `wakeWord: "Alexa"`
-   Smart Mirror: `wakeWord: "Smart Mirror"`
-   Snowboy: `wakeWord: "Snowboy"`
+6. `wakeWord` can have the following values:
+   | Wake Word | Value |
+   | ------------- | ------------ |
+   | Alexa | `wakeWord: "Alexa"` |
+   | Smart Mirror | `wakeWord: "Smart Mirror"` |  
+   | Snowboy | `wakeWord: "Snowboy"` |
 
-6. To turn on visualization, set `isSpeechVisualizationEnabled` to `true`.
+7. Lite mode is where theres no animations, which may increase performance for Raspberry Pis.
+
+8. To turn on visualization, set `isSpeechVisualizationEnabled` to `true`.

@@ -23,15 +23,9 @@ _Note: The text you see are subtitles only (as GIFs can't produce sound). This m
 | macOS                | ✔      | -                                                                                                                                                                                                                                                                                                 |
 | Windows              | ✘      | `snowboy` [is](https://github.com/Kitt-AI/snowboy/issues/325) [not](https://github.com/Kitt-AI/snowboy/issues/263) [supported](https://github.com/Kitt-AI/snowboy/issues/350). `MMM-awesome-alexa` relies heaviliy on this. If we all show enough interest, they may release a Windows `snowboy`! |
 
-## Installing
+## How to
 
-1. First you have to setup your speakers and microphone correctly: [Audio setup](docs/audio-setup.md)
-
-2. After you have done audio setup you can install Awesome Alexa module to your MagicMirror: [Installation](docs/installation.md)
-
-## Usage
-
-Boot up `Magic Mirror` and say "Alexa, what time is it?", or "Alexa, tell me a joke" 😊.
+Check out the documentation for installation and usage: https://awesome-alexa.js.org
 
 ## What to do next?
 
@@ -59,17 +53,7 @@ So you have got it this far and very happy with your working Alexa-enabled Magic
 
 # Contribution Guide
 
-Want to contribute? Read the guide here: https://github.com/dolanmiu/MMM-awesome-alexa/wiki/Contribution-Guide
-
-# Troubleshoot
-
-First check if your mic works by typing in:
-
-```bash
-rec t.wav
-```
-
-If the above command doesn't work, please fix that before continuing. [Here is a link to help you (Raspberry pi)](https://www.raspberrypi.org/forums/viewtopic.php?t=13088&p=332703)
+Want to contribute? Read the guide here: https://awesome-alexa.js.org/#/contribution-guidelines
 
 ---
 

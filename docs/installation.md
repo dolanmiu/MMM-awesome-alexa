@@ -86,9 +86,11 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
     ```
 
 2. Follow the on screen instructions and give the script info it needs.
-3. Follow on screen instructions
-4. Get `refresh_token` from the succesful response
-5. Fill `MMM-awesome-alexa` module config with your information to your `config/config.js` file.
+
+    ![CLI Token Helper](https://i.imgur.com/ol8IIcp.png)
+
+3. Get `refresh_token` from the succesful response
+4. Fill `MMM-awesome-alexa` module config with your information to your `config/config.js` file.
 
     ```json
     {
@@ -106,9 +108,9 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
     }
     ```
 
-6. To configure the wake word, change the `wakeWord` property in the `config`:
+5. To configure the wake word, change the `wakeWord` property in the `config`:
    Alexa: `wakeWord: "Alexa"`
    Smart Mirror: `wakeWord: "Smart Mirror"`
    Snowboy: `wakeWord: "Snowboy"`
 
-7. To turn on visualization, set `isSpeechVisualizationEnabled` to `true`.
+6. To turn on visualization, set `isSpeechVisualizationEnabled` to `true`.

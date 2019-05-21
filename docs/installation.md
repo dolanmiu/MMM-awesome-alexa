@@ -2,7 +2,7 @@
 
 > `MMM-awesome-alexa` is installed with three steps. (1) Dependency installation, (2) module installation, and (3) module configuration
 
-## Install Dependencies
+## Step 1. Install Dependencies
 
 ### Sox
 
@@ -29,13 +29,19 @@ $ sudo apt-get install swig3.0 python-pyaudio python3-pyaudio sox
 $ pip install pyaudio
 ```
 
+**Note:** You may need these to get python-pyaudio to work as mentioned [here](https://github.com/dolanmiu/MMM-awesome-alexa/issues/111#issuecomment-398080200):
+
+```bash
+$ sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0 ffmpeg libav-tools
+```
+
 Then install the atlas matrix computing library:
 
 ```bash
 $ sudo apt-get install libatlas-base-dev
 ```
 
-## Install Module
+## Step 2. Install Module
 
 Execute the following commands to install the module:
 
@@ -62,6 +68,8 @@ $ ./node_modules/.bin/electron-rebuild # Build snowboy to your device specificat
 
 ### Modifying MagicMirror / Electron
 
+?> This is a temporary fix, and will be officially fixed in July 2019: https://github.com/MichMich/MagicMirror/pull/1683
+
 Due to an [update](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes) in [Chrome 66](https://www.chromium.org/audio-video/autoplay), it means sound cannot be played unless there is a user action. More info can be found here: https://github.com/electron/electron/issues/13525
 
 To fix this, we must add a flag at the end of MagicMirror's `js/electron.js` file:
@@ -70,7 +78,7 @@ To fix this, we must add a flag at the end of MagicMirror's `js/electron.js` fil
 app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
 ```
 
-## Configuring the Module
+## Step 3. Configuring the Module
 
 Next we need to authorize Awesome-Alexa with your Amazon account. We do this in two steps:
 

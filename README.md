@@ -41,9 +41,6 @@ Check out the documentation for installation and usage: https://awesome-alexa.js
 * Alexa
 * Smart Mirror
 * Snowboy
-
-### Coming Soon
-
 * Computer
 * Jarvis
 

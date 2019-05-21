@@ -50,9 +50,6 @@ So you have got it this far and very happy with your working Alexa-enabled Magic
 * Alexa
 * Smart Mirror
 * Snowboy
-
-### Coming Soon
-
 * Computer
 * Jarvis
 

@@ -79,32 +79,36 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
 
 ### Configuration
 
-1. Run `avs-token-helper.js` with `npm run avs-token-helper`
+1. Run:
+
+    ```bash
+    $ npm run token-helper
+    ```
+
 2. Follow the on screen instructions and give the script info it needs.
-3. After you got the authorization token run the refresh token helper with `npm run avs-refreshToken-helper`
-4. Follow on screen instructions
-5. Get `refresh_token` from the succesful response
-6. Fill Awesome-Alexa module config with your information to your `config/config.js` file.
+3. Follow on screen instructions
+4. Get `refresh_token` from the succesful response
+5. Fill `MMM-awesome-alexa` module config with your information to your `config/config.js` file.
 
     ```json
     {
-        "module": "MMM-awesome-alexa",
-        "position": "bottom_bar",
-        "config": {
-            "wakeWord": "Alexa",
-            "clientId": "YOUR_CLIENT_ID",
-            "clientSecret": "YOUR_CLIENT_SECRET",
-            "deviceId": "YOUR_DEVICE_ID",
-            "refreshToken": "YOUR_REFRESH_TOKEN",
-            "lite": false,
-            "isSpeechVisualizationEnabled": false
+        module: "MMM-awesome-alexa",
+        position: "bottom_bar",
+        config: {
+            wakeWord: "Alexa",
+            clientId: "YOUR_CLIENT_ID",
+            clientSecret: "YOUR_CLIENT_SECRET",
+            deviceId: "YOUR_DEVICE_ID",
+            refreshToken: "YOUR_REFRESH_TOKEN",
+            lite: false,
+            isSpeechVisualizationEnabled: false
         }
     }
     ```
 
-7. To configure the wake word, change the `wakeWord` property in the `config`:
+6. To configure the wake word, change the `wakeWord` property in the `config`:
    Alexa: `wakeWord: "Alexa"`
    Smart Mirror: `wakeWord: "Smart Mirror"`
    Snowboy: `wakeWord: "Snowboy"`
 
-8. To turn on visualization, set `isSpeechVisualizationEnabled` to `true`.
+7. To turn on visualization, set `isSpeechVisualizationEnabled` to `true`.

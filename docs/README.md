@@ -35,7 +35,7 @@ Boot up `Magic Mirror` and say "Alexa, what time is it?", or "Alexa, tell me a j
 
 ## What to do next?
 
-So you have got it this far and very happy with your working Alexa-enabled MagicMirror. You can then change your time/location; by default, the Alexa is based in Seattle: https://github.com/alexa/alexa-avs-sample-app/issues/222
+So you have got it this far and very happy with your working Alexa-enabled MagicMirror. You can then change your time/location; by default, the Alexa is based in Seattle
 
 # Features
 

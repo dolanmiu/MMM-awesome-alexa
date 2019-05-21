@@ -118,11 +118,12 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
     ```
 
 6. `wakeWord` can have the following values:
-   | Wake Word | Value |
-   | ------------- | ------------ |
-   | Alexa | `wakeWord: "Alexa"` |
-   | Smart Mirror | `wakeWord: "Smart Mirror"` |  
-   | Snowboy | `wakeWord: "Snowboy"` |
+
+    | Wake Word    | Value                      |
+    | ------------ | -------------------------- |
+    | Alexa        | `wakeWord: "Alexa"`        |
+    | Smart Mirror | `wakeWord: "Smart Mirror"` |
+    | Snowboy      | `wakeWord: "Snowboy"`      |
 
 7. Lite mode is where theres no animations, which may increase performance for Raspberry Pis.
 

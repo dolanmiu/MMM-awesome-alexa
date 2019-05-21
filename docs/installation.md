@@ -117,6 +117,8 @@ app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
 | Alexa        | `wakeWord: "Alexa"`        |
 | Smart Mirror | `wakeWord: "Smart Mirror"` |
 | Snowboy      | `wakeWord: "Snowboy"`      |
+| Jarvis       | `wakeWord: "Jarvis"`       |
+| Computer     | `wakeWord: "Computer"`     |
 
 7. Lite mode is where theres no animations, which may increase performance for Raspberry Pis.
 

@@ -80,13 +80,6 @@ app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
 
 ## Step 3. Configuring the Module
 
-Next we need to authorize Awesome-Alexa with your Amazon account. We do this in two steps:
-
-1. Get authorization token which will be used in next step
-2. Here we use authorization token to get refresh token which will be passed to the Awesome-Alexa configuration
-
-### Configuration
-
 1. Run:
 
     ```bash
@@ -119,11 +112,11 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
 
 6. `wakeWord` can have the following values:
 
-    | Wake Word    | Value                      |
-    | ------------ | -------------------------- |
-    | Alexa        | `wakeWord: "Alexa"`        |
-    | Smart Mirror | `wakeWord: "Smart Mirror"` |
-    | Snowboy      | `wakeWord: "Snowboy"`      |
+| Wake Word    | Value                      |
+| ------------ | -------------------------- |
+| Alexa        | `wakeWord: "Alexa"`        |
+| Smart Mirror | `wakeWord: "Smart Mirror"` |
+| Snowboy      | `wakeWord: "Snowboy"`      |
 
 7. Lite mode is where theres no animations, which may increase performance for Raspberry Pis.
 

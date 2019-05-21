@@ -2,18 +2,11 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-- "7"
+    - "7"
 before_script:
-- npm install
+    - npm install
 script:
-- npm run lint
-- npm run spell
-- npm run build
-- npm run style
-# Not working
-# deploy:
-#   provider: script
-#   skip_cleanup: true
-#   script: chmod +x $TRAVIS_BUILD_DIR/deploy.bash && $TRAVIS_BUILD_DIR/deploy.bash
-#   on:
-#     branch: master
+    - npm run lint
+    - npm run spell
+    - npm run build
+    - npm run style

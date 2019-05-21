@@ -82,7 +82,7 @@ Next we need to authorize Awesome-Alexa with your Amazon account. We do this in 
 1. Run:
 
     ```bash
-    $ npm run token-helper
+    $ npm run config-helper
     ```
 
 2. Follow the on screen instructions and give the script info it needs.

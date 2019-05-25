@@ -55,15 +55,15 @@ $ npm install --only=prod # Install depdendencies
 $ cd node_modules
 $ rm -rf snowboy # Remove the installed snowboy
 $ git clone https://github.com/Kitt-AI/snowboy.git # Manually get snowboy from git
-$ cd snowboy
+$ cd snowboy # Go into the /snowboy directory
 $ rm -rf node_modules
-$ npm install nan --save
-$ npm install node-pre-gyp@0.12.0 --save
-$ npm install
-$ npm run prepublish
-$ npm install --save-dev electron-rebuild
-$ npm install nan
-$ ./node_modules/.bin/electron-rebuild # Build snowboy to your device specifications
+$ npm install nan --save # Make sure you install this in the /snowboy directory
+$ npm install node-pre-gyp@0.12.0 --save # Make sure you install this in the /snowboy directory
+$ npm install # Make sure you install in the /snowboy directory
+$ npm run prepublish # Make sure you run this in the /snowboy directory
+$ npm install --save-dev electron-rebuild # Make sure you install this in the /snowboy directory
+$ npm install nan # Make sure you install this in the /snowboy directory
+$ ./node_modules/.bin/electron-rebuild # Build snowboy to your device specifications, in the /snowboy directory
 ```
 
 ### Modifying MagicMirror / Electron

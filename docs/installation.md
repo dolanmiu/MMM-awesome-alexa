@@ -80,9 +80,10 @@ app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
 
 ## Step 3. Configuring the Module
 
-1. Run:
+1. Make sure you are in the `/MMM-awesome-alexa` directory, then run:
 
     ```bash
+    $ cd MMM-awesome-alexa # Make sure you are in the MMM-awesome-alexa directory or it won't work.
     $ npm run config-helper
     ```
 
